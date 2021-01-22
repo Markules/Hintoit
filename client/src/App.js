@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Suspense } from "react";
+import { connect } from "react-redux";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Layout from "./hoc/Layout/Layout";
+import * as actions from "./containers/Auth/store/actions/auth";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Login from "./containers/Auth/Login/Login";
+import Profile from "./containers/Profile/Profile";
+import Logout  from "./containers/Auth/Logout/Logout";
+import Spinner from "./components/UI/Spinner/Spinner";
+
+
+const Discover = React.lazy(() => {
+  return import("./containers/Discover/Discover")
+})
+
+export class App extends Component {
+  componentDidMount() {
+    this.props.onTryAutoLogin();
+  }
+
+  render() {
+    let routes = (
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Redirect to="/login" />
+      </Switch>
+    );
+
+    if (this.props.isAuthenticated) {
+      routes = (
+        <Switch>
+          <Route path="/logout" component={Logout} />
+          <Route path="/discover" render={props => <Discover {...props}/>} />
+          <Route exact path="/" component={Profile} />
+          <Redirect to="/" />
+        </Switch>
+      )
+    }
+
+    return (
+      <div>
+        <Layout><Suspense fallback={<Spinner />}>{routes}</Suspense></Layout>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.token !== null,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAutoLogin: () => dispatch(actions.fetchCurrentUser()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
