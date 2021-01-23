@@ -1,0 +1,139 @@
+.loginPage{
+    margin: 0px;
+    display: flex;
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+}
+
+.loginContainer {
+    background-color: white;
+    width: 400px;
+    height: 400px;
+    margin-top: 12%;
+    margin-left: 30%;
+    box-shadow: 5px 10px 18px #888888;
+}
+
+.welcomeContainer{
+    position: absolute;
+    left: 30%;
+    top: 10%;
+    color: black;
+}
+
+.welcomeMessage{
+    font-size: 2.8rem;
+    font-family: monospace;
+    
+}
+
+.loginContent{
+    position: relative;
+    margin-top: 7%;
+    left: 9%;
+}
+
+.googleLoginButton{
+    position: relative;
+    margin-top: 35%;
+    left: 8%;
+    width: 280px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: black;
+
+}
+
+.googleLoginButton:hover{
+    background-color: mediumturquoise;
+    
+}
+
+.buttonContent {
+    color: white;
+    font-size: 18px;
+    font-family: monospace;
+    margin-left: 12%;
+}
+
+.googleLogo{
+    width: 40px;
+    position: absolute;
+    color: white;
+    top: 9%;
+    left: 1%;
+    
+    
+
+}
+
+@media only screen and (max-width: 600px) {
+
+    .loginPage{
+        margin: 0px;
+        display: flex;
+        background-color: white;
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    .loginContainer {
+        background-color: white;
+        width: 300px;
+        height: 300px;
+        margin-top: 50%;
+        margin-left: 7%;
+        box-shadow: 5px 10px 18px #888888;
+    }
+    
+    .welcomeContainer{
+        position: absolute;
+        left: 5%;
+        top: 11%;
+        color: black;
+    }
+    
+    .welcomeMessage{
+        font-size: 2.4rem;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+    
+    .loginContent{
+        position: relative;
+        margin-top: 7%;
+        left: 9%;
+    }
+    
+    .googleLoginButton{
+        position: relative;
+        margin-top: 35%;
+        left: 1%;
+        width: 250px;
+        height: 50px;
+        border-radius: 10px;
+        border: none;
+        background-color: black;
+    
+    }
+    
+    .buttonContent {
+        color: white;
+        font-size: 16px;
+    }
+
+    .googleLogo{
+        width: 35px;
+        position: absolute;
+        color: white;
+        top: 11%;
+        left: 3%;
+        
+        
+    
+    }
+}
+
+

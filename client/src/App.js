@@ -52,7 +52,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTryAutoLogin: () => dispatch(actions.fetchCurrentUser()),
+    onTryAutoLogin: () => dispatch(actions.authCheckState()),
   };
 };
 

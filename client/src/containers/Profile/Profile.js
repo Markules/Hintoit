@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchCurrentUser } from "../Auth/store/actions/auth";
-import { fetchLoggedUserGifts } from "../Profile/store/actions/profile";
-import ItemsList from "../ItemsList/ItemsList";
+import { fetchLoggedUser } from "../Profile/store/actions/profile";
+import { fetchLoggedUserItems } from "../Profile/store/actions/profile";
+// import ItemsList from "../ItemsList/ItemsList";
 import Button from "../../components/UI/Button/Button";
 import classes from "./Profile.module.css";
 import ProfileNavBar from "./ProfileNavBar/ProfileNavBar";
 import Modal from '../../components/UI/Modal/Modal';
-import AddItem from '../../components/AddItem/AddItem';
+import AddItem from '../../components/Items/AddItem/AddItem';
 
 export class Profile extends Component {
   componentDidMount() {
-    this.props.fetchCurrentUser();
-    this.props.fetchLoggedUserGifts();
+    this.props.fetchLoggedUser();
+    // this.props.fetchLoggedUserGifts();
   }
   
   state = {
@@ -34,13 +34,13 @@ export class Profile extends Component {
     let user = this.props.user;
     let gifts = null;
     const cardType = "profile";
-    gifts = (
-      <ItemsList
-        gifts={this.props.userGifts}
-        loading={this.props.loading}
-        cardType={cardType}
-      />
-    );
+    // // gifts = (
+    // //   <ItemsList
+    // //     gifts={this.props.userGifts}
+    // //     loading={this.props.loading}
+    // //     cardType={cardType}
+    // //   />
+    // );
     return (
       <div className={classes.ProfileContainer}>
         <Modal 
@@ -72,13 +72,13 @@ export class Profile extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
-    user: state.auth.userData,
+    user: state.profile.userData,
     userGifts: state.profile.gifts,
     loading: state.profile.loading,
   };
 };
 
 export default connect(mapStateToProps, {
-  fetchCurrentUser,
-  fetchLoggedUserGifts,
+  fetchLoggedUser,
+  fetchLoggedUserItems,
 })(Profile);
