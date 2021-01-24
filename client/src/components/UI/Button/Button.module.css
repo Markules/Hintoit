@@ -15,8 +15,18 @@
     padding-left: 0;
 }
 
-.Success {
-    color: #5C9210;
+.ProfileAddItem {
+    width: 105px;
+    height: 60px;
+    background-color: black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.ProfileAddItem:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 
 .Danger {

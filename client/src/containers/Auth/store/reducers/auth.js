@@ -3,7 +3,7 @@ import * as actionTypes from "../../../../store/actions/actionTypes";
 import { updateObject } from "../../../../shared/utility";
 
 const initalState = {
-  token: null,
+  idToken: null,
   userId: null,
   error: null,
   loading: null,
@@ -16,8 +16,8 @@ const authStart = (state, action) => {
 
 const authSuccess = (state, action) => {
   return updateObject(state, {
-    token: action.accessToken,
-    userId: action._id,
+    idToken: action.idToken,
+    userId: action.userId,
     error: null,
     loading: false,
   });
@@ -31,7 +31,7 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-  return updateObject(state, { token: null, userId: null });
+  return updateObject(state, { idToken: null, userId: null });
 };
 
 const setAuthRedirectPath = (state, action) => {

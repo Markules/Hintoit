@@ -47,7 +47,7 @@ export class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.token !== null,
+  isAuthenticated: state.auth.idToken !== null,
 });
 
 const mapDispatchToProps = (dispatch) => {

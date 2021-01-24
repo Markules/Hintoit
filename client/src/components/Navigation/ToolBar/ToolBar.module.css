@@ -1,6 +1,6 @@
 .Toolbar {
     width: 100%;
-    height: 56px;
+    height: 65px;
     position: fixed;
     top: 0;
     left: 0;
@@ -22,5 +22,10 @@
 }
 
 @media (max-width: 499px) {
-
+    .Toolbar { 
+        position: fixed;
+        bottom: 0;
+        top: auto;
+     
+    }
 }

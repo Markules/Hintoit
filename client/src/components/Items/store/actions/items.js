@@ -21,16 +21,58 @@ export const addItemFailed = (error) => {
   };
 };
 
+export const fetchLoggedUserItemsSuccess = (items) => {
+  return {
+    type: actionTypes.FETCH_LOGGED_USER_ITEMS_SUCCESS,
+    userItems: items,
+  };
+};
+
+export const fetchLoggedUserItemsFail = (error) => {
+  return {
+    type: actionTypes.FETCH_LOGGED_USER_FAIL,
+    error: error,
+  };
+};
+
+export const fetchLoggedUserItemsStart = () => {
+  return {
+    type: actionTypes.FETCH_LOGGED_USER_START,
+  };
+};
 
 export const addItem = (url) => {
-  return dispatch => {
-      dispatch(addItemStart())
-    axios.post("/api/gifts", url)
-      .then(response => {
+  return (dispatch) => {
+    dispatch(addItemStart());
+    axios
+      .post("/api/gifts", url)
+      .then((response) => {
         dispatch(addItemSuccess(response.data));
-      } )
-      .catch(error => {
+      })
+      .catch((error) => {
         dispatch(addItemFailed(error.response.data.error));
+      });
+  };
+};
+
+export const fetchLoggedUserItems = () => {
+  return (dispatch) => {
+    dispatch(fetchLoggedUserItemsStart);
+    axios
+      .get("/api/loggeduser/gifts")
+      .then((response) => {
+        
+        const fetchedItems = [];
+        for (let key in response.data) {
+          fetchedItems.push({
+            ...response.data[key],
+            id: key,
+          });
+        }
+        dispatch(fetchLoggedUserItemsSuccess(fetchedItems));
+      })
+      .catch((err) => {
+        dispatch(fetchLoggedUserItemsFail(err));
       });
   };
 };

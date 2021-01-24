@@ -1,0 +1,26 @@
+.ProfileContainer {
+    text-align: center;
+    padding-bottom: 30px;
+
+}
+
+.AvatarContainer {
+    margin: auto;
+    margin-top: 120px;
+    border: 1px solid gray;
+    width: 300px;
+    height: 200px;
+}
+
+.UserName {
+    margin: auto;
+    margin-top: 25px;
+}
+
+.Seperator{
+    border: 1px solid gray;
+    margin-left: 20%;
+    width: 60%;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}

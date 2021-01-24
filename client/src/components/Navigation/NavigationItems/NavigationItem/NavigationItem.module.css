@@ -1,12 +1,15 @@
 .NavigationItem {
   margin: 10px 0;
   box-sizing: border-box;
-  display: block;
+  display: row;
   width: 100%;
+  padding: 8px;
+  font-size: 0.9rem;
+  
 }
 
 .NavigationItem a {
-  color: #8f5c2c;
+  color: white;
   text-decoration: none;
   width: 100%;
   box-sizing: border-box;
@@ -22,7 +25,7 @@
 @media (min-width: 500px) {
   .NavigationItem {
     margin: 0;
-    display: flex;
+    display: row;
     width: auto;
     height: 100%;
     align-items: center;
@@ -39,8 +42,9 @@
   .NavigationItem a:hover,
   .NavigationItem a:active,
   .NavigationItem a.active {
-    background-color: #8f5c2c;
-    border-bottom: 4px solid #40a4c8;
-    color: white;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    
   }
 }

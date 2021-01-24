@@ -9,10 +9,11 @@ export {
 
 export {
 fetchLoggedUser,
-fetchLoggedUserItems
+
 } from '../../containers/Profile/store/actions/profile';
 
 export {
-addItem
+addItem,
+fetchLoggedUserItems
 } from '../../components/Items/store/actions/items';
 

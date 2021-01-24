@@ -16,10 +16,10 @@ export class Login extends Component {
 
         <div className={classes.loginContainer}>
           <div className={classes.loginContent}>
-            <button onClick={this.props.login()} className={classes.googleLoginButton}>
-              {/* <a className={classes.buttonContent} href="/auth/google"> */}
+            <button className={classes.googleLoginButton}>
+              <a className={classes.buttonContent} href="/auth/google">
                 Sign In with Google
-              {/* </a> */}
+              </a>
             </button>
           </div>
         </div>

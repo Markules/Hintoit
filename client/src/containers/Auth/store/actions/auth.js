@@ -1,6 +1,7 @@
 import * as actionTypes from "../../../../store/actions/actionTypes";
 import axios from "axios";
 
+
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START,
@@ -55,12 +56,20 @@ export const setAuthRedircetPath = (path) => {
 
 export const authCheckState = () => {
   return (dispatch) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      dispatch(logout());
-    } else {
-      const userId = localStorage.getItem("userId");
-      dispatch(authSuccess(token, userId));
+    let url = "/api/current_user";
+    axios.get(url)
+    .then((response) => {
+        const token = response.data.userToken;
+        const userId = response.data.id;
+        if (!token) {
+            dispatch(logout());
+          } else{
+        localStorage.setItem('token', token )
+        dispatch(authSuccess(token, userId));
+          }
+        })
+        .catch((err) => {
+            dispatch(authFail(err))
+        });
     }
-  };
 };

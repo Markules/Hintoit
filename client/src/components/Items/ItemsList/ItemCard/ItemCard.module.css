@@ -1,0 +1,9 @@
+.CardContainer {
+    border: 1px solid black;
+    width: 90%;
+    height: 300px;
+    margin: auto;
+    padding: 5px;
+    overflow: hidden;
+   
+}

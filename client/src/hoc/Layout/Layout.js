@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import Aux from "../Aux/Aux";
@@ -7,7 +7,6 @@ import ToolBar from "../../components/Navigation/ToolBar/ToolBar";
 import classes from "./Layout.module.css";
 
 const Layout = (props) => {
-
 
   return (
     <Aux>
@@ -21,7 +20,7 @@ const Layout = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null,
+    isAuthenticated: state.auth.idToken !== null,
   };
 };
 
