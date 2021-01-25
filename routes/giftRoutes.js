@@ -49,7 +49,7 @@ module.exports = (app) => {
   //Create new gift
   app.post("/api/gifts", requireLogin, async (req, res) => {
     const { url } = req.body;
-
+    console.log(url);
     const gift = new Gift({
       url,
       _user: req.user.id,

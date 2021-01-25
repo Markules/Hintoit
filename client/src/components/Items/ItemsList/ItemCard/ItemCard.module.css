@@ -5,5 +5,28 @@
     margin: auto;
     padding: 5px;
     overflow: hidden;
+    margin-left: 5px;
+
    
+}
+
+.CardImage {
+    height: 80%;
+}
+
+
+@media (max-width: 799px) {
+    .CardContainer {
+        height: 150px;
+    }
+    .CardImage {
+        height: 50%;
+    }
+    
+}
+
+@media (max-width: 499px) {
+    .CardContainer {
+        height: 120px;
+    }
 }

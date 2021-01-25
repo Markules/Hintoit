@@ -49,8 +49,8 @@ export const addItem = (url) => {
       .then((response) => {
         dispatch(addItemSuccess(response.data));
       })
-      .catch((error) => {
-        dispatch(addItemFailed(error.response.data.error));
+      .catch((err) => {
+        dispatch(addItemFailed(err));
       });
   };
 };

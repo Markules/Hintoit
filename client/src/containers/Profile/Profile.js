@@ -18,10 +18,13 @@ export class Profile extends Component {
     openAddItem: false,
     closeAddItem: false,
   };
-  profile;
+
+ 
+
   openAddItemHandler = () => {
     console.log("clicked");
     this.setState({ openAddItem: true });
+    this.setState({ closeAddItem: false });
   };
 
   closeAddItemHandler = () => {
@@ -30,6 +33,9 @@ export class Profile extends Component {
   };
 
   render() {
+
+    console.log(this.state.closeAddItem);
+
     let user = this.props.user;
     let items = null;
     const cardType = "profile";

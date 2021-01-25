@@ -18,8 +18,10 @@ const ItemsList = (props) => {
   let items = <Spinner />;
   if (!props.loading && props.items !== null) {
     items = props.items.map((item) => (
+     
      <ItemCard item={item}/>
     ));
+   
   }
   return <div className={classes.ItemsContainer}>{items}</div>;
 };
