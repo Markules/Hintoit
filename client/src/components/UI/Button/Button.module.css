@@ -16,24 +16,38 @@
 }
 
 .ProfileAddItem {
-    width: 105px;
-    height: 60px;
+    width: 155px;
+    height: 65px;
     background-color: black;
     border-radius: 10px;
     padding: 5px;
+    font-size: 1rem;
 }
 
 .ProfileAddItem:hover {
   background-color: white;
   color: black;
-  border: 1px solid black;
+  border: 1px solid gray;
 }
 
-.Danger {
-    color: #944317;
+.Submit{
+ background-color: black;
+ color: white;
+ width: 100px;
+ font-size: 14px;
+ border-radius: 5px;
+ position: relative;
+ left: 35%;
+ top: 10px;
 }
 
-.Button:disabled {
-    color: #ccc;
-    cursor: not-allowed;
+.Cancel {
+    background-color: black;
+    color: white;
+    width: 100px;
+    font-size: 14px;
+    border-radius: 5px;
+    position: relative;
+    right: 25%;
+    bottom: 46px;
 }

@@ -1,0 +1,45 @@
+.navContainer {
+    margin-top: 7px;
+    width: 30%;
+    height: 100px;
+    list-style: none;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    padding: 25px;
+    margin: auto;
+    padding-bottom: 0;
+}
+
+.listItem{
+    margin: auto;
+}
+
+.listItem a{
+    color: gray;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.listItem a:hover{
+    color: black;
+}
+
+@media (max-width: 800px) {
+    .navContainer{
+        width: 80%;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .navContainer{
+        width: 70%;
+    }
+}
+
+@media (max-width: 499px) {
+    .navContainer{
+        width: 90%;
+    }
+}
