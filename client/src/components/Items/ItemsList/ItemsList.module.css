@@ -1,8 +1,9 @@
 .ItemsContainer {
-    margin-top: 15px;
+    margin-top: 25px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
+    grid-template-columns: repeat(3, 0.3fr);
+    grid-gap: 5px;
+    grid-row: initial;
 }
 
 

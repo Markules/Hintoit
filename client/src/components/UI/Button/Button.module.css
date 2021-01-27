@@ -38,6 +38,18 @@
     color: gray;
 }
 
+.saveButton {
+    color: goldenrod;
+}
+
+.unsaveButton{
+    color: gray
+}
+
+.unsaveButton:hover{
+    color: goldenrod
+}
+
 .ProfileAddItem:hover {
 background-color: crimson;
 
