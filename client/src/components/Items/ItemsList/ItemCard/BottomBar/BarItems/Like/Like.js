@@ -7,7 +7,7 @@ import * as actions from "../../../../.././../../store/actions";
 import classes from "./Like.module.css";
 
 const Like = (props) => {
-  let likesLength = props.item.likedBy !== 0 ? props.item.likedBy.length : 0;
+  let likesLength = props.item.likedBy.length !== 0 ? props.item.likedBy.length : 0;
 
   const [like, updateLike] = useState(props.isLiked);
 
@@ -17,7 +17,7 @@ const Like = (props) => {
     props.item.likedBy.includes(props.userId)
       ? updateLike(true)
       : updateLike(false);
-  }, []);
+  }, [props.item.likedBy]);
 
   let likeButton = like ? (
     <Button clicked={() => handleUnlike()} btnType={"likeButton"}>
@@ -34,15 +34,15 @@ const Like = (props) => {
       {likesAmount}
     </Button>
   );
-
+    console.log(props.likedItems)
   const handleLike = () => {
-    updateLikesAmount(likesLength +1);
+    updateLikesAmount(likesAmount +1);
     updateLike(true);
     props.like(props.item._id);
   };
 
   const handleUnlike = () => {
-    updateLikesAmount(likesLength -1);
+    updateLikesAmount(likesAmount -1);
     updateLike(false);
     props.unlike(props.item._id);
   };
@@ -53,7 +53,7 @@ const Like = (props) => {
 const mapStateToProps = (state) => {
   return {
     userId: state.auth.userId,
-    likedItems: state.items.userItems,
+    items: state.items.userItems,
     isLiked: state.items.isLiked,
   };
 };
