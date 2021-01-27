@@ -15,15 +15,15 @@ const ItemsList = (props) => {
     props.onFetchItems();
   }, []);
 
-  let items = <Spinner />;
+  let items = <div className={classes.Spinner}><Spinner /></div>
   if (!props.loading && props.items !== null) {
     items = props.items.map((item) => (
      
-     <ItemCard item={item}/>
+     <ItemCard key={item.id} item={item}/>
     ));
    
   }
-  return <div className={classes.ItemsContainer}>{items}</div>;
+  return <div  className={classes.ItemsContainer}>{items}</div>;
 };
 
 const mapStateToProps = (state) => {

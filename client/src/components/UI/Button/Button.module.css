@@ -34,8 +34,13 @@
     font-size: 1.4rem;
 }
 
+.likeButton{
+    color: gray;
+}
+
 .ProfileAddItem:hover {
 background-color: crimson;
+
 
 
 }

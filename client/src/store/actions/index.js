@@ -14,6 +14,8 @@ fetchLoggedUser,
 
 export {
 addItem,
-fetchLoggedUserItems
+fetchLoggedUserItems,
+likeItem,
+unlikeItem
 } from '../../components/Items/store/actions/items';
 

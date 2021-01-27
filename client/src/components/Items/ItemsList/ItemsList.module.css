@@ -5,6 +5,7 @@
     grid-gap: 10px;
 }
 
+
 @media (max-width: 499px) {
     .ItemsContainer {
         grid-template-columns: repeat(3, 1fr);

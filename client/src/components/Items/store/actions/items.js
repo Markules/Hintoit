@@ -41,6 +41,32 @@ export const fetchLoggedUserItemsStart = () => {
   };
 };
 
+export const likeSuccessful  = () => {
+  return {
+    type: actionTypes.FETCH_LOGGED_USER_START,
+  };
+};
+
+
+export const likeFailed = () => {
+  return {
+    type: actionTypes.FETCH_LOGGED_USER_START,
+  };
+};
+
+export const unlikeSuccessful  = () => {
+  return {
+    type: actionTypes.FETCH_LOGGED_USER_START,
+  };
+};
+
+
+export const unlikeFailed = () => {
+  return {
+    type: actionTypes.FETCH_LOGGED_USER_START,
+  };
+};
+
 export const addItem = (url) => {
   return (dispatch) => {
     dispatch(addItemStart());
@@ -75,4 +101,28 @@ export const fetchLoggedUserItems = () => {
         dispatch(fetchLoggedUserItemsFail(err));
       });
   };
+};
+
+export const likeItem = (id) =>  {
+  return (dispatch) => {
+  axios.patch(`/api/gifts/like/${id}`)
+  .then((response) => {
+    dispatch(likeSuccessful(response))
+  })
+  .catch((err) => {
+    dispatch(likeFailed(err));
+  })
+}
+};
+
+export const unlikeItem = (id) =>  {
+  return (dispatch) => {
+  axios.patch(`/api/gifts/unlike/${id}`)
+  .then((response) => {
+    dispatch(unlikeSuccessful(response))
+  })
+  .catch((err) => {
+    dispatch(unlikeFailed(err));
+  })
+}
 };

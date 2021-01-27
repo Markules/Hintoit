@@ -73,7 +73,7 @@ export class Profile extends Component {
             </i>
             ADD ITEM
           </Button>
-          <div className={classes.ListContainer}>{items}</div>
+          {items}
           <div className={classes.Break}></div>
         </div>
       );

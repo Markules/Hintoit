@@ -1,0 +1,9 @@
+.UnlikedIcon:hover {
+    color: red;
+    cursor: pointer;
+
+}
+
+.LikedIcon {
+    color: red;
+}
