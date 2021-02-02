@@ -14,6 +14,8 @@ fetchLoggedUser,
 
 export {
 addItem,
+removeItem,
+shareItem,
 fetchLoggedUserItems,
 likeItem,
 unlikeItem

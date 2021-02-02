@@ -11,8 +11,12 @@ require("./models/Image");
 require("./services/passport");
 require("./services/userServices");
 require("./services/giftServices");
+require("./services/mailer");
 
-mongoose.connect(keys.mongoURI).catch((err) => console.log(err));
+mongoose.connect(keys.mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+} ).catch((err) => console.log(err));
 
 const app = express();
 

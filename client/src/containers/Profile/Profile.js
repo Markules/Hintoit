@@ -17,9 +17,9 @@ export class Profile extends Component {
   state = {
     openAddItem: false,
     closeAddItem: false,
+    openShareItem: false,
+    closeShareItem: false,
   };
-
- 
 
   openAddItemHandler = () => {
     console.log("clicked");
@@ -32,14 +32,14 @@ export class Profile extends Component {
     this.setState({ openAddItem: false });
   };
 
+
   render() {
-
-    console.log(this.state.closeAddItem);
-
     let user = this.props.user;
     let items = null;
     const cardType = "profile";
-    items = <ItemsList cardType={cardType} />;
+    items = <ItemsList 
+    cardType={cardType}
+    />;
     if (!this.props.user) {
       return (
         <div className={{ margin: "auto" }}>
@@ -55,6 +55,8 @@ export class Profile extends Component {
           >
             <AddItem closed={this.closeAddItemHandler} />
           </Modal>
+
+    
           <div className={classes.AvatarContainer}>image</div>
           <h2 className={classes.UserName}>
             {user.firstName} {user.lastName}

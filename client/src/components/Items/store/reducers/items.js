@@ -26,6 +26,27 @@ const addItemFailed = (state, action) => {
   });
 };
 
+
+const removeItemStart = (state, action) => {
+  return updateObject(state, { loading: true });
+};
+
+const removeItemSuccess = (state, action) => {
+  console.log(action);
+  return updateObject(state, {
+    loading: false,
+    item: action.item,
+  });
+};
+
+const removeItemFailed = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error,
+  });
+};
+
+
 const fetchLoggedUserItemsFail = (state, action) => {
   return updateObject(state, { loading: false, error: action.error });
 };
@@ -65,6 +86,26 @@ const unlikeItemFailed = (state, action) => {
   });
 };
 
+const shareItemStart = (state, action) => {
+  return updateObject(state, {
+    loading: true,
+  });
+};
+
+const shareItemSuccess = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    data: action.data
+  });
+};
+
+const shareItemFailed = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SAVE_ITEM_START:
@@ -75,6 +116,15 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.SAVE_ITEM_FAILED:
       return addItemFailed(state, action);
+
+      case actionTypes.REMOVE_ITEM_START:
+        return removeItemStart(state, action);
+  
+      case actionTypes.REMOVE_ITEM_SUCCESS:
+        return removeItemSuccess(state, action);
+  
+      case actionTypes.REMOVE_ITEM_FAILED:
+        return removeItemFailed(state, action);
 
     case actionTypes.FETCH_LOGGED_USER_ITEMS_START:
       return fetchLoggedUserItemsStart(state, action);
@@ -96,6 +146,15 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.UNLIKE_ITEM_FAILED:
       return unlikeItemFailed(state, action);
+
+    case actionTypes.SHARE_ITEM_START:
+      return shareItemStart(state, action);
+
+    case actionTypes.SHARE_ITEM_SUCCESS:
+      return shareItemSuccess(state, action);
+
+    case actionTypes.SHARE_ITEM_FAILED:
+      return shareItemFailed(state, action);
 
     default:
       return state;

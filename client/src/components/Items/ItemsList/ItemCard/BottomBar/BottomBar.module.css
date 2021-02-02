@@ -3,11 +3,16 @@
     display: flex;
     flex-flow: row;
     align-items: center;
-    margin: auto;
-    height: 50px;
-    position: inherit;
-    top: 100%;
-    padding-left: 5px;
     
-    
+}
+
+.Container{
+    margin: 0;
+    position: sticky;
+    top: 79%;
+    padding: 0px;
+    width: 80%;
+
+   
+
 }

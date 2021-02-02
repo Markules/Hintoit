@@ -1,3 +1,5 @@
+import Microlink from "@microlink/react";
+
 export const updateObject = (oldObject, updateProperties) => {
   return {
     ...oldObject,
@@ -33,4 +35,38 @@ export const checkValidity = (value, rules) => {
   }
 
   return isValid;
-}
+};
+
+export const linkValidator = (url) => {
+  const expression =
+    "^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?";
+
+  const regex = new RegExp(expression);
+
+  if (url.match(regex)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const previewLink = (item) => {
+  // check if gift link is valid
+  console.log('preview', item)
+  if (linkValidator(item.url) === false) {
+    return null;
+  } else {
+    return (
+     
+        <Microlink
+          size="large"
+          style={{position: 'relative', height: '82%', margin: '0%'}}
+          url={item.url}
+          setData={(data) => ({
+            ...data,
+            description: null,
+          })}
+        />
+    );
+  }
+};

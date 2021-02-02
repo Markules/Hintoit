@@ -1,18 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { previewLink } from "../../../../shared/utility";
 import BottomBar from "./BottomBar/BottomBar";
+import moment from 'moment';
+import Button from '../../../UI/Button/Button';
 
 import classes from "./ItemCard.module.css";
+import ItemSettings from "./ItemSettings/ItemSettings";
 
-const ItemCard = (props) =>
+const ItemCard = (props) => {
 
-  props.item ? (
+const [isSettingsOpen, updateSettings ] = useState(false);
+
+const handleItemSettings = () => {
+  if (!isSettingsOpen) {
+    updateSettings(true);
+  }
+  else {
+    updateSettings(false);
+  }
+}
+
+return (props.item ? (
     <div key={props.item.id} className={classes.CardContainer}>
-      <p>{props.item.title}</p>
-      <div className={classes.CardImage}></div>
-      <div className={classes.BarContainer}><BottomBar item={props.item}/></div>
+      <span className={classes.Date}>{moment(props.item.dateCreated).format("MMM Do YYYY")}</span>
+      <Button clicked={handleItemSettings} btnType='ItemSettings'><i className={[classes.SettingsIcon, "material-icons"].join(" ")}>more_horiz</i></Button>
+      <ItemSettings item={props.item} isSettingsOpen={isSettingsOpen}/>
+      {/* <span className={classes.Preview}>{previewLink(props.item)}</span> */}   
+     <BottomBar item={props.item}/>
     </div>
-  ) : null;
+  ) : null
+)
+}
 
 const mapStateToProps = (state) => {
   return {};

@@ -1,10 +1,11 @@
 const _ = require("lodash");
 const Path = require("path-parser").default;
-const { URL } = require("url");
 const mongoose = require("mongoose");
+const { URL } = require("url");
 const requireLogin = require("../middlewares/requireLogin");
 const { ObjectID } = require("mongodb");
 const { find } = require("lodash");
+const mailer = require("../services/mailer");
 
 const Gift = mongoose.model("gifts");
 const User = mongoose.model("users");
@@ -23,7 +24,7 @@ module.exports = (app) => {
   //Fetch all gifts
   app.get("/api/gifts", async (req, res) => {
     try {
-      const gifts = await Gift.find().populate('_user')
+      const gifts = await Gift.find().populate("_user");
       res.send(gifts);
     } catch (err) {
       res.status(404).send(err);
@@ -47,7 +48,7 @@ module.exports = (app) => {
   });
 
   //Create new gift
-  app.post("/api/gifts", requireLogin, async (req, res) => {
+  app.post("/api/gift/add", requireLogin, async (req, res) => {
     const { url } = req.body;
     console.log(url);
     const gift = new Gift({
@@ -60,13 +61,12 @@ module.exports = (app) => {
       await gift.save();
       console.log("new gift id:", gift._id);
 
-     const user = await User.findOneAndUpdate(
-          { _id: req.user._id },
-          { $push: { _gifts: gift._id } }
-        );
-        console.log(user._gifts);
-        res.send(gift);
-     
+      const user = await User.findOneAndUpdate(
+        { _id: req.user._id },
+        { $push: { _gifts: gift._id } }
+      );
+      console.log(user._gifts);
+      res.send(gift);
     } catch (err) {
       res.status(422).send(err);
     }
@@ -81,12 +81,12 @@ module.exports = (app) => {
     }
     try {
       const gift = await Gift.findOneAndRemove({ _id: id });
-      
+
       const user = await User.findOneAndUpdate(
-          { _id: req.user._id },
-          { $pull: { _gifts: id } }
-      )
-          res.send({gift, user });
+        { _id: req.user._id },
+        { $pull: { _gifts: id } }
+      );
+      res.send({ gift, user });
     } catch (err) {
       res.status(400).send(err);
     }
@@ -146,6 +146,19 @@ module.exports = (app) => {
       res.send(gift.likedBy);
     } catch (err) {
       res.status(400).send(err);
+    }
+  });
+
+  app.post("/api/gift/share", requireLogin, async (req, res) => {
+    const { email, name, item } = req.body;
+    const userName = req.user.firstName;
+    console.log('route', email, name, item, userName);
+    try {
+      const mail = await mailer.sendEmail(email, name, item, userName);
+      console.log(mail);
+      res.send(mail);
+    } catch (err) {
+      res.status(400).send();
     }
   });
 };

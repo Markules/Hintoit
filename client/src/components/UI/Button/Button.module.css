@@ -50,11 +50,43 @@
     color: goldenrod
 }
 
+.ShareButton{
+    color: gray;
+}
+
+.ShareButton:hover {
+    color: blue;
+}
+
 .ProfileAddItem:hover {
 background-color: crimson;
 
+}
 
+.ItemSettings {
+    margin: 0;
+    padding: 0;
+    width: 40px;
+    color: #777777;
+    position: relative;
+    left: 22%;
+    top: 4%;
+}
 
+.ItemSettings:hover{
+    color: black;
+}
+
+.SendButton{
+    background-color: black;
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.SendButton:hover{ 
+background-color: green;
 }
 .Submit{
  background-color: black;
@@ -76,4 +108,12 @@ background-color: crimson;
     position: relative;
     right: 25%;
     bottom: 46px;
+}
+
+.SettingsButton {
+    color: #555555;
+    margin: 0;
+    width: 100%;
+    height: 70px;
+
 }

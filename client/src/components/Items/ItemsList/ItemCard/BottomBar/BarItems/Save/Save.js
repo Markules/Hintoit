@@ -17,20 +17,23 @@ const Save = (props) => {
   }, []);
 
     let SaveButton = save ?  (
-      <Button btnType={"saveButton"}>
+      <Button clicked={() => handleSave()}  btnType={"saveButton"}>
         <i className={[classes.savedIcon, "material-icons"].join(" ")}>
           content_copy
         </i>
       </Button>
     ) : (
-      <Button btnType={"unsaveButton"}>
+      <Button clicked={() => handleSave()} btnType={"unsaveButton"}>
         <i className={[classes.unsavedIcon, "material-icons"].join(" ")}>
         content_copy
         </i>
       </Button>
     );
-  console.log(...props.userItems);
-  const handleSave = () => {};
+
+  const handleSave = () => {
+      props.saveItem(props.item.url); 
+      updateSave(true) 
+  };
 
   return (
     <Aux>
@@ -47,8 +50,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    like: (itemId) => dispatch(actions.likeItem(itemId)),
-    // unlike: (itemId) => dispatch(actions.unlikeItem(itemId)),
+    saveItem: (url) => dispatch(actions.addItem(url)),
   };
 };
 

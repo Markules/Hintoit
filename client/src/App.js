@@ -10,8 +10,13 @@ import Logout  from "./containers/Auth/Logout/Logout";
 import Spinner from "./components/UI/Spinner/Spinner";
 
 
+
 const Discover = React.lazy(() => {
   return import("./containers/Discover/Discover")
+})
+
+const ShareForm = React.lazy(() => {
+  return import("./components/Items/ItemsList/ItemCard/BottomBar/BarItems/Share/ShareForm/ShareForm")
 })
 
 export class App extends Component {
@@ -31,6 +36,7 @@ export class App extends Component {
       routes = (
         <Switch>
           <Route path="/logout" component={Logout} />
+          <Route path="/share" render={props => <ShareForm {...props} />} />
           <Route path="/discover" render={props => <Discover {...props}/>} />
           <Route exact path="/" component={Profile} />
           <Redirect to="/" />
