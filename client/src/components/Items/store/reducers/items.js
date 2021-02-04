@@ -6,7 +6,13 @@ const initialState = {
   loading: false,
   error: null,
   isLiked: false,
+  success: null
 };
+
+const resetItem = (state, action) => {
+  return(initialState);
+}
+
 
 const addItemStart = (state, action) => {
   return updateObject(state, { loading: true });
@@ -15,7 +21,7 @@ const addItemStart = (state, action) => {
 const addItemSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
-    item: action.item,
+    success: action.response,
   });
 };
 
@@ -155,6 +161,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.SHARE_ITEM_FAILED:
       return shareItemFailed(state, action);
+
+      case actionTypes.RESET_ITEMS:
+        return resetItem(state, action);
 
     default:
       return state;

@@ -2,6 +2,8 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const mongoose = require("mongoose");
 const keys = require("../config/keys");
+const gravatar = require("gravatar");
+
 
 const User = mongoose.model("users");
 
@@ -30,7 +32,13 @@ passport.use(
       if (existingUser) {
         return done(null, existingUser);
       } 
-        const user = await new User({ googleId: profile.id, email: profile._json.email, firstName: profile.name.givenName, lastName: profile.name.familyName, userImage: profile.photos[0].value, userToken: accessToken }).save()
+      const avatar = gravatar.url(profile._json.email, {
+        s: "200",
+        r: "pg",
+        d: "mm",
+      });
+
+        const user = await new User({ googleId: profile.id, email: profile._json.email, firstName: profile.name.givenName, lastName: profile.name.familyName, userImage: profile.photos[0].value, userToken: accessToken, avatar }).save()
         done(null, user);
       }
   )

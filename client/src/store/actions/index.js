@@ -18,6 +18,7 @@ removeItem,
 shareItem,
 fetchLoggedUserItems,
 likeItem,
-unlikeItem
+unlikeItem,
+resetItem
 } from '../../components/Items/store/actions/items';
 

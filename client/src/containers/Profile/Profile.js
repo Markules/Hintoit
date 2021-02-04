@@ -42,7 +42,7 @@ export class Profile extends Component {
     />;
     if (!this.props.user) {
       return (
-        <div className={{ margin: "auto" }}>
+        <div style={{ margin: "auto" }}>
           <Spinner />
         </div>
       );
@@ -57,7 +57,7 @@ export class Profile extends Component {
           </Modal>
 
     
-          <div className={classes.AvatarContainer}>image</div>
+          <div className={classes.AvatarContainer}><img className={classes.Avatar} src={user.avatar} /></div>
           <h2 className={classes.UserName}>
             {user.firstName} {user.lastName}
           </h2>

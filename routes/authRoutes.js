@@ -1,5 +1,10 @@
 const passport = require("passport");
 
+
+// @route GET auth/google
+// @desc google Oauth route
+// access Public 
+
 module.exports = (app) => {
   app.get(
     "/auth/google",
@@ -16,10 +21,18 @@ module.exports = (app) => {
    }
    );
 
+// @route GET api/logout
+// @desc logout user
+// access Private
+
 app.get('/api/logout', (req, res) => {
   req.logout();
   res.redirect("/login");
 })
+
+// @route GET api/current_user
+// @desc fetch user data 
+// access Private
 
   app.get('/api/current_user', (req, res) =>{
     let loginParams = {
@@ -31,7 +44,8 @@ app.get('/api/logout', (req, res) => {
       following: req.user.following,
       followers: req.user.followers,
       image: req.user.profileImage,
-      likes: req.user.likes
+      likes: req.user.likes,
+      avatar: req.user.avatar
     }
     res.send(loginParams);
   });

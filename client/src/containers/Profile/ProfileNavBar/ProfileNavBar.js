@@ -1,18 +1,15 @@
-import { use } from "passport";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import classes from "./ProfileNavBar.module.css";
+import * as actions from '../../../store/actions';
 
 
 const ProfileNavBar = (props) => {
-  console.log("navbar", props.userData.gifts.length);
-  const [itemsAmount, updateItemsAmount] = useState(
-    props.userData.gifts.length
-  );
+  
 
   useEffect(() => {
-    updateItemsAmount(props.userData.gifts.length);
+    props.onFetchItems();
   }, []);
 
   const user = props.userData;
@@ -29,12 +26,21 @@ const ProfileNavBar = (props) => {
           Following {user.following.length ? user.following.length : 0}
         </Link>
       </li>
-      <li className={classes.listItem}>
-        <Link to="items">Items {itemsAmount ? itemsAmount : 0}</Link>
-      </li>
     </ul>
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    items: state.items.userItems,
+  };
+};
 
-export default ProfileNavBar;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchItems: () => dispatch(actions.fetchLoggedUserItems()),
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileNavBar);

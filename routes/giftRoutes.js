@@ -50,7 +50,6 @@ module.exports = (app) => {
   //Create new gift
   app.post("/api/gift/add", requireLogin, async (req, res) => {
     const { url } = req.body;
-    console.log(url);
     const gift = new Gift({
       url,
       _user: req.user.id,
@@ -59,16 +58,15 @@ module.exports = (app) => {
 
     try {
       await gift.save();
-      console.log("new gift id:", gift._id);
 
-      const user = await User.findOneAndUpdate(
+     await User.findOneAndUpdate(
         { _id: req.user._id },
         { $push: { _gifts: gift._id } }
       );
-      console.log(user._gifts);
-      res.send(gift);
+      res.json('Item was successfully added!');
     } catch (err) {
-      res.status(422).send(err);
+      console.log(err)
+      res.status(422).json[('Failed to add item')];
     }
   });
 

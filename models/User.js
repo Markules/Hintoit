@@ -22,7 +22,8 @@ const userSchema = new Schema({
   following: [{ type: Schema.Types.ObjectId, required: false, ref: "users" }],
   followers: [{ type: Schema.Types.ObjectId, required: false, ref: "users" }],
   likes: [{ type: Schema.Types.ObjectId, required: false, ref: "Like" }],
-  CreatedAt: Date,
+  CreatedAt: {type: Date, default: Date.now},
+  avatar: {type: String}
 });
 
 const User = mongoose.model("users", userSchema);

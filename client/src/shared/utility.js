@@ -34,6 +34,13 @@ export const checkValidity = (value, rules) => {
     isValid = pattern.test(value) && isValid;
   }
 
+  if(rules.isUrl) {
+    const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/g   ;
+    // const regex = new RegExp(pattern);
+
+    isValid = pattern.test(value) && isValid
+  }
+
   return isValid;
 };
 

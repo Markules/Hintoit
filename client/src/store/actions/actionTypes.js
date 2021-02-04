@@ -1,3 +1,5 @@
+export const RESET_ITEMS = "RESET_ITEMS";
+
 export const SAVE_ITEM_START = "SAVE_ITEM_START";
 export const SAVE_ITEM_SUCCESS = "SAVE_ITEM_SUCCESS";
 export const SAVE_ITEM_FAILED = "SAVE_ITEM_FAILED";

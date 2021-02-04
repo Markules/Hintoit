@@ -7,7 +7,6 @@
 .AvatarContainer {
     margin: auto;
     margin-top: 120px;
-    border: 1px solid gray;
     width: 300px;
     height: 200px;
 }
@@ -31,4 +30,10 @@
 
 .Break {
     margin-bottom: 15%;
+}
+
+.Avatar {
+    position: relative;
+    margin: auto;
+    border-radius: 95px;
 }

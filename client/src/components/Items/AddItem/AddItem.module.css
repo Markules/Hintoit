@@ -28,7 +28,7 @@
     font-size: 1.2rem;
   }
   
-  .errorMessage {
+  .ErrorMessage {
     color: red;
     font-size: 1rem;
     font-family: monospace;
@@ -37,7 +37,7 @@
     margin-top: 35px;
   }
   
-  .successMessage {
+  .SuccessMessage {
     color: green;
     font-size: 1rem;
     font-family: monospace;

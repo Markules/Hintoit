@@ -1,45 +1,91 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Aux from "../../../hoc/Aux/Aux";
-import useForm from "../../../hooks/useCustomForm";
+import Input from '../../UI/Input/Input';
 import Button from "../../UI/Button/Button"
 import { connect } from "react-redux";
 import * as actions from "../store/actions/items";
+import { updateObject, checkValidity } from "../../../shared/utility";
 import Spinner from "../../UI/Spinner/Spinner";
 import { Redirect, Link } from "react-router-dom";
 
 import classes from "./AddItem.module.css";
+import Modal from "../../UI/Modal/Modal";
 
 const AddItem = (props) => {
-  const initialValues = {
-    url: "",
-  };
+  const [addItemForm, setAddItemForm] = useState({
+    url: {
+      elementType: "input",
+      elementConfig: {
+        type: "url",
+        placeholder: "Enter Url",
+      },
+      value: "",
+      validation: {
+        required: true,
+        isUrl: true,
+      },
+      valid: false,
+      touched: false,
+    }
+  })
 
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useForm({
-    initialValues,
-    onSubmit: (url) => addItemHandler(url),
-  });
+  useEffect(() => {
+    if (props.success !==  null) {
 
-  
-
-  React.useEffect(() => {
-    if (props.success) {
-      return props.closed;
+   
     }
   }, []);
 
-  const addItemHandler = (url) => {
-    props.addItem(url);
-  };
+  const inputChangedHandler = ( event, controlName ) => {
+    const updatedControls = updateObject( addItemForm, {
+        [controlName]: updateObject( addItemForm[controlName], {
+            value: event.target.value,
+            valid: checkValidity( event.target.value, addItemForm[controlName].validation ),
+            touched: true
+        } )
+    } );
+    setAddItemForm(updatedControls);
+}
+
+const submitHandler = (event) => {
+  event.preventDefault();
+   props.addItem(addItemForm.url.value);
+};
+
+const formElementArray = [];
+for (let key in addItemForm) {
+  formElementArray.push({
+    id: key,
+    config: addItemForm[key],
+  });
+}
+
+let form = formElementArray.map((formElement) => (
+<Input
+key={formElement.id}
+elementType={formElement.config.elementType}
+elementConfig={formElement.config.elementConfig}
+value={formElement.config.value}
+invalid={!formElement.config.valid}
+shouldValidate={formElement.config.validation}
+touched={formElement.config.touched}
+changed={(event) => inputChangedHandler(event, formElement.id)}
+/>
+));
+
+const onCancelHandler = () => {
+  return props.closed,
+  props.reset();
+  
+   
+} 
 
   let errorMessage = props.error ? (
-    <p className={classes.errorMessage}>Something went wrong</p>
+    <p className={classes.ErrorMessage}>Something went wrong</p>
+  ) : null;
+
+  let successMessage = props.success ? (
+    <p className={classes.SuccessMessage}>{props.success}</p>
   ) : null;
 
   let spinner = props.loading ? (
@@ -48,19 +94,12 @@ const AddItem = (props) => {
     </div>
   ) : (
     <div>
-
-      <form onSubmit={handleSubmit} className={classes.AddItemForm}>
+      
+      <form onSubmit={submitHandler} className={classes.AddItemForm}>
         <h1 className={classes.FormTitle}>ADD NEW ITEM</h1>
-        
+        {successMessage}
         {errorMessage}
-        <input
-          className={classes.Input}
-          type="text"
-          name="url"
-          onChange={handleChange}
-          value={values.url}
-          placeholder="Enter URL.."
-        />
+        {form}
         <br></br>
 
 
@@ -72,7 +111,7 @@ const AddItem = (props) => {
         </Button>
       </form>
       <Button
-          clicked={props.closed}
+          clicked={() => onCancelHandler()}
           btnType="Cancel"
           ButtonContent={"CancelContent"}
         >
@@ -87,7 +126,7 @@ const AddItem = (props) => {
 const mapStateToProps = (state) => {
   return {
     error: state.items.error,
-    success: state.items.itemUrl,
+    success: state.items.success,
     loading: state.items.loading,
     redirectPath: state.items.authRedirectPath,
   };
@@ -96,6 +135,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addItem: (url) => dispatch(actions.addItem(url)),
+    reset: () => dispatch(actions.resetItem())
   };
 };
 

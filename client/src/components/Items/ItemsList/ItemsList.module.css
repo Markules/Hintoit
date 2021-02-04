@@ -8,6 +8,12 @@
 
 }
 
+.Spinner {
+    margin: auto;
+    width: 100%;
+    position: absolute;
+}
+
 
 @media (max-width: 499px) {
     .ItemsContainer {

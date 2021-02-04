@@ -1,16 +1,22 @@
 import axios from "axios";
 import * as actionTypes from "../../../../store/actions/actionTypes";
 
+export const resetItems = () => {
+  return {
+    type: actionTypes.RESET_ITEMS
+  };
+}
+
 export const addItemStart = () => {
   return {
     type: actionTypes.SAVE_ITEM_START,
   };
 };
 
-export const addItemSuccess = (item) => {
+export const addItemSuccess = (response) => {
   return {
     type: actionTypes.SAVE_ITEM_SUCCESS,
-    item: item,
+    response: response,
   };
 };
 
@@ -149,6 +155,12 @@ export const shareItem = (email, name, item) => {
       });
   };
 };
+
+export const resetItem = () => {
+  return (dispatch) => {
+    dispatch(resetItems());
+  }
+}
 
 export const fetchLoggedUserItems = () => {
   return (dispatch) => {
