@@ -6,15 +6,13 @@ import Button from '../../../../UI/Button/Button';
 
 import classes from "./ItemSettings.module.css";
 
-
 const ItemSettings = (props) => {
-console.log( 'settings',props.item._id)
   useEffect(() => {
 
   }, []);
 
     let settingBox = props.isSettingsOpen ?  (
-      <ul className={classes.SettingsList}>
+      <ul key={props.item.id} className={classes.SettingsList}>
           <li className={classes.SettingsListItem}><Button btnType={"SettingsButton"}>EDIT</Button></li>
           <li className={classes.SettingsListItem}><Button clicked={() => props.removeItem(props.item._id)} btnType={"SettingsButton"}>DELETE</Button></li>
       </ul>

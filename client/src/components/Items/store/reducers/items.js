@@ -10,6 +10,7 @@ const initialState = {
 };
 
 const resetItem = (state, action) => {
+  console.log("reset");
   return(initialState);
 }
 

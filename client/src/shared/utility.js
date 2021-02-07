@@ -35,9 +35,8 @@ export const checkValidity = (value, rules) => {
   }
 
   if(rules.isUrl) {
-    const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/g   ;
+    const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/g;
     // const regex = new RegExp(pattern);
-
     isValid = pattern.test(value) && isValid
   }
 
@@ -67,7 +66,7 @@ export const previewLink = (item) => {
      
         <Microlink
           size="large"
-          style={{position: 'relative', height: '82%', margin: '0%'}}
+          style={{position: 'relative', top: '5%' , height: '75%', margin: '0', border: 'none', zIndex: '0'}}
           url={item.url}
           setData={(data) => ({
             ...data,

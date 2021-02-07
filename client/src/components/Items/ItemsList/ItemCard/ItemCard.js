@@ -26,7 +26,7 @@ return (props.item ? (
       <span className={classes.Date}>{moment(props.item.dateCreated).format("MMM Do YYYY")}</span>
       <Button clicked={handleItemSettings} btnType='ItemSettings'><i className={[classes.SettingsIcon, "material-icons"].join(" ")}>more_horiz</i></Button>
       <ItemSettings item={props.item} isSettingsOpen={isSettingsOpen}/>
-      {/* <span className={classes.Preview}>{previewLink(props.item)}</span> */}   
+      <dive className={classes.Preview}>{previewLink(props.item)}</dive>   
      <BottomBar item={props.item}/>
     </div>
   ) : null

@@ -36,7 +36,7 @@ export const removeItemStart = () => {
 
 export const removeItemSuccess = (item) => {
   return {
-    type: actionTypes.SAVE_ITEM_SUCCESS,
+    type: actionTypes.REMOVE_ITEM_SUCCESS,
     item: item,
   };
 };

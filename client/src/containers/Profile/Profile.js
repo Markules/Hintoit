@@ -14,22 +14,33 @@ export class Profile extends Component {
     this.props.fetchUserData();
   }
 
+  constructor(props) {
+    super(props);
+    if (this.state.resetAddItem) {
+      return <ItemsList />   
+  }
+}
+
   state = {
     openAddItem: false,
     closeAddItem: false,
     openShareItem: false,
     closeShareItem: false,
+    resetAddItem: false
   };
 
   openAddItemHandler = () => {
-    console.log("clicked");
+    this.setState({ resetAddItem: false});
     this.setState({ openAddItem: true });
     this.setState({ closeAddItem: false });
   };
 
   closeAddItemHandler = () => {
+    this.setState({ resetAddItem: true});
     this.setState({ closeAddItem: true });
     this.setState({ openAddItem: false });
+    
+
   };
 
 
@@ -39,6 +50,7 @@ export class Profile extends Component {
     const cardType = "profile";
     items = <ItemsList 
     cardType={cardType}
+    resetItems={this.state.resetAddItem}
     />;
     if (!this.props.user) {
       return (
@@ -53,7 +65,7 @@ export class Profile extends Component {
             show={this.state.openAddItem}
             modalClosed={this.state.closeAddItem}
           >
-            <AddItem closed={this.closeAddItemHandler} />
+            <AddItem closed={this.closeAddItemHandler} resetItems={this.state.resetAddItem} />
           </Modal>
 
     
@@ -66,7 +78,7 @@ export class Profile extends Component {
           <div className={classes.Seperator}></div>
 
           <Button
-            clicked={this.openAddItemHandler}
+            clicked={() => this.openAddItemHandler()}
             btnType="ProfileAddItem"
             ButtonContent="AddItemContent"
           >
