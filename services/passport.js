@@ -25,7 +25,7 @@ passport.use(
       callbackURL: "/auth/google/callback",
       proxy: true,
     },
-    async (accessToken, refreshToken, profile, done) => {
+    async (accessToken, profile, done) => {
       const existingUser = await User.findOneAndUpdate({ googleId: profile.id} , 
         {$set: {userToken: accessToken } });
 
