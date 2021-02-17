@@ -5,7 +5,7 @@ import BackDrop from "../../UI/Backdrop/Backdrop";
 import classes from "./Modal.module.css";
 
 const Modal = (props) => {
-  console.log('Modal', props)
+
   return (
     <Aux>
       <BackDrop show={props.show} clicked={props.modalClosed} />

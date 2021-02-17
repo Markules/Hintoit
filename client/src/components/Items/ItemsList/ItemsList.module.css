@@ -14,6 +14,16 @@
     position: absolute;
 }
 
+.NoItemsContainer{
+    margin: auto;
+    padding: 0px;
+    width: 100%;
+    position: absolute;
+    color: darkgrey;
+    font-size: 21px;
+    text-align: center;
+}
+
 
 @media (max-width: 499px) {
     .ItemsContainer {

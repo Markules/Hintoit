@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Aux from "../../../../../hoc/Aux/Aux";
 import * as actions from "../../../../../store/actions";

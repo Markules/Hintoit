@@ -27,7 +27,7 @@ const AddItem = (props) => {
       touched: false,
     },
   });
-console.log(isReset);
+
   useEffect(() => {
     if (props.resetItems) {
     return props.reset();

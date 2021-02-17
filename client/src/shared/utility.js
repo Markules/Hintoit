@@ -58,7 +58,7 @@ export const linkValidator = (url) => {
 
 export const previewLink = (item) => {
   // check if gift link is valid
-  console.log('preview', item)
+
   if (linkValidator(item.url) === false) {
     return null;
   } else {

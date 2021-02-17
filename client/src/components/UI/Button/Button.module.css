@@ -34,10 +34,12 @@
 
 .likeButton{
     color: gray;
+    margin-right: 15px;
 }
 
 .saveButton {
     color: goldenrod;
+    margin-right: 15px;
 }
 
 .unsaveButton{
@@ -92,22 +94,23 @@ background-color: green;
  background-color: black;
  color: white;
  width: 100px;
+ height: 30px;
  font-size: 14px;
  border-radius: 5px;
  position: relative;
  left: 35%;
- top: 10px;
 }
 
 .Cancel {
     background-color: black;
     color: white;
     width: 100px;
+    height: 30px;
     font-size: 14px;
     border-radius: 5px;
     position: relative;
-    right: 25%;
-    bottom: 46px;
+    right: 30%;
+    bottom: 30px;
 }
 
 .SettingsButton {

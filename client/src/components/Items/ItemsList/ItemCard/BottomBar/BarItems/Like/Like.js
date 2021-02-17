@@ -34,7 +34,6 @@ const Like = (props) => {
       {likesAmount}
     </Button>
   );
-    console.log(props.likedItems)
   const handleLike = () => {
     updateLikesAmount(likesAmount +1);
     updateLike(true);

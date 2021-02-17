@@ -1,4 +1,3 @@
-import { fromPairs } from 'lodash';
 
 export {
     auth,

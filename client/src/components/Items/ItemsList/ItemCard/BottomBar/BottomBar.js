@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import Like from "./BarItems/Like/Like";
 import Save from "./BarItems/Save/Save";

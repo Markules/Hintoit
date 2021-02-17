@@ -7,33 +7,39 @@ import * as actions from "../../../store/actions";
 import Spinner from "../../UI/Spinner/Spinner";
 import ItemCard from "./ItemCard/ItemCard";
 
-import classes from './ItemsList.module.css';
+import classes from "./ItemsList.module.css";
 
 const ItemsList = (props) => {
-  
-  console.log("status",props.status);
-    useEffect(() => {
-      if(props.resetItems || props.status.success === true){
-       console.log("update list")
-      }
+  useEffect(() => {
+  return props.onFetchItems();
+
   }, []);
 
-  let items = <div className={classes.Spinner}><Spinner /></div>
+  let items = (
+    <div className={classes.Spinner}>
+      <Spinner />
+    </div>
+  );
   if (!props.loading && props.items !== null) {
-    items = props.items.map((item) => (
-     
-     <ItemCard key={item.id} item={item}/>
-    ));
-   
+    items = props.items.map((item) => <ItemCard key={item.id} item={item} />);
+  } else if (!props.loading && props.items === null) {
+    items = (
+      <div className={classes.NoItemsContainer}>
+        <h2>
+          No items here..<br></br>
+          <br></br>Add More Items to wishlist
+        </h2>
+      </div>
+    );
   }
-  return <div  className={classes.ItemsContainer}>{items}</div>;
+  return <div className={classes.ItemsContainer}>{items}</div>;
 };
 
 const mapStateToProps = (state) => {
   return {
     items: state.items.userItems,
     loading: state.items.loading,
-    status: state.items
+    status: state.items,
   };
 };
 

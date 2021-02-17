@@ -13,10 +13,14 @@ require("./services/userServices");
 require("./services/giftServices");
 require("./services/mailer");
 
-mongoose.connect(keys.mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-} ).catch((err) => console.log(err));
+mongoose
+  .connect(keys.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .catch((err) => console.log(err));
 
 const app = express();
 
@@ -31,22 +35,20 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 require("./routes/authRoutes")(app);
 require("./routes/giftRoutes")(app);
 require("./routes/usersRoutes")(app);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-
-    const path = require('path');
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

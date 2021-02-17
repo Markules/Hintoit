@@ -9,49 +9,39 @@ import Modal from "../../components/UI/Modal/Modal";
 import AddItem from "../../components/Items/AddItem/AddItem";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
+
 export class Profile extends Component {
   componentDidMount() {
     this.props.fetchUserData();
   }
-
-  constructor(props) {
-    super(props);
-    if (this.state.resetAddItem) {
-      return <ItemsList />   
-  }
-}
 
   state = {
     openAddItem: false,
     closeAddItem: false,
     openShareItem: false,
     closeShareItem: false,
-    resetAddItem: false
+    resetAddItem: false,
   };
 
   openAddItemHandler = () => {
-    this.setState({ resetAddItem: false});
+    this.setState({ resetAddItem: false });
     this.setState({ openAddItem: true });
     this.setState({ closeAddItem: false });
   };
 
   closeAddItemHandler = () => {
-    this.setState({ resetAddItem: true});
+    this.setState({ resetAddItem: true });
     this.setState({ closeAddItem: true });
     this.setState({ openAddItem: false });
-    
-
   };
-
 
   render() {
     let user = this.props.user;
     let items = null;
     const cardType = "profile";
-    items = <ItemsList 
-    cardType={cardType}
-    resetItems={this.state.resetAddItem}
-    />;
+    items = (
+      <ItemsList cardType={cardType} resetItems={this.state.resetAddItem} />
+    );
     if (!this.props.user) {
       return (
         <div style={{ margin: "auto" }}>
@@ -65,11 +55,15 @@ export class Profile extends Component {
             show={this.state.openAddItem}
             modalClosed={this.state.closeAddItem}
           >
-            <AddItem closed={this.closeAddItemHandler} resetItems={this.state.resetAddItem} />
+            <AddItem
+              closed={this.closeAddItemHandler}
+              resetItems={this.state.resetAddItem}
+            />
           </Modal>
 
-    
-          <div className={classes.AvatarContainer}><img className={classes.Avatar} src={user.avatar} /></div>
+          <div className={classes.AvatarContainer}>
+            <img className={classes.Avatar} src={user.avatar} alt={'Hintoit || Avatar'} />
+          </div>
           <h2 className={classes.UserName}>
             {user.firstName} {user.lastName}
           </h2>

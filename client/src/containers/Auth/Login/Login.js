@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 import classes from "./Login.module.css";
 import * as actions from '../store/actions/auth'

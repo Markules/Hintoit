@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import Input from '../../../../../../../UI/Input/Input';
 import Aux from "../../../../../../../../hoc/Aux/Aux";
@@ -97,10 +97,6 @@ const ShareForm = (props) => {
   }
 
   let shareButton = <Button btnType={"SendButton"}>Send</Button>;
-
-  const handleShare = () => {
-    //   props.shareItem(props.item.url);
-  };
 
   return (
     <Aux>
