@@ -13,11 +13,6 @@ const userSchema = new Schema({
   },
   firstName: { type: String, required: true },
   lastName: { type: String, required: false },
-  profileImage: [{
-    type: Schema.Types.ObjectId,
-    required: false,
-    ref: "Image",
-  }],
   _gifts: [{ type: Schema.Types.ObjectId, required: false, ref: "gifts" }],
   following: [{ type: Schema.Types.ObjectId, required: false, ref: "users" }],
   followers: [{ type: Schema.Types.ObjectId, required: false, ref: "users" }],

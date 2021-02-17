@@ -1,41 +1,9 @@
-const _ = require("lodash");
-const Path = require("path-parser").default;
-const { URL } = require("url");
 const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 const { ObjectID } = require("mongodb");
-const multer = require("multer");
-const { last } = require("lodash");
-const { rootURL } = require("../config/dev");
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname.trim(""));
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  // reject a file
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5,
-  },
-  fileFilter: fileFilter,
-});
 
 const User = mongoose.model("users");
-const Image = mongoose.model("Image");
+
 
 module.exports = (app) => {
   //Fetch User by id
@@ -174,72 +142,4 @@ module.exports = (app) => {
     }
   });
 
-  //upload profile picture
-  app.post(
-    "/api/profile/image",
-    upload.single("image"),
-    requireLogin,
-    async (req, res, next) => {
-      console.log(req);
-      const loggedUserId = req.user.id;
-      const profileImage = new Image({
-        _id: new mongoose.Types.ObjectId(),
-        name: req.file.originalname,
-        image: req.file.path,
-        _user: loggedUserId,
-      });
-      try {
-        await profileImage.save();
-        res.send(profileImage);
-
-        await User.findOneAndUpdate(
-          { _id: loggedUserId },
-          { $push: { profileImage: profileImage._id } }
-        );
-      } catch (err) {
-        res.status(422).send(err);
-        console.error("Something went wrong", err);
-      }
-    }
-  );
-  // ​
-  // // get profile picture
-  app.get("/api/profile/image", requireLogin, async (req, res) => {
-    const loggedUserId = req.user.id;
-    try {
-      const user = await User.findOne({ _id: loggedUserId }).populate(
-        "profileImage"
-      );
-      const lastImage = user.profileImage.reverse();
-      if (user.profileImage.length === 0) {
-        res.send(null);
-      }
-      if (process.env.NODE_ENV === "production") {
-        res.send(process.env.ROOT_URL + lastImage[0].image);
-      }
-      res.send(rootURL + lastImage[0].image);
-      console.log();
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  });
-
-  // get friend profile image
-  app.get("/api/profile/image/:id", async (req, res) => {
-    const userId = req.params.id;
-    try {
-      const user = await User.findOne({ _id: userId }).populate("profileImage");
-      const lastImage = user.profileImage.reverse();
-      if (lastImage.length === 0) {
-        res.status(404).send(undefined);
-      }
-      if (process.env.NODE_ENV === "production") {
-        res.send(process.env.ROOT_URL + lastImage[0].image);
-      }
-      res.send(rootURL + lastImage[0].image);
-      console.log(user.profileImage);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  });
-};
+}

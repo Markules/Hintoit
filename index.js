@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 
 require("./models/User");
 require("./models/Gift");
-require("./models/Image");
 require("./services/passport");
 require("./services/userServices");
 require("./services/giftServices");
@@ -40,6 +39,8 @@ app.use("/uploads", express.static("uploads"));
 require("./routes/authRoutes")(app);
 require("./routes/giftRoutes")(app);
 require("./routes/usersRoutes")(app);
+require("./routes/profileRoutes")(app);
+require("./routes/postsRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

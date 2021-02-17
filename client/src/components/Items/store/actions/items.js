@@ -14,9 +14,10 @@ export const addItemStart = () => {
 };
 
 export const addItemSuccess = (response) => {
+  console.log(response)
   return {
     type: actionTypes.SAVE_ITEM_SUCCESS,
-    response: response,
+    response: [response],
   };
 };
 
@@ -121,7 +122,7 @@ export const addItem = (url) => {
     dispatch(addItemStart());
     axios.post("/api/gift/add", {url})
       .then((response) => {
-        dispatch(addItemSuccess(response.data));
+        dispatch(addItemSuccess[response.data]);
       })
       .catch((err) => {
         dispatch(addItemFailed(err));
