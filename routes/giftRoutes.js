@@ -170,6 +170,9 @@ module.exports = (app) => {
     }
   });
 
+  // @route PUT api/gifts/unlike/:id
+  // @desc  Unlike a gift
+  // @access Private
   app.patch(`/api/gifts/unlike/:id`, requireLogin, async (req, res) => {
     const id = req.params.id;
 
@@ -197,16 +200,30 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/api/gift/share", requireLogin, async (req, res) => {
-    const { email, name, item } = req.body;
-    const userName = req.user.firstName;
-    console.log("route", email, name, item, userName);
-    try {
-      const mail = await mailer.sendEmail(email, name, item, userName);
-      console.log(mail);
-      res.send(mail);
-    } catch (err) {
-      res.status(400).send();
+  // @route POST api/gift/share
+  // @desc  share a gift by email
+  // @access Private
+  app.post(
+    "/api/gift/share",
+    [
+      requireLogin,
+      [
+        check("item", "URL is required").not().isEmpty(),
+        check("name", "Name is required").not().isEmpty(),
+        check("email", "Email is required").isEmail(),
+      ],
+    ],
+    async (req, res) => {
+      const { email, name, item } = req.body;
+      const userName = req.user.firstName;
+
+      try {
+        const mail = await mailer.sendEmail(email, name, item, userName);
+        res.json(mail);
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+      }
     }
-  });
+  );
 };
