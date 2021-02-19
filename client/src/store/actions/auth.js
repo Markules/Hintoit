@@ -1,28 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
-
-export const authStart = () => {
-  return {
-    type: actionTypes.AUTH_START,
-  };
-};
-
-export const authSuccess = (token, userId) => {
-  return {
-    type: actionTypes.AUTH_SUCCESS,
-    idToken: token,
-    userId: userId,
-  };
-};
-
-export const authFail = (error) => {
-  return {
-    type: actionTypes.AUTH_FAIL,
-    error: error,
-  };
-};
-
+// Logout user
 export const logout = () => {
   localStorage.removeItem("token");
   return {
@@ -30,46 +9,38 @@ export const logout = () => {
   };
 };
 
-export const auth = () => {
-  return (dispatch) => {
-    dispatch(authStart());
-    let url = "/auth/google";
-    axios
-      .get(url)
-      .then((response) => {
-        localStorage.setItem("token", response.data.accessToken);
-        localStorage.setItem("userId", response.data._id);
-        dispatch(authSuccess(response.data.accessToken, response.data._id));
-      })
-      .catch((err) => {
-        dispatch(authFail(err));
+// Login user with google auth
+export const auth = () => async (dispatch) => {
+  dispatch({ type: actionTypes.AUTH_START });
+  try {
+    const res = await axios.get("/auth/google");
+    dispatch({
+      type: actionTypes.AUTH_SUCCESS,
+      payload: res.data,
+    });
+    localStorage.setItem("token", res.data.accessToken);
+    localStorage.setItem("userId", res.data._id);
+  } catch (err) {
+    dispatch({ type: actionTypes.AUTH_FAIL });
+  }
+};
+
+// Check if user is logged in with google auth
+export const authCheckState = () => async (dispatch) => {
+  const res = await axios.get("/api/current_user");
+
+  try {
+    const token = res.data.userToken;
+    if (!token) {
+      dispatch(logout());
+    } else {
+      localStorage.setItem("token", token);
+      dispatch({
+        type: actionTypes.AUTH_SUCCESS,
+        payload: res.data,
       });
-  };
-};
-
-export const setAuthRedircetPath = (path) => {
-  return {
-    type: actionTypes.SET_AUTH_REDIRECT_PATH,
-    path: path,
-  };
-};
-
-export const authCheckState = () => {
-  return (dispatch) => {
-    let url = "/api/current_user";
-    axios.get(url)
-    .then((response) => {
-        const token = response.data.userToken;
-        const userId = response.data.id;
-        if (!token) {
-            dispatch(logout());
-          } else{
-        localStorage.setItem('token', token )
-        dispatch(authSuccess(token, userId));
-          }
-        })
-        .catch((err) => {
-            dispatch(authFail(err))
-        });
     }
+  } catch (err) {
+    dispatch({ type: actionTypes.AUTH_FAIL });
+  }
 };
