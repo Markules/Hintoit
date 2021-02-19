@@ -3,20 +3,19 @@ import Aux from "../../../hoc/Aux/Aux";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import { connect } from "react-redux";
-import * as actions from "../store/actions/items";
+import * as actions from "../../../store/actions/items";
 import { updateObject, checkValidity } from "../../../shared/utility";
 import Spinner from "../../UI/Spinner/Spinner";
 
 import classes from "./AddItem.module.css";
 
 const AddItem = (props) => {
-  const [isReset, updateReset] = useState(props.resetItems);
   const [addItemForm, setAddItemForm] = useState({
     url: {
       elementType: "input",
       elementConfig: {
         type: "url",
-        placeholder: "Enter Url",
+        placeholder: "Enter item url",
       },
       value: "",
       validation: {
@@ -30,9 +29,9 @@ const AddItem = (props) => {
 
   useEffect(() => {
     if (props.resetItems) {
-    return props.reset();
+      return props.reset();
     }
-  }, [<Input />]);
+  }, []);
 
   const inputChangedHandler = (event, controlName) => {
     const updatedControls = updateObject(addItemForm, {

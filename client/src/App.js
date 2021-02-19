@@ -2,7 +2,7 @@ import React, { Component, Suspense } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Layout from "./hoc/Layout/Layout";
-import * as actions from "./containers/Auth/store/actions/auth";
+import * as actions from "./store/actions/auth";
 
 import Login from "./containers/Auth/Login/Login";
 import Profile from "./containers/Profile/Profile";

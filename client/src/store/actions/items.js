@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as actionTypes from "../../../../store/actions/actionTypes";
+import * as actionTypes from "./actionTypes";
 
 export const resetItems = () => {
   return {

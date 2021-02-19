@@ -4,12 +4,12 @@ export {
     logout,
     setAuthRedircetPath,
     authCheckState
-} from '../../containers/Auth/store/actions/auth';
+} from './auth';
 
 export {
 fetchLoggedUser,
 
-} from '../../containers/Profile/store/actions/profile';
+} from './profile';
 
 export {
 addItem,
@@ -19,5 +19,5 @@ fetchLoggedUserItems,
 likeItem,
 unlikeItem,
 resetItem
-} from '../../components/Items/store/actions/items';
+} from './items';
 
