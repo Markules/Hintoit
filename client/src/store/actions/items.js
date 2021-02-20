@@ -3,9 +3,9 @@ import * as actionTypes from "./actionTypes";
 
 export const resetItems = () => {
   return {
-    type: actionTypes.RESET_ITEMS
+    type: actionTypes.RESET_ITEMS,
   };
-}
+};
 
 export const addItemStart = () => {
   return {
@@ -14,7 +14,7 @@ export const addItemStart = () => {
 };
 
 export const addItemSuccess = (response) => {
-  console.log(response)
+  console.log(response);
   return {
     type: actionTypes.SAVE_ITEM_SUCCESS,
     response: [response],
@@ -27,7 +27,6 @@ export const addItemFailed = (error) => {
     error: error,
   };
 };
-
 
 export const removeItemStart = () => {
   return {
@@ -49,7 +48,6 @@ export const removeItemFailed = (error) => {
   };
 };
 
-
 export const shareItemStart = () => {
   return {
     type: actionTypes.SHARE_ITEM_START,
@@ -69,7 +67,6 @@ export const shareItemFailed = (error) => {
     error: error,
   };
 };
-
 
 export const fetchLoggedUserItemsSuccess = (items) => {
   return {
@@ -91,12 +88,11 @@ export const fetchLoggedUserItemsStart = () => {
   };
 };
 
-export const likeSuccessful  = () => {
+export const likeSuccessful = () => {
   return {
     type: actionTypes.FETCH_LOGGED_USER_START,
   };
 };
-
 
 export const likeFailed = () => {
   return {
@@ -104,12 +100,11 @@ export const likeFailed = () => {
   };
 };
 
-export const unlikeSuccessful  = () => {
+export const unlikeSuccessful = () => {
   return {
     type: actionTypes.FETCH_LOGGED_USER_START,
   };
 };
-
 
 export const unlikeFailed = () => {
   return {
@@ -120,7 +115,8 @@ export const unlikeFailed = () => {
 export const addItem = (url) => {
   return (dispatch) => {
     dispatch(addItemStart());
-    axios.post("/api/gift/add", {url})
+    axios
+      .post("/api/gift/add", { url })
       .then((response) => {
         dispatch(addItemSuccess[response.data]);
       })
@@ -130,11 +126,11 @@ export const addItem = (url) => {
   };
 };
 
-
 export const removeItem = (id) => {
   return (dispatch) => {
     dispatch(removeItemStart());
-    axios.delete(`/api/gifts/${id}`)
+    axios
+      .delete(`/api/gifts/${id}`)
       .then((response) => {
         dispatch(removeItemSuccess(response.data));
       })
@@ -147,7 +143,8 @@ export const removeItem = (id) => {
 export const shareItem = (email, name, item) => {
   return (dispatch) => {
     dispatch(shareItemStart());
-    axios.post("/api/gift/share", { email, name, item })
+    axios
+      .post("/api/gift/share", { email, name, item })
       .then((response) => {
         dispatch(shareItemSuccess(response.data));
       })
@@ -160,8 +157,8 @@ export const shareItem = (email, name, item) => {
 export const resetItem = () => {
   return (dispatch) => {
     dispatch(resetItems());
-  }
-}
+  };
+};
 
 export const fetchLoggedUserItems = () => {
   return (dispatch) => {
@@ -169,7 +166,6 @@ export const fetchLoggedUserItems = () => {
     axios
       .get("/api/loggeduser/gifts")
       .then((response) => {
-        
         const fetchedItems = [];
         for (let key in response.data) {
           fetchedItems.push({
@@ -185,26 +181,48 @@ export const fetchLoggedUserItems = () => {
   };
 };
 
-export const likeItem = (id) =>  {
-  return (dispatch) => {
-  axios.patch(`/api/gifts/like/${id}`)
-  .then((response) => {
-    dispatch(likeSuccessful(response))
-  })
-  .catch((err) => {
-    dispatch(likeFailed(err));
-  })
-}
+// Fetch all items
+export const fetchAllItems = () => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_ITEMS_START });
+
+  try {
+    const res = await axios.get("/api/gifts");
+
+    const fetchedItems = [];
+    for (let key in res.data) {
+      fetchedItems.push({
+        ...res.data[key],
+        id: key,
+      });
+    }
+    dispatch({ type: actionTypes.FETCH_ITEMS_SUCCESS, userItems: fetchedItems, });
+  } catch (err) {
+    dispatch({ type: actionTypes.FETCH_ITEMS_FAILED });
+  }
 };
 
-export const unlikeItem = (id) =>  {
+export const likeItem = (id) => {
   return (dispatch) => {
-  axios.patch(`/api/gifts/unlike/${id}`)
-  .then((response) => {
-    dispatch(unlikeSuccessful(response))
-  })
-  .catch((err) => {
-    dispatch(unlikeFailed(err));
-  })
-}
+    axios
+      .patch(`/api/gifts/like/${id}`)
+      .then((response) => {
+        dispatch(likeSuccessful(response));
+      })
+      .catch((err) => {
+        dispatch(likeFailed(err));
+      });
+  };
+};
+
+export const unlikeItem = (id) => {
+  return (dispatch) => {
+    axios
+      .patch(`/api/gifts/unlike/${id}`)
+      .then((response) => {
+        dispatch(unlikeSuccessful(response));
+      })
+      .catch((err) => {
+        dispatch(unlikeFailed(err));
+      });
+  };
 };

@@ -6,14 +6,13 @@ const initialState = {
   loading: false,
   error: null,
   isLiked: false,
-  success: null
+  success: null,
 };
 
 const resetItem = (state, action) => {
   console.log("reset");
-  return(initialState);
-}
-
+  return initialState;
+};
 
 const addItemStart = (state, action) => {
   return updateObject(state, { loading: true });
@@ -33,7 +32,6 @@ const addItemFailed = (state, action) => {
   });
 };
 
-
 const removeItemStart = (state, action) => {
   return updateObject(state, { loading: true });
 };
@@ -52,7 +50,6 @@ const removeItemFailed = (state, action) => {
     error: action.error,
   });
 };
-
 
 const fetchLoggedUserItemsFail = (state, action) => {
   return updateObject(state, { loading: false, error: action.error });
@@ -102,14 +99,14 @@ const shareItemStart = (state, action) => {
 const shareItemSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
-    data: action.data
+    data: action.data,
   });
 };
 
 const shareItemFailed = (state, action) => {
   return updateObject(state, {
     loading: false,
-    error: action.error
+    error: action.error,
   });
 };
 
@@ -124,22 +121,25 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SAVE_ITEM_FAILED:
       return addItemFailed(state, action);
 
-      case actionTypes.REMOVE_ITEM_START:
-        return removeItemStart(state, action);
-  
-      case actionTypes.REMOVE_ITEM_SUCCESS:
-        return removeItemSuccess(state, action);
-  
-      case actionTypes.REMOVE_ITEM_FAILED:
-        return removeItemFailed(state, action);
+    case actionTypes.REMOVE_ITEM_START:
+      return removeItemStart(state, action);
+
+    case actionTypes.REMOVE_ITEM_SUCCESS:
+      return removeItemSuccess(state, action);
+
+    case actionTypes.REMOVE_ITEM_FAILED:
+      return removeItemFailed(state, action);
 
     case actionTypes.FETCH_LOGGED_USER_ITEMS_START:
+    case actionTypes.FETCH_ITEMS_START:
       return fetchLoggedUserItemsStart(state, action);
 
     case actionTypes.FETCH_LOGGED_USER_ITEMS_SUCCESS:
+    case actionTypes.FETCH_ITEMS_SUCCESS:
       return fetchLoggedUserItemsSuccess(state, action);
 
     case actionTypes.FETCH_LOGGED_USER_ITEMS_FAILED:
+    case actionTypes.FETCH_ITEM_FAILED:
       return fetchLoggedUserItemsFail(state, action);
 
     case actionTypes.LIKE_ITEM_SUCCESS:
@@ -163,8 +163,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SHARE_ITEM_FAILED:
       return shareItemFailed(state, action);
 
-      case actionTypes.RESET_ITEMS:
-        return resetItem(state, action);
+    case actionTypes.RESET_ITEMS:
+      return resetItem(state, action);
 
     default:
       return state;

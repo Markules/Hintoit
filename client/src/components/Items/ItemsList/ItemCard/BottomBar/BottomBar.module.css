@@ -8,10 +8,11 @@
 
 .Container{
     margin: 0;
-    position: sticky;
-    top: 79%;
+    position: absolute;
+    top: 72%;
     padding: 0px;
     width: 80%;
+    z-index: 200;
 
    
 

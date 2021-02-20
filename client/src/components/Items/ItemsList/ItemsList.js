@@ -11,7 +11,10 @@ import classes from "./ItemsList.module.css";
 
 const ItemsList = (props) => {
   useEffect(() => {
-  return props.onFetchItems();
+    if(props.cardType === 'profile')
+  return props.onFetchUserItems();
+    if(props.cardType === 'discover')
+    return props.onFetchAllItems();
 
   }, []);
 
@@ -21,7 +24,7 @@ const ItemsList = (props) => {
     </div>
   );
   if (!props.loading && props.items !== null) {
-    items = props.items.map((item) => <ItemCard key={item.id} item={item} />);
+    items = props.items.map((item) => <ItemCard key={item.id} item={item} cardType={props.cardType}/>);
   } else if (!props.loading && props.items === null) {
     items = (
       <div className={classes.NoItemsContainer}>
@@ -45,7 +48,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchItems: () => dispatch(actions.fetchLoggedUserItems()),
+    onFetchUserItems: () => dispatch(actions.fetchLoggedUserItems()),
+    onFetchAllItems: () => dispatch(actions.fetchAllItems()),
   };
 };
 

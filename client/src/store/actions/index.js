@@ -17,6 +17,7 @@ shareItem,
 fetchLoggedUserItems,
 likeItem,
 unlikeItem,
-resetItem
+resetItem,
+fetchAllItems
 } from './items';
 

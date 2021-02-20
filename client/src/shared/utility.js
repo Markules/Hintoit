@@ -65,7 +65,7 @@ export const previewLink = (item) => {
      
         <Microlink
           size="large"
-          style={{position: 'relative', top: '5%' , height: '75%', margin: '0', border: 'none', zIndex: '0'}}
+          style={{position:'relative' , border: 'none', zIndex: '0', top: '50%', left: '50%',   transform: 'translate(-50%, -50%)', height: '80%', width: '90%'}}
           url={item.url}
           setData={(data) => ({
             ...data,
