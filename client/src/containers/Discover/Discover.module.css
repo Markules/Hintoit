@@ -1,0 +1,67 @@
+.ListTypeContainer {
+    width: 100%;
+    text-align: center;
+    padding-top: 50px;
+    
+
+}
+
+.ListTypes {
+    list-style: none;
+    flex-direction: row;
+    display: flex;
+    border: 1px solid gray;
+    border-radius: 25px;
+    width: 250px;
+    height: 35px;
+    margin: auto;
+    margin-bottom: 75px;
+    padding: 0;
+    box-shadow: 1px 2px 1px 1px #888888;
+}
+
+.Type {
+    font-size: 0.9rem;
+    margin: auto;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    cursor: pointer;
+    height: 10px;
+    margin-left: 0px;
+    width: 100%;
+}
+
+.ItemsType{
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.UsersType {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-left: 1px solid gray;
+}
+
+.ItemActive{
+    color: white;
+    background-color: black;
+    font-weight: bold; 
+}
+
+.UsersActive{
+    color: white;
+    background-color: black;
+    font-weight: bold; 
+}
+
+.ItemsType:hover{
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}
+
+.Type:hover {
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}
