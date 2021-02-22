@@ -13,13 +13,18 @@ import reducers from "../src/store/reducers";
 import axios from "axios";
 window.axios = axios;
 
-const composeEnhancers =
+let composeEnhancers = null;
+
+composeEnhancers =
   process.env.NODE_ENV === "development"
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : null || compose;
-    
 
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(
+  reducers,
+  {},
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 const app = (
   <Provider store={store}>

@@ -43,7 +43,7 @@ export class Discover extends Component {
               className={[classes.Type, classes.UsersType, this.state.UsersActive ? classes.UsersActive : null].join(" ")}
               onClick={() => onChangeUsersList()}
             >
-              USERS
+              PEOPLE
             </li>
           </ul>
         </div>

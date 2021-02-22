@@ -4,7 +4,6 @@ const { ObjectID } = require("mongodb");
 
 const User = mongoose.model("users");
 
-
 module.exports = (app) => {
   //Fetch User by id
   app.get("/api/users/:id", async (req, res) => {
@@ -17,14 +16,16 @@ module.exports = (app) => {
     }
   });
 
-  //Fetch all users
+// @route GET api/profile
+// @desc  Get all profiles
+// @access Public
   app.get("/api/users", async (req, res) => {
     try {
-      const users = await User.find();
-      res.send(users);
+      const users = await User.find().select("-userToken -googleId -email");
+      res.json(users);
     } catch (err) {
-      res.status(404).send(err);
-      console.log(err);
+      console.error(err.message);
+      res.status(500).send("Server Error");
     }
   });
 
@@ -141,5 +142,4 @@ module.exports = (app) => {
       console.log(err);
     }
   });
-
-}
+};

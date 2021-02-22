@@ -10,7 +10,7 @@
     list-style: none;
     flex-direction: row;
     display: flex;
-    border: 1px solid gray;
+    
     border-radius: 25px;
     width: 250px;
     height: 35px;
@@ -26,9 +26,10 @@
     padding-top: 13px;
     padding-bottom: 13px;
     cursor: pointer;
-    height: 10px;
+    height: 12px;
     margin-left: 0px;
     width: 100%;
+    
 }
 
 .ItemsType{

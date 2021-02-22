@@ -19,6 +19,12 @@ const ShareForm = React.lazy(() => {
   return import("./components/Items/ItemsList/ItemCard/BottomBar/BarItems/Share/ShareForm/ShareForm")
 })
 
+const FriendProfile = React.lazy(() => {
+  return import("./containers/Profile/FriendProfile/FriendProfile");
+})
+
+
+
 export class App extends Component {
   componentDidMount() {
     this.props.onTryAutoLogin();
@@ -38,6 +44,7 @@ export class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/share" render={props => <ShareForm {...props} />} />
           <Route path="/discover" render={props => <Discover {...props}/>} />
+          <Route path="/user/:id" render={props => <FriendProfile {...props}/>} />
           <Route exact path="/" component={Profile} />
           <Redirect to="/" />
         </Switch>
