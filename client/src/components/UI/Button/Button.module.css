@@ -32,7 +32,13 @@
     font-size: 1.4rem;
 }
 
-.likeButton{
+.LikeButton{
+    color: gray;
+    margin-right: 15px;
+
+}
+
+.UnlikeButton{
     color: gray;
     margin-right: 15px;
 }

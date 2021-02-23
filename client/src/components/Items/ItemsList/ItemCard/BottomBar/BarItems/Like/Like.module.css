@@ -1,9 +1,17 @@
 .UnlikedIcon:hover {
     color: red;
-    cursor: pointer;
 
+}
+
+.LikedIcon:hover {
+    color: #999999;
+    
 }
 
 .LikedIcon {
     color: red;
+}
+
+.UnlikedIcon {
+    color: gray;
 }

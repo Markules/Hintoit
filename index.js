@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 
 require("./models/User");
 require("./models/Gift");
+require("./models/Profile");
 require("./services/passport");
 require("./services/userServices");
 require("./services/giftServices");

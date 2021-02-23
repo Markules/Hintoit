@@ -156,7 +156,7 @@ module.exports = (app) => {
       const gift = await Gift.findById(id);
       // Check if the gift has already been liked
       if (
-        gift.likes.filter((like) => like.user.toString() === req.user.id)
+        gift.likes.filter((like) =>  like.user.toString() === req.user.id)
           .length > 0
       ) {
         return res.status(400).json({ msg: "Item already liked" });
@@ -164,6 +164,7 @@ module.exports = (app) => {
       gift.likes.unshift({ user: req.user.id });
 
       await gift.save();
+      res.json(gift);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -173,7 +174,7 @@ module.exports = (app) => {
   // @route PUT api/gifts/unlike/:id
   // @desc  Unlike a gift
   // @access Private
-  app.patch(`/api/gifts/unlike/:id`, requireLogin, async (req, res) => {
+  app.put(`/api/gifts/unlike/:id`, requireLogin, async (req, res) => {
     const id = req.params.id;
 
     try {
@@ -194,6 +195,8 @@ module.exports = (app) => {
       gift.likes.splice(removeIndex, 1);
 
       await gift.save();
+      return res.json(gift);
+
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

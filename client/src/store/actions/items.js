@@ -88,29 +88,6 @@ export const fetchLoggedUserItemsStart = () => {
   };
 };
 
-export const likeSuccessful = () => {
-  return {
-    type: actionTypes.FETCH_LOGGED_USER_START,
-  };
-};
-
-export const likeFailed = () => {
-  return {
-    type: actionTypes.FETCH_LOGGED_USER_START,
-  };
-};
-
-export const unlikeSuccessful = () => {
-  return {
-    type: actionTypes.FETCH_LOGGED_USER_START,
-  };
-};
-
-export const unlikeFailed = () => {
-  return {
-    type: actionTypes.FETCH_LOGGED_USER_START,
-  };
-};
 
 export const addItem = (url) => {
   return (dispatch) => {
@@ -195,34 +172,30 @@ export const fetchAllItems = () => async (dispatch) => {
         id: key,
       });
     }
-    dispatch({ type: actionTypes.FETCH_ITEMS_SUCCESS, userItems: fetchedItems, });
+    dispatch({
+      type: actionTypes.FETCH_ITEMS_SUCCESS,
+      userItems: fetchedItems,
+    });
   } catch (err) {
     dispatch({ type: actionTypes.FETCH_ITEMS_FAILED });
   }
 };
 
-export const likeItem = (id) => {
-  return (dispatch) => {
-    axios
-      .patch(`/api/gifts/like/${id}`)
-      .then((response) => {
-        dispatch(likeSuccessful(response));
-      })
-      .catch((err) => {
-        dispatch(likeFailed(err));
-      });
-  };
+export const likeItem = (id) => async (dispatch) => {
+  try {
+    const res = axios.put(`/api/gifts/like/${id}`);
+    dispatch({ type: actionTypes.LIKE_ITEM_SUCCESS, payload: res.data });
+  } catch (err) {
+    dispatch({ type: actionTypes.LIKE_ITEM_FAILED, msg: err });
+  }
 };
 
-export const unlikeItem = (id) => {
-  return (dispatch) => {
-    axios
-      .patch(`/api/gifts/unlike/${id}`)
-      .then((response) => {
-        dispatch(unlikeSuccessful(response));
-      })
-      .catch((err) => {
-        dispatch(unlikeFailed(err));
-      });
-  };
+export const unlikeItem = (id) => async (dispatch) => {
+  try {
+    const res = axios.put(`/api/gifts/unlike/${id}`);
+    dispatch({ type: actionTypes.UNLIKE_ITEM_SUCCESS, payload: res.data });
+  } catch (err) {
+    dispatch({ type: actionTypes.UNLIKE_ITEM_FAILED, msg: err });
+  }
 };
+
