@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Aux from "../../../../../hoc/Aux/Aux";
 import * as actions from "../../../../../store/actions";
 import Button from '../../../../UI/Button/Button';
-
+import { history, withRouter } from 'react-router-dom';
 import classes from "./ItemSettings.module.css";
 
 const ItemSettings = (props) => {
@@ -14,7 +14,7 @@ const ItemSettings = (props) => {
     let settingBox = props.isSettingsOpen ?  (
       <ul key={props.item.id} className={classes.SettingsList}>
           <li className={classes.SettingsListItem}><Button btnType={"SettingsButton"}>EDIT</Button></li>
-          <li className={classes.SettingsListItem}><Button clicked={() => props.removeItem(props.item._id)} btnType={"SettingsButton"}>DELETE</Button></li>
+          <li className={classes.SettingsListItem}><Button clicked={() => props.removeItem(props.item._id, props.history)} btnType={"SettingsButton"}>DELETE</Button></li>
       </ul>
     ) : null;
 
@@ -26,16 +26,13 @@ const ItemSettings = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-  };
-};
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeItem: (id) => dispatch(actions.removeItem(id)),
+    removeItem: (id, history) => dispatch(actions.removeItem(id, history)),
 
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemSettings);
+export default connect(null , mapDispatchToProps)(withRouter(ItemSettings));

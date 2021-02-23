@@ -3,9 +3,10 @@ import Aux from "../../../hoc/Aux/Aux";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import { connect } from "react-redux";
-import * as actions from "../../../store/actions/items";
+import { addItem, resetItem } from "../../../store/actions/items";
 import { updateObject, checkValidity } from "../../../shared/utility";
 import Spinner from "../../UI/Spinner/Spinner";
+import { history, withRouter } from "react-router-dom";
 
 import classes from "./AddItem.module.css";
 
@@ -29,7 +30,7 @@ const AddItem = (props) => {
 
   useEffect(() => {
     if (props.resetItems) {
-      return props.reset();
+      return props.resetItems();
     }
   }, []);
 
@@ -49,7 +50,8 @@ const AddItem = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.addItem(addItemForm.url.value);
+    console.log(props);
+    props.addItem(addItemForm.url.value, props.history);
   };
 
   const formElementArray = [];
@@ -120,11 +122,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addItem: (url) => dispatch(actions.addItem(url)),
-    reset: () => dispatch(actions.resetItem()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddItem);
+export default connect(mapStateToProps, { addItem, resetItem })(withRouter(AddItem));

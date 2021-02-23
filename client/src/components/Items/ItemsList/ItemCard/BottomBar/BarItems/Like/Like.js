@@ -51,7 +51,7 @@ const Like = (props) => {
 Like.propTypes = {
   likeItem: PropTypes.func.isRequired,
   unlikeItem: PropTypes.func.isRequired,
-  userId: PropTypes.object.isRequired,
+  
 };
 
 const mapStateToProps = (state) => {
