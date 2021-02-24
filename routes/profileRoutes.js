@@ -27,7 +27,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/api/profile/create/:id", async (req, res) => {
+  app.post("/api/profile/create", requireLogin, async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -42,11 +42,13 @@ module.exports = (app) => {
       twitter,
       instagram,
       linkedin,
+      tiktok,
+      pinterest,
     } = req.body;
 
     // Build profile object
     const profileFields = {};
-    profileFields.user = req.params.id;
+    profileFields.user = req.user.id;
     if (website) profileFields.website = website;
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
@@ -58,30 +60,28 @@ module.exports = (app) => {
     if (facebook) profileFields.social.facebook = facebook;
     if (linkedin) profileFields.social.linkedin = linkedin;
     if (instagram) profileFields.social.instagram = instagram;
+    if (tiktok) profileFields.social.tiktok = tiktok;
+    if (pinterest) profileFields.social.pinterest = pinterest;
 
     try {
-      let profile = Profile.findOne({ user: req.params.id });
+      let profile = Profile.findOne({ user: req.user.id });
 
-      if (profile) {
-  
-        
-        // Update
-        profile = await Profile.findOneAndUpdate(
-          { user: req.params.id },
-          { $set: profileFields },
-          { new: true }
-        );
+      // if (profile) {
+      //   // Update
+      //   profile = await Profile.findOneAndUpdate(
+      //     { user: req.user.id },
+      //     { $set: profileFields },
+      //     { new: true }
+      //   );
 
-        return res.json(profile);
-      } else {
+      //   res.json(profile);
+      // }
 
       // Create
-      console.log("if no profile", profile);
       profile = new Profile(profileFields);
 
       await profile.save();
       res.json(profile);
-      }
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

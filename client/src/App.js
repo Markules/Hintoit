@@ -23,6 +23,9 @@ const FriendProfile = React.lazy(() => {
   return import("./containers/Profile/FriendProfile/FriendProfile");
 })
 
+const CreateProfile = React.lazy(() => {
+  return import("./containers/Profile/ProfileForms/CreateProfile");
+})
 
 
 export class App extends Component {
@@ -44,6 +47,7 @@ export class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/share" render={props => <ShareForm {...props} />} />
           <Route path="/discover" render={props => <Discover {...props}/>} />
+          <Route path="/profile/edit" render={props => <CreateProfile {...props}/>} />
           <Route path="/user/:id" render={props => <FriendProfile {...props}/>} />
           <Route exact path="/" component={Profile} />
           <Redirect to="/" />

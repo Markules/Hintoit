@@ -5,6 +5,8 @@ const initialState = {
   userData: null,
   loading: false,
   error: null,
+  profile: null,
+  profiles: []
 };
 
 const fetchLoggedUserFail = (state, action) => {
@@ -23,7 +25,10 @@ const fetchLoggedUserSuccess = (state, action) => {
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
+
+  const { payload, type } = action;
+
+  switch (type) {
     case actionTypes.FETCH_LOGGED_USER_START:
       return fetchLoggedUserStart(state, action);
 
@@ -33,6 +38,25 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_LOGGED_USER_FAIL:
       return fetchLoggedUserFail(state, action);
 
+      case actionTypes.GET_PROFILE:
+      return {
+        ...state,
+        profile: payload,
+        loading: false,
+      };
+    case actionTypes.PROFILE_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      };
+    case actionTypes.CLEAR_PROFILE:
+      return {
+        ...state,
+        profile: null,
+        repos: [],
+        loading: false
+      }
     default:
       return state;
   }

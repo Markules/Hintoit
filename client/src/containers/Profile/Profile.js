@@ -8,6 +8,7 @@ import ProfileNavBar from "./ProfileNavBar/ProfileNavBar";
 import Modal from "../../components/UI/Modal/Modal";
 import AddItem from "../../components/Items/AddItem/AddItem";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import { Link } from "react-router-dom";
 
 
 export class Profile extends Component {
@@ -60,6 +61,8 @@ export class Profile extends Component {
               resetItems={this.state.resetAddItem}
             />
           </Modal>
+          
+          <div className={classes.EditProfileButton}><Link to="profile/edit" className={classes.ProfileEditLink}><p>Edit Profile</p></Link></div>
 
           <div className={classes.AvatarContainer}>
             <img className={classes.Avatar} src={user.avatar} alt={'Hintoit || Avatar'} />

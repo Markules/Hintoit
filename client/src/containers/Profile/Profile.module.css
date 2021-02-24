@@ -4,6 +4,28 @@
 
 }
 
+.EditProfileButton {
+    border: 1px solid gray;
+    box-shadow: 1px 1px 1px 1px #999999;
+    width: 130px;
+    height: 37px;
+    margin: auto;
+    position: relative;
+    top: 100px;
+    font-size: 0.9rem;
+}
+
+.ProfileEditLink {
+    text-decoration: none;
+    color: gray;
+    
+}
+
+.ProfileEditLink:hover {
+    text-decoration: none;
+    color: black;
+}
+
 .AvatarContainer {
     margin: auto;
     margin-top: 120px;
