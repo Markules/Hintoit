@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
+import { setAlert } from './alert'; 
 
 // Logout user
 export const logout = () => {
@@ -22,6 +23,7 @@ export const auth = () => async (dispatch) => {
     localStorage.setItem("userId", res.data._id);
   } catch (err) {
     dispatch({ type: actionTypes.AUTH_FAIL });
+    dispatch(setAlert( err , "danger"));
   }
 };
 

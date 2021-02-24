@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAlert } from './alert';
 
 import {
   FETCH_ALL_USERS_START,
@@ -16,5 +17,6 @@ export const fetchAllUsers = () => async (dispatch) => {
       type: FETCH_ALL_USERS_FAILED,
       payload: { msg: err },
     });
+    dispatch(setAlert( {payload: {msg: err} }, "danger" ));
   }
 };

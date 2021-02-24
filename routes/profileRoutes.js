@@ -63,8 +63,9 @@ module.exports = (app) => {
       let profile = Profile.findOne({ user: req.params.id });
 
       if (profile) {
-        console.log("if profile", profile);
-        //update
+  
+        
+        // Update
         profile = await Profile.findOneAndUpdate(
           { user: req.params.id },
           { $set: profileFields },
@@ -73,12 +74,13 @@ module.exports = (app) => {
 
         return res.json(profile);
       } else {
+
       // Create
       console.log("if no profile", profile);
       profile = new Profile(profileFields);
 
       await profile.save();
-      return res.json(profile);
+      res.json(profile);
       }
     } catch (err) {
       console.error(err.message);

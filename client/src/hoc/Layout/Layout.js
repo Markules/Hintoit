@@ -5,15 +5,18 @@ import Aux from "../Aux/Aux";
 import ToolBar from "../../components/Navigation/ToolBar/ToolBar";
 
 import classes from "./Layout.module.css";
+import Alert from "../../components/Alert/Alert";
 
 const Layout = (props) => {
 
   return (
     <Aux>
+     
       <ToolBar
         isAuth={props.isAuthenticated}
       />
-      <main className={classes.Content}>{props.children}</main>
+       
+      <main className={classes.Content}><Alert />{props.children}</main>
     </Aux>
   );
 };

@@ -1,94 +1,52 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
+import { setAlert } from "./alert";
 
-export const resetItems = () => {
-  return {
-    type: actionTypes.RESET_ITEMS,
-  };
-};
-
-export const removeItemStart = () => {
-  return {
-    type: actionTypes.REMOVE_ITEM_START,
-  };
-};
-
-export const removeItemSuccess = (item) => {
-  return {
-    type: actionTypes.REMOVE_ITEM_SUCCESS,
-    item: item,
-  };
-};
-
-export const removeItemFailed = (error) => {
-  return {
-    type: actionTypes.REMOVE_ITEM_FAILED,
-    error: error,
-  };
-};
-
-export const shareItemStart = () => {
-  return {
-    type: actionTypes.SHARE_ITEM_START,
-  };
-};
-
-export const shareItemSuccess = (data) => {
-  return {
-    type: actionTypes.SHARE_ITEM_SUCCESS,
-    data: data,
-  };
-};
-
-export const shareItemFailed = (error) => {
-  return {
-    type: actionTypes.SHARE_ITEM_FAILED,
-    error: error,
-  };
-};
-
+// Add Item
 export const addItem = (url, history) => async (dispatch) => {
   dispatch({ type: actionTypes.ADD_ITEM_START });
   try {
     const res = axios.post("/api/gift/add", { url });
     dispatch({ type: actionTypes.ADD_ITEM_SUCCESS, payload: res.data });
+    dispatch(setAlert("Item Added", "success"));
     history.push("/login");
+    
   } catch (err) {
     dispatch({ type: actionTypes.ADD_ITEM_FAILED, payload: err });
   }
 };
 
+// Remove Item
 export const removeItem = (id, history) => async (dispatch) => {
   dispatch({ type: actionTypes.REMOVE_ITEM_START });
   try {
     const res = axios.delete(`/api/gifts/${id}`);
     dispatch({ type: actionTypes.REMOVE_ITEM_SUCCESS, payload: res.data });
+    dispatch(setAlert("Item Removed", "success"));
     history.push("/login");
   } catch (err) {
     dispatch({ type: actionTypes.REMOVE_ITEM_FAILED, payload: err });
   }
 };
 
-export const shareItem = (email, name, item) => {
-  return (dispatch) => {
-    dispatch(shareItemStart());
-    axios
-      .post("/api/gift/share", { email, name, item })
-      .then((response) => {
-        dispatch(shareItemSuccess(response.data));
-      })
-      .catch((err) => {
-        dispatch(shareItemFailed(err));
-      });
-  };
+// Share Item
+export const shareItem = (email, name, item) => async (dispatch) => {
+  dispatch({ type: actionTypes.SHARE_ITEM_START });
+  try {
+    const res = axios.post("/api/gift/share", { email, name, item });
+    dispatch({ type: actionTypes.SHARE_ITEM_SUCCESS, payload: res.data });
+    dispatch(setAlert("Item Sent", "success"));
+  } catch (err) {
+    dispatch({ type: actionTypes.SHARE_ITEM_FAILED, payload: err });
+  }
 };
 
-export const resetItem = () => {
-  return (dispatch) => {
-    dispatch(resetItems());
-  };
+// Reset Items
+export const resetItem = (dispatch) => {
+  dispatch({ type: actionTypes.RESET_ITEMS });
 };
 
+// Fetch logged user items
 export const fetchLoggedUserItems = () => async (dispatch) => {
   dispatch({ type: actionTypes.FETCH_LOGGED_USER_ITEMS_START });
   try {
@@ -109,6 +67,7 @@ export const fetchLoggedUserItems = () => async (dispatch) => {
       type: actionTypes.FETCH_LOGGED_USER_ITEMS_FAILED,
       payload: err,
     });
+    dispatch(setAlert( err , "danger"));
   }
 };
 
@@ -132,9 +91,11 @@ export const fetchAllItems = () => async (dispatch) => {
     });
   } catch (err) {
     dispatch({ type: actionTypes.FETCH_ITEMS_FAILED, payload: err });
+    dispatch(setAlert( err , "danger"));
   }
 };
 
+// Like item
 export const likeItem = (id) => async (dispatch) => {
   try {
     const res = axios.put(`/api/gifts/like/${id}`);
@@ -144,6 +105,7 @@ export const likeItem = (id) => async (dispatch) => {
   }
 };
 
+// Unlike Item
 export const unlikeItem = (id) => async (dispatch) => {
   try {
     const res = axios.put(`/api/gifts/unlike/${id}`);

@@ -1,0 +1,40 @@
+.alert {
+  width: 399px;
+  height: 40px;
+  border: 1px solid gray;
+  z-index: 700;
+  position: fixed;
+  left: 39%;
+  top: 100px;
+  padding-bottom: 5px;
+  margin: 1rem 0;
+  opacity: 0;
+  -webkit-animation: fadeinout 3s linear forwards;
+  animation: fadeinout 5s linear forwards;
+  overflow: hidden;
+}
+
+@-webkit-keyframes fadeinout {
+
+    50% { opacity: 1; }
+  }
+  
+  @keyframes fadeinout {
+    50% { opacity: 1; }
+  }
+
+.alert-success {
+  background-color: green;
+  color: white;
+}
+
+.alert-danger {
+  background-color: red;
+  color: white;
+}
+
+.alertMessage {
+position: relative;
+margin-left: 35%;
+font-size: 1rem;
+}
