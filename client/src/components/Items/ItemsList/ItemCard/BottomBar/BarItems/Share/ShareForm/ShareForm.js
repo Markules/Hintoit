@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { withRouter, history } from 'react-router-dom';
 import Input from '../../../../../../../UI/Input/Input';
 import Aux from "../../../../../../../../hoc/Aux/Aux";
 import Button from "../../../../../../../UI/Button/Button";
@@ -61,7 +62,7 @@ const ShareForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.shareItem(shareForm.email.value, shareForm.name.value, item);
+    props.shareItem(shareForm.email.value, shareForm.name.value, item, props.history);
   };
 
   const formElementArray = [];
@@ -122,8 +123,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    shareItem: (email, name, item) => dispatch(actions.shareItem(email, name, item)),
+    shareItem: (email, name, item, history) => dispatch(actions.shareItem(email, name, item, history)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShareForm);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ShareForm));

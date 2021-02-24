@@ -30,12 +30,13 @@ export const removeItem = (id, history) => async (dispatch) => {
 };
 
 // Share Item
-export const shareItem = (email, name, item) => async (dispatch) => {
+export const shareItem = (email, name, item, history) => async (dispatch) => {
   dispatch({ type: actionTypes.SHARE_ITEM_START });
   try {
     const res = axios.post("/api/gift/share", { email, name, item });
     dispatch({ type: actionTypes.SHARE_ITEM_SUCCESS, payload: res.data });
     dispatch(setAlert("Item Sent", "success"));
+    history.push('/');
   } catch (err) {
     dispatch({ type: actionTypes.SHARE_ITEM_FAILED, payload: err });
   }
