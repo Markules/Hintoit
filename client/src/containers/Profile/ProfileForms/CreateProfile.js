@@ -1,12 +1,21 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { createProfile, getCurrentProfile } from "../../../store/actions/profile";
+import {
+  createProfile,
+  getCurrentProfile,
+} from "../../../store/actions/profile";
+import Button from '../../../components/UI/Button/Button';
 import PropTypes from "prop-types";
 
-import classes from './CreateProfile.module.css';
+import classes from "./CreateProfile.module.css";
 
-const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { profile, loading }  }) => {
+const CreateProfile = ({
+  createProfile,
+  history,
+  getCurrentProfile,
+  profile: { profile, loading },
+}) => {
   const [formData, setFormData] = useState({
     website: "",
     location: "",
@@ -17,7 +26,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
     youtube: "",
     instagram: "",
     tiktok: "",
-    pinterest: ""
+    pinterest: "",
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -36,7 +45,6 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
       instagram: loading || !profile.social ? "" : profile.social.instagram,
       tiktok: loading || !profile.social ? "" : profile.social.tiktok,
       pinterest: loading || !profile.social ? "" : profile.social.pinterest,
-
     });
   }, [loading]);
 
@@ -50,7 +58,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
     youtube,
     instagram,
     tiktok,
-    pinterest
+    pinterest,
   } = formData;
 
   const onChange = (e) =>
@@ -63,51 +71,58 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
 
   return (
     <Fragment>
+      <div className={classes.Header}>
       <h1 className={classes.Title}>Edit Profile</h1>
       <p className={classes.Lead}>
-         Let's get some information to make your
-        profile stand out
+        Let's get some information to make your profile stand out
       </p>
-      <small>* = required field</small>
+      </div>
       <form className={classes.Form} onSubmit={(e) => onSubmit(e)}>
-        <div className="form-group">
+        <div className={classes.FormContainer}>
           <input
+            className={classes.Input}
             type="text"
             placeholder="Website"
             name="website"
             value={website}
             onChange={(e) => onChange(e)}
           />
-          <small className="form-text">
+         <div className={classes.TextContainer}><small className={classes.FormText}>
             Could be your own or a company website
-          </small>
+          </small></div>
         </div>
         <div className="form-group">
           <input
+            className={classes.Input}
             type="text"
             placeholder="Location"
             name="location"
             value={location}
             onChange={(e) => onChange(e)}
           />
-          <small className="form-text">
+         <div className={classes.TextContainer}> <small className={classes.FormText}>
             City and state suggested (eg. Boston, MA)
-          </small>
+          </small></div>
         </div>
         <div className="form-group">
-          <textarea placeholder="A short bio of yourself" name="bio" value={bio} onChange={(e) => onChange(e)}></textarea>
-          <small className="form-text">Tell us a little about yourself</small>
+          <textarea
+            className={classes.TextArea}
+            placeholder="A short bio of yourself"
+            name="bio"
+            value={bio}
+            onChange={(e) => onChange(e)}
+          ></textarea>
+         <div className={classes.TextContainer}><div className={classes.TextContainer}><small className={classes.FormText}>Tell us a little about yourself</small></div></div> 
         </div>
 
         <div className="my-2">
-          <button
+          <div
             onClick={() => toggleSocialInputs(!displaySocialInputs)}
-            type="button"
-            className="btn btn-light"
+            className={classes.AddSocialButton}
           >
-            Add Social Network Links
-          </button>
-          <span>Optional</span>
+            <p className={classes.AddText}>Add Social Network Links</p>
+          </div>
+          <div className={classes.TextContainer}><small className={classes.FormText}>Optional</small></div>
         </div>
 
         {displaySocialInputs && (
@@ -115,6 +130,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
             <div className="form-group social-input">
               <i className="fab fa-twitter fa-2x"></i>
               <input
+                className={classes.Input}
                 type="text"
                 placeholder="Twitter URL"
                 name="twitter"
@@ -126,6 +142,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
             <div className="form-group social-input">
               <i className="fab fa-facebook fa-2x"></i>
               <input
+                className={classes.Input}
                 type="text"
                 placeholder="Facebook URL"
                 name="facebook"
@@ -137,6 +154,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
             <div className="form-group social-input">
               <i className="fab fa-youtube fa-2x"></i>
               <input
+                className={classes.Input}
                 type="text"
                 placeholder="YouTube URL"
                 name="youtube"
@@ -148,6 +166,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
             <div className="form-group social-input">
               <i className="fab fa-linkedin fa-2x"></i>
               <input
+                className={classes.Input}
                 type="text"
                 placeholder="Linkedin URL"
                 name="linkedin"
@@ -159,6 +178,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
             <div className="form-group social-input">
               <i className="fab fa-instagram fa-2x"></i>
               <input
+                className={classes.Input}
                 type="text"
                 placeholder="Instagram URL"
                 name="instagram"
@@ -170,6 +190,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
             <div className="form-group social-input">
               <i className="fab fa-instagram fa-2x"></i>
               <input
+                className={classes.Input}
                 type="text"
                 placeholder="Tiktok URL"
                 name="tiktok"
@@ -181,6 +202,7 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
             <div className="form-group social-input">
               <i className="fab fa-instagram fa-2x"></i>
               <input
+                className={classes.Input}
                 type="text"
                 placeholder="Pinterest URL"
                 name="pinterest"
@@ -191,10 +213,11 @@ const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { p
           </Fragment>
         )}
 
-        <input type="submit" className="btn btn-primary my-1" />
-        <Link to={'/'} className="btn btn-light my-1">
+       <div className={classes.ButtonContainer}><Button type="submit" className={classes.Button} btnType={"Submit"}>SAVE</Button></div>
+        <div className={classes.LinkContainer}><Link to={"/"} className={classes.Link}>
           Go Back
         </Link>
+        </div>
       </form>
     </Fragment>
   );
@@ -206,8 +229,10 @@ CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
-})
+});
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(CreateProfile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(CreateProfile)
+);
