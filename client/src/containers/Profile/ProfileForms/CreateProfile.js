@@ -1,10 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { createProfile } from "../../../store/actions/profile";
+import { withRouter, Link } from "react-router-dom";
+import { createProfile, getCurrentProfile } from "../../../store/actions/profile";
 import PropTypes from "prop-types";
 
-const CreateProfile = ({ createProfile, history }) => {
+import classes from './CreateProfile.module.css';
+
+const CreateProfile = ({ createProfile, history, getCurrentProfile, profile: { profile, loading }  }) => {
   const [formData, setFormData] = useState({
     website: "",
     location: "",
@@ -19,6 +21,24 @@ const CreateProfile = ({ createProfile, history }) => {
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  useEffect(() => {
+    getCurrentProfile();
+
+    setFormData({
+      website: loading || !profile.website ? "" : profile.website,
+      location: loading || !profile.location ? "" : profile.location,
+      bio: loading || !profile.bio ? "" : profile.bio,
+      twitter: loading || !profile.social ? "" : profile.social.twitter,
+      facebook: loading || !profile.social ? "" : profile.social.facebook,
+      linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+      youtube: loading || !profile.social ? "" : profile.social.youtube,
+      instagram: loading || !profile.social ? "" : profile.social.instagram,
+      tiktok: loading || !profile.social ? "" : profile.social.tiktok,
+      pinterest: loading || !profile.social ? "" : profile.social.pinterest,
+
+    });
+  }, [loading]);
 
   const {
     website,
@@ -38,18 +58,18 @@ const CreateProfile = ({ createProfile, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, true);
   };
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Create Your Profile</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Let's get some information to make your
+      <h1 className={classes.Title}>Edit Profile</h1>
+      <p className={classes.Lead}>
+         Let's get some information to make your
         profile stand out
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
+      <form className={classes.Form} onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <input
             type="text"
@@ -75,7 +95,7 @@ const CreateProfile = ({ createProfile, history }) => {
           </small>
         </div>
         <div className="form-group">
-          <textarea placeholder="A short bio of yourself" name="bio" ></textarea>
+          <textarea placeholder="A short bio of yourself" name="bio" value={bio} onChange={(e) => onChange(e)}></textarea>
           <small className="form-text">Tell us a little about yourself</small>
         </div>
 
@@ -172,9 +192,9 @@ const CreateProfile = ({ createProfile, history }) => {
         )}
 
         <input type="submit" className="btn btn-primary my-1" />
-        <a className="btn btn-light my-1" href="dashboard.html">
+        <Link to={'/'} className="btn btn-light my-1">
           Go Back
-        </a>
+        </Link>
       </form>
     </Fragment>
   );
@@ -182,6 +202,12 @@ const CreateProfile = ({ createProfile, history }) => {
 
 CreateProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+const mapStateToProps = state => ({
+  profile: state.profile,
+})
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(CreateProfile));

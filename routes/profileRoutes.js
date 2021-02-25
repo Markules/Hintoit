@@ -9,18 +9,18 @@ module.exports = (app) => {
   // @route GET api/profile/me
   // @desc  Get Current users profiles
   // @access Private
-  app.get("/api/profile/me/:id", async (req, res) => {
+  app.get("/api/profile/me", requireLogin ,async (req, res) => {
     try {
       const profile = await Profile.findOne({
-        user: req.params.id,
+        user: req.user.id,
       }).populate("user", ["firstName", "lastName", "avatar"]);
-
+      console.log(profile);
       if (!profile) {
         return res
           .status(400)
           .json({ msg: "There is no profile for this user " });
       }
-      res.json(profile);
+     return res.json(profile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

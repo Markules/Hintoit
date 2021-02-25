@@ -1,0 +1,19 @@
+.Container {
+    text-align: center;
+}
+
+.Form {
+    text-align: center;
+}
+
+.Title {
+    margin: auto;
+    margin-left: 44%;
+}
+
+.Lead {
+    margin: auto;
+    margin-left: 38%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

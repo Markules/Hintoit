@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions";
+import { fetchLoggedUser, getCurrentProfile } from "../../store/actions/profile";
 import ItemsList from "../../components/Items/ItemsList/ItemsList";
 import Button from "../../components/UI/Button/Button";
 import classes from "./Profile.module.css";
@@ -13,7 +13,8 @@ import { Link } from "react-router-dom";
 
 export class Profile extends Component {
   componentDidMount() {
-    this.props.fetchUserData();
+    this.props.fetchLoggedUser();
+    this.props.getCurrentProfile();
   }
 
   state = {
@@ -62,7 +63,6 @@ export class Profile extends Component {
             />
           </Modal>
           
-          <div className={classes.EditProfileButton}><Link to="profile/edit" className={classes.ProfileEditLink}><p>Edit Profile</p></Link></div>
 
           <div className={classes.AvatarContainer}>
             <img className={classes.Avatar} src={user.avatar} alt={'Hintoit || Avatar'} />
@@ -70,6 +70,7 @@ export class Profile extends Component {
           <h2 className={classes.UserName}>
             {user.firstName} {user.lastName}
           </h2>
+          <div className={classes.EditProfileButton}><Link to="profile/edit" className={classes.ProfileEditLink}><p>Edit Profile</p></Link></div>
 
           <ProfileNavBar userData={user} />
           <div className={classes.Seperator}></div>
@@ -99,10 +100,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchUserData: () => dispatch(actions.fetchLoggedUser()),
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, { fetchLoggedUser, getCurrentProfile })(Profile);

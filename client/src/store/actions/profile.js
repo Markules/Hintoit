@@ -37,9 +37,26 @@ export const fetchLoggedUser = () => {
   };
 };
 
+// Get current user profile
+export const getCurrentProfile = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/profile/me");
+
+    dispatch({
+      type: actionTypes.GET_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 
 // Create or update profile
-export const createProfile = (formData, history, edit = false) => async (
+export const createProfile = (formData) => async (
   dispatch
 ) => {
   try {
@@ -48,7 +65,6 @@ export const createProfile = (formData, history, edit = false) => async (
         "Content-Type": "application/json",
       },
     };
-
     const res = await axios.post("/api/profile/create", formData, config);
 
     dispatch({
@@ -56,11 +72,8 @@ export const createProfile = (formData, history, edit = false) => async (
       payload: res.data,
     });
 
-    dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", "success"));
+    dispatch(setAlert("Profile Updated", "success"));
 
-    if (!edit) {
-      history.push("/");
-    }
   } catch (err) {
     const errors = err.response.data.errors;
 
