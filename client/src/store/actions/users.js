@@ -1,10 +1,12 @@
 import axios from "axios";
-import { setAlert } from './alert';
+import { setAlert } from "./alert";
 
 import {
   FETCH_ALL_USERS_START,
   FETCH_ALL_USERS_SUCCESS,
   FETCH_ALL_USERS_FAILED,
+  FOLLOW_USER_SUCCESS,
+  FOLLOW_USER_FAILED,
 } from "./actionTypes";
 
 export const fetchAllUsers = () => async (dispatch) => {
@@ -17,6 +19,16 @@ export const fetchAllUsers = () => async (dispatch) => {
       type: FETCH_ALL_USERS_FAILED,
       payload: { msg: err },
     });
-    dispatch(setAlert( {payload: {msg: err} }, "danger" ));
+    dispatch(setAlert({ payload: { msg: err } }, "danger"));
+  }
+};
+
+export const followUser = (id) => async (dispatch) => {
+  try {
+    const res = await axios.patch(`/api/users/follow/${id}`);
+    dispatch({ type: FOLLOW_USER_SUCCESS, payload: res.data });
+  } catch (err) {
+    dispatch({ type: FOLLOW_USER_FAILED, payload: { msg: err } });
+    dispatch(setAlert("FOLLOW FAILED", "danger"));
   }
 };

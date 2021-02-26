@@ -59,3 +59,6 @@ export const SET_ALERT = "SET_ALERT";
 export const GET_PROFILE = "GET_PROFILE"; 
 export const PROFILE_ERROR = "PROFILE_ERROR"; 
 export const CLEAR_PROFILE = "CLEAR_PROFILE"; 
+
+export const FOLLOW_USER_SUCCESS = 'FOLLOW_USER_SUCCESS';
+export const FOLLOW_USER_FAILED = 'FOLLOW_USER_FAILED';

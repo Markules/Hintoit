@@ -127,3 +127,16 @@ background-color: green;
     height: 70px;
 
 }
+
+.Follow {
+    position: relative;
+    width: 100%;
+    height: 39px;
+    bottom: 0px;
+    background-color: black;
+}
+
+.Follow:hover {
+    background-color: white;
+    color: black;
+}
