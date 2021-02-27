@@ -1,12 +1,11 @@
 .ListContainer {
     margin-top: 25px;
     margin: auto;
-    margin-left: 10%;
-    display: inline-flex;
+    margin-left: 5%;
+    display: inline-block;
     grid-template-columns: repeat(3, 0.3fr);
     grid-gap: 1px;
     grid-row: initial;
-    width: 35%;
-
+    width: 20%;
   
 }
