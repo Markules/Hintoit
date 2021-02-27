@@ -16,14 +16,12 @@ const UsersList = (props) => {
 
   if (!props.loading && props.users !== null) {
     return props.users.map((user) => {
-        console.log(props.users);
       return (
        <div className={classes.ListContainer}><UserCard key={user._id} user={user}/></div>
       );
     });
-  } else {
+  } 
     return <Spinner />;
-  }
 };
 
 UsersList.propTypes = {

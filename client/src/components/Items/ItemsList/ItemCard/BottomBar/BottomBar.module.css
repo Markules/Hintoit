@@ -1,15 +1,15 @@
 .BarList {
     list-style: none;
-    display: flex;
+    display: inline-flex;
     flex-flow: row;
     align-items: center;
-    
+
 }
 
 .Container{
     margin: 0;
     position: absolute;
-    top: 72%;
+    bottom: 0%;
     padding: 0px;
     width: 80%;
 

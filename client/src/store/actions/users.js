@@ -7,6 +7,8 @@ import {
   FETCH_ALL_USERS_FAILED,
   FOLLOW_USER_SUCCESS,
   FOLLOW_USER_FAILED,
+  UNFOLLOW_USER_FAILED,
+  UNFOLLOW_USER_SUCCESS
 } from "./actionTypes";
 
 export const fetchAllUsers = () => async (dispatch) => {
@@ -30,5 +32,15 @@ export const followUser = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({ type: FOLLOW_USER_FAILED, payload: { msg: err } });
     dispatch(setAlert("FOLLOW FAILED", "danger"));
+  }
+};
+
+export const unFollowUser = (id) => async (dispatch) => {
+  try {
+    const res = await axios.patch(`/api/users/unfollow/${id}`);
+    dispatch({ type: UNFOLLOW_USER_SUCCESS, payload: res.data });
+  } catch (err) {
+    dispatch({ type: UNFOLLOW_USER_FAILED, payload: { msg: err } });
+    dispatch(setAlert("UNFOLLOW FAILED", "danger"));
   }
 };

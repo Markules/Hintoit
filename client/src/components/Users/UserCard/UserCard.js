@@ -5,6 +5,7 @@ import { followUser } from "../../../store/actions/users";
 
 import classes from "./UserCard.module.css";
 import { connect } from "react-redux";
+import FollowButton from "./FollowButton/FollowButton";
 
 const UserCard = (props) => {
   console.log(props);
@@ -20,9 +21,7 @@ const UserCard = (props) => {
           </span>
         </div>
       </Link>
-      <Button clicked={() => props.followUser(props.user._id)} btnType={"Follow"}>
-        Follow
-      </Button>
+      <FollowButton user={props.user} />
     </div>
   );
 };

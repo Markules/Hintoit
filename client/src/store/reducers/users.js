@@ -11,6 +11,8 @@ const initalState = {
   user: null,
   loading: null,
   error: {},
+  followers: [],
+  following: []
 };
 
 export default function (state = initalState, actions) {
@@ -25,12 +27,17 @@ export default function (state = initalState, actions) {
         loading: false,
       };
     case FETCH_ALL_USERS_SUCCESS:
-    case FOLLOW_USER_SUCCESS:
       return {
         ...state,
         users: payload,
         loading: false,
       };
+      case FOLLOW_USER_SUCCESS:
+        return {
+          ...state,
+          following: payload,
+          loading: false
+        }
     case FETCH_ALL_USERS_START:
       return {
         ...state,

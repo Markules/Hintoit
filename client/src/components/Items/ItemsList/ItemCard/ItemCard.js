@@ -35,7 +35,7 @@ const ItemCard = (props) => {
       </div>
 
       <ItemSettings item={props.item} isSettingsOpen={isSettingsOpen} />
-      <span className={classes.Preview}>{previewLink(props.item)}</span>
+      <div className={classes.Preview}>{previewLink(props.item)}</div>
       <BottomBar item={props.item} cardType={props.cardType}/>
     </div>
   ) : null;

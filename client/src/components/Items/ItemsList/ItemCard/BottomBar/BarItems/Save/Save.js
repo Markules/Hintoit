@@ -19,13 +19,13 @@ const Save = (props) => {
     let SaveButton = save ?  (
       <Button clicked={() => handleSave()}  btnType={"saveButton"}>
         <i className={[classes.savedIcon, "material-icons"].join(" ")}>
-          content_copy
+          bookmark
         </i>
       </Button>
     ) : (
       <Button clicked={() => handleSave()} btnType={"unsaveButton"}>
         <i className={[classes.unsavedIcon, "material-icons"].join(" ")}>
-        content_copy
+        bookmark_border
         </i>
       </Button>
     );
