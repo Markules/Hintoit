@@ -14,7 +14,7 @@ const Save = (props) => {
     [...props.userItems.includes(props.item.url)]
       ? updateSave(true)
       : updateSave(false);
-  }, []);
+  }, [props.userItems, props.item.url]);
 
     let SaveButton = save ?  (
       <Button clicked={() => handleSave()}  btnType={"saveButton"}>

@@ -16,7 +16,7 @@ const Like = (props) => {
   useEffect(() => {
     const user = props.item.likes.map((like) => like.user);
     user.includes(props.userId) ? updateLike(true) : updateLike(false);
-  }, []);
+  }, [props.item.likes, props.userId]);
 
   let likeButton = like ? (
     <Button clicked={() => handleUnlike()} btnType={"LikeButton"}>

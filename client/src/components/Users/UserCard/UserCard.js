@@ -1,29 +1,40 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../../UI/Button/Button";
-import { followUser } from "../../../store/actions/users";
-
 import classes from "./UserCard.module.css";
-import { connect } from "react-redux";
 import FollowButton from "./FollowButton/FollowButton";
+import PropTypes from 'prop-types';
 
-const UserCard = (props) => {
-  console.log(props);
+
+const UserCard = ({ user }) => {
   return (
     <div className={classes.CardContainer}>
-      <Link to={`/user/${props.user._id}`} className={classes.UserLink}>
+      <Link to={`/user/${user._id}`} className={classes.UserLink}>
         <div>
-          <img src={props.user.avatar} className={classes.Avatar} />
+          <img src={user.avatar} className={classes.Avatar} alt=""/>
           <span className={classes.NameContainer}>
             <p className={classes.Name}>
-              {props.user.firstName} {props.user.lastName}
+              {user.firstName} {user.lastName}
             </p>
+            {user.following ? (
+              <span>Following {user.following.length}</span>
+            ) : (
+              <span>0 Following</span>
+            )}
           </span>
+          {user.followers ? ( 
+            <span>Followers {user.followers.length}</span>
+          ) : (
+            <span>0 Followers</span>
+          )}
         </div>
       </Link>
-      <FollowButton user={props.user} />
+      <FollowButton user={user} />
     </div>
   );
 };
 
-export default connect(null, { followUser })(UserCard);
+UserCard.propTypes = {
+  user: PropTypes.object.isRequired,
+}
+
+export default (UserCard);

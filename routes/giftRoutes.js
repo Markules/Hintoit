@@ -24,7 +24,17 @@ module.exports = (app) => {
   app.get("/api/gifts", async (req, res) => {
     try {
       const gifts = await Gift.find()
-        .populate("_user")
+        .populate("_user", [
+          "CreatedAt",
+          "avatar",
+          "firstName",
+          "lastName",
+          "followers",
+          "following",
+          "likes",
+          "_gifts",
+          "_id",
+        ])
         .sort({ dateCreated: -1 });
       res.json(gifts);
     } catch (err) {
@@ -156,7 +166,7 @@ module.exports = (app) => {
       const gift = await Gift.findById(id);
       // Check if the gift has already been liked
       if (
-        gift.likes.filter((like) =>  like.user.toString() === req.user.id)
+        gift.likes.filter((like) => like.user.toString() === req.user.id)
           .length > 0
       ) {
         return res.status(400).json({ msg: "Item already liked" });
@@ -196,7 +206,6 @@ module.exports = (app) => {
 
       await gift.save();
       return res.json(gift);
-
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -225,7 +234,7 @@ module.exports = (app) => {
         res.json(mail);
       } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).send("Server Error");
       }
     }
   );

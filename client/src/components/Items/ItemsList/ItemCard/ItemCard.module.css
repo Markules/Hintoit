@@ -15,7 +15,6 @@
     position: absolute;
     top: 22px;
     left: 10%;
-    
 }
 
 .SettingsIcon {
@@ -30,7 +29,23 @@
     .CardImage {
         height: 50%;
     }
-    
+}
+
+.userAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    position: absolute;
+    right: 120px;
+    top: 12px;
+}
+
+.userName {
+    position: absolute;
+    top: 7px;
+    right: 7%;
+    text-decoration: none;
+    color: gray;
 }
 
 .Preview{

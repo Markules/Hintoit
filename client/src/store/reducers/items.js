@@ -1,5 +1,4 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../../shared/utility";
 
 const initialState = {
   userItems: null,
@@ -12,13 +11,6 @@ const initialState = {
 const resetItem = (state, action) => {
   console.log("reset");
   return initialState;
-};
-
-const fetchLoggedUserItemsSuccess = (state, action) => {
-  return updateObject(state, {
-    userItems: action.userItems,
-    loading: false,
-  });
 };
 
 const reducer = (state = initialState, action) => {

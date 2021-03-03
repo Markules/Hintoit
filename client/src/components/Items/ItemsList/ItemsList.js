@@ -1,32 +1,31 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-
+import { fetchLoggedUserItems, fetchAllItems} from '../../../store/actions/items'
 import axios from "axios";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
-import * as actions from "../../../store/actions";
 import Spinner from "../../UI/Spinner/Spinner";
 import ItemCard from "./ItemCard/ItemCard";
 
 import classes from "./ItemsList.module.css";
 
-const ItemsList = (props) => {
+const ItemsList = ({ fetchAllItems, fetchLoggedUserItems, items, loading, cardType}) => {
   useEffect(() => {
-    if(props.cardType === 'profile')
-  return props.onFetchUserItems();
-    if(props.cardType === 'discover')
-    return props.onFetchAllItems();
+    if(cardType === 'profile')
+  return fetchLoggedUserItems();
+    if(cardType === 'discover')
+    return fetchAllItems();
 
-  }, []);
+  }, [ fetchLoggedUserItems, fetchAllItems, cardType ]);
 
-  let items = (
+  let fetchedItems = (
     <div className={classes.Spinner}>
       <Spinner />
     </div>
   );
-  if (!props.loading && props.items !== null) {
-    items = props.items.map((item) => <ItemCard key={item.id} item={item} cardType={props.cardType}/>);
-  } else if (!props.loading && props.items === null) {
-    items = (
+  if (!loading && items !== null) {
+    fetchedItems = items.map((item) => <ItemCard key={item.id} item={item} cardType={cardType}/>);
+  } else if (!loading && items === null) {
+    fetchedItems = (
       <div className={classes.NoItemsContainer}>
         <h2>
           No items here..<br></br>
@@ -35,25 +34,18 @@ const ItemsList = (props) => {
       </div>
     );
   }
-  return <div className={classes.ItemsContainer}>{items}</div>;
+  return <div className={classes.ItemsContainer}>{fetchedItems}</div>;
 };
 
 const mapStateToProps = (state) => {
   return {
     items: state.items.userItems,
     loading: state.items.loading,
-    status: state.items,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFetchUserItems: () => dispatch(actions.fetchLoggedUserItems()),
-    onFetchAllItems: () => dispatch(actions.fetchAllItems()),
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { fetchAllItems, fetchLoggedUserItems }
 )(withErrorHandler(ItemsList, axios));

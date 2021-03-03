@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Aux from "../../../../../hoc/Aux/Aux";
 import * as actions from "../../../../../store/actions";
 import Button from '../../../../UI/Button/Button';
-import { history, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import classes from "./ItemSettings.module.css";
 
 const ItemSettings = (props) => {

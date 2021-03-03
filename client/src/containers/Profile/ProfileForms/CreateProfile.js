@@ -46,7 +46,7 @@ const CreateProfile = ({
       tiktok: loading || !profile.social ? "" : profile.social.tiktok,
       pinterest: loading || !profile.social ? "" : profile.social.pinterest,
     });
-  }, [loading]);
+  }, [loading, getCurrentProfile, profile]);
 
   const {
     website,
@@ -213,7 +213,7 @@ const CreateProfile = ({
           </Fragment>
         )}
 
-       <div className={classes.ButtonContainer}><Button type="submit" className={classes.Button} btnType={"Submit"}>SAVE</Button></div>
+       <div className={classes.ButtonContainer}><Button type="submit" className={classes.Button} btnType={"EditSubmit"}>SAVE</Button></div>
         <div className={classes.LinkContainer}><Link to={"/"} className={classes.Link}>
           Go Back
         </Link>

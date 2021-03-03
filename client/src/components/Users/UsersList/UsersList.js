@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchAllUsers } from "../../../store/actions/users";
 import PropTypes from "prop-types";
@@ -7,20 +7,20 @@ import UserCard from '../UserCard/UserCard';
 
 import classes from './UsersList.module.css';
 
-const UsersList = (props) => {
+const UsersList = ({ fetchAllUsers, users, loading, loggedUserId }) => {
   useEffect(() => {
-    props.fetchAllUsers();
-  }, []);
+    fetchAllUsers();
+  }, [fetchAllUsers]);
 
 
 
-  if (!props.loading && props.users !== null) {
-    return props.users.map((user) => {
-      if(user._id === props.loggedUserId){
+  if (!loading && users !== null) {
+    return users.map((user) => {
+      if(user._id === loggedUserId){
         return <span key={0}></span>;
       }
       return (
-       <div className={classes.ListContainer}><UserCard key={user._id} user={user}/></div>
+       <div key={user._id} className={classes.ListContainer}><UserCard  user={user}/></div>
       );
     });
   } 

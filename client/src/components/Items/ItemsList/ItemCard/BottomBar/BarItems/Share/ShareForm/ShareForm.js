@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { withRouter, history } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Input from '../../../../../../../UI/Input/Input';
 import Aux from "../../../../../../../../hoc/Aux/Aux";
 import Button from "../../../../../../../UI/Button/Button";

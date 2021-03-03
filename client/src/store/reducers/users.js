@@ -15,7 +15,7 @@ const initalState = {
   following: []
 };
 
-export default function (state = initalState, actions) {
+const reducer = (state = initalState, actions) => {
   const { type, payload } = actions;
 
   switch (type) {
@@ -47,3 +47,4 @@ export default function (state = initalState, actions) {
       return state;
   }
 }
+export default reducer;

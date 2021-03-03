@@ -6,11 +6,11 @@ import { connect } from "react-redux";
 import { addItem, resetItem } from "../../../store/actions/items";
 import { updateObject, checkValidity } from "../../../shared/utility";
 import Spinner from "../../UI/Spinner/Spinner";
-import { history, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import classes from "./AddItem.module.css";
 
-const AddItem = (props) => {
+const AddItem = ({ resetItems ,resetItem, addItem, history, error, success, loading, closed }) => {
   const [addItemForm, setAddItemForm] = useState({
     url: {
       elementType: "input",
@@ -28,11 +28,6 @@ const AddItem = (props) => {
     },
   });
 
-  useEffect(() => {
-    if (props.resetItems) {
-      return props.resetItems();
-    }
-  }, []);
 
   const inputChangedHandler = (event, controlName) => {
     const updatedControls = updateObject(addItemForm, {
@@ -50,8 +45,8 @@ const AddItem = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(props);
-    props.addItem(addItemForm.url.value, props.history);
+
+    addItem(addItemForm.url.value, history);
   };
 
   const formElementArray = [];
@@ -64,6 +59,7 @@ const AddItem = (props) => {
 
   let form = formElementArray.map((formElement) => (
     <Input
+      placeholder={"e.g. https://www.website.com"}
       key={formElement.id}
       elementType={formElement.config.elementType}
       elementConfig={formElement.config.elementConfig}
@@ -75,15 +71,7 @@ const AddItem = (props) => {
     />
   ));
 
-  let errorMessage = props.error ? (
-    <p className={classes.ErrorMessage}>Something went wrong</p>
-  ) : null;
-
-  let successMessage = props.success ? (
-    <p className={classes.SuccessMessage}>{props.success}</p>
-  ) : null;
-
-  let spinner = props.loading ? (
+  let spinner = loading ? (
     <div style={{ marginTop: "15%" }}>
       <Spinner />
     </div>
@@ -91,8 +79,7 @@ const AddItem = (props) => {
     <div>
       <form onSubmit={submitHandler} className={classes.AddItemForm}>
         <h1 className={classes.FormTitle}>ADD NEW ITEM</h1>
-        {successMessage}
-        {errorMessage}
+  
         {form}
         <br></br>
 
@@ -101,7 +88,7 @@ const AddItem = (props) => {
         </Button>
       </form>
       <Button
-        clicked={props.closed}
+        clicked={closed}
         btnType="Cancel"
         ButtonContent={"CancelContent"}
       >
@@ -118,7 +105,6 @@ const mapStateToProps = (state) => {
     error: state.items.error,
     success: state.items.success,
     loading: state.items.loading,
-    redirectPath: state.items.authRedirectPath,
   };
 };
 

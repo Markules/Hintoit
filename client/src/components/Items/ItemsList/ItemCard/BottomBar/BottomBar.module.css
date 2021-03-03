@@ -1,8 +1,8 @@
 .BarList {
     list-style: none;
-    display: inline-flex;
+    display: flex;
     flex-flow: row;
-    align-items: center;
+    align-items: baseline;
 
 }
 
@@ -10,7 +10,8 @@
     margin: 0;
     position: absolute;
     bottom: 0%;
-    padding: 0px;
+    left: 0;
+    padding: 0;
     width: 80%;
 
    
