@@ -75,6 +75,7 @@ const ShareForm = (props) => {
   let form = formElementArray.map((formElement) => (
     <Input
       inputClasses={'ShareInput'}
+      placeholder={formElement.config.elementConfig.placeholder}
       key={formElement.id}
       elementType={formElement.config.elementType}
       elementConfig={formElement.config.elementConfig}

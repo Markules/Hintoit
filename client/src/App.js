@@ -8,6 +8,7 @@ import Login from "./containers/Auth/Login/Login";
 import Profile from "./containers/Profile/Profile";
 import Logout  from "./containers/Auth/Logout/Logout";
 import Spinner from "./components/UI/Spinner/Spinner";
+import NotFound from "./hoc/Layout/NotFound/NotFound";
 
 
 
@@ -51,6 +52,8 @@ export class App extends Component {
           <Route path="/user/:id" render={props => <FriendProfile {...props}/>} />
           <Route exact path="/" component={Profile} />
           <Redirect to="/" />
+          <Route component={NotFound} />
+
         </Switch>
       )
     }

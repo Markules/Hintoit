@@ -21,6 +21,7 @@ const UserCard = ({ user }) => {
               <span>0 Following</span>
             )}
           </span>
+          {' '}
           {user.followers ? ( 
             <span>Followers {user.followers.length}</span>
           ) : (
@@ -28,6 +29,8 @@ const UserCard = ({ user }) => {
           )}
         </div>
       </Link>
+      <br></br>
+      <br></br>
       <FollowButton user={user} />
     </div>
   );
