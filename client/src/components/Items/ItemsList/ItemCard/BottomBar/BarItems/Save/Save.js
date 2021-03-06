@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment ,useEffect, useState } from "react";
 import { connect } from "react-redux";
-import Aux from "../../../../../../../hoc/Aux/Aux";
 import Button from "../../../../../../UI/Button/Button";
 import * as actions from "../../../../.././../../store/actions";
 
@@ -36,9 +35,9 @@ const Save = (props) => {
   };
 
   return (
-    <Aux>
+    <Fragment>
       <p>{SaveButton}</p>
-    </Aux>
+    </Fragment>
   );
 };
 

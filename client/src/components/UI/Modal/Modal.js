@@ -1,5 +1,4 @@
-import React from "react";
-import Aux from "../../../hoc/Aux/Aux";
+import React, { Fragment } from "react";
 import BackDrop from "../../UI/Backdrop/Backdrop";
 
 import classes from "./Modal.module.css";
@@ -7,7 +6,7 @@ import classes from "./Modal.module.css";
 const Modal = (props) => {
 
   return (
-    <Aux>
+    <Fragment>
       <BackDrop show={props.show} clicked={props.modalClosed} />
       <div
         className={classes.Modal}
@@ -18,7 +17,7 @@ const Modal = (props) => {
       >
         {props.children}
       </div>
-    </Aux>
+    </Fragment>
   );
 };
 

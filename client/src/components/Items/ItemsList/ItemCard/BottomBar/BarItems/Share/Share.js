@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import Aux from "../../../../../../../hoc/Aux/Aux";
 import Button from "../../../../../../UI/Button/Button";
 import * as actions from "../../../../.././../../store/actions";
 
@@ -28,9 +27,9 @@ const Share = (props) => {
   };
 
   return (
-    <Aux>
+    <Fragment>
       <p>{shareButton}</p>
-    </Aux>
+    </Fragment>
   );
 };
 

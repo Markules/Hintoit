@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { Fragment , useEffect } from "react";
 import { connect } from "react-redux";
-import Aux from "../../../../../hoc/Aux/Aux";
+
 import * as actions from "../../../../../store/actions";
 import Button from '../../../../UI/Button/Button';
 import { withRouter } from 'react-router-dom';
@@ -20,9 +20,9 @@ const ItemSettings = (props) => {
 
 
   return (
-    <Aux>
+    <Fragment>
       {settingBox}
-    </Aux>
+    </Fragment>
   );
 };
 

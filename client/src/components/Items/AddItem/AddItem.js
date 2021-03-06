@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Aux from "../../../hoc/Aux/Aux";
+import React, { Fragment ,useState, useEffect } from "react";
+
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import { connect } from "react-redux";
@@ -97,7 +97,7 @@ const AddItem = ({ resetItems ,resetItem, addItem, history, error, success, load
     </div>
   );
 
-  return <Aux>{spinner}</Aux>;
+  return <Fragment>{spinner}</Fragment>;
 };
 
 const mapStateToProps = (state) => {

@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { Fragment ,Component } from "react";
 import ItemsList from "../../components/Items/ItemsList/ItemsList";
 import UsersList from "../../components/Users/UsersList/UsersList";
-import Aux from "../../hoc/Aux/Aux";
 
 import classes from "./Discover.module.css";
 
@@ -30,7 +29,7 @@ export class Discover extends Component {
     };
 
     return (
-      <Aux>
+      <Fragment>
         <div className={classes.ListTypeContainer}>
           <ul className={classes.ListTypes}>
             <li
@@ -48,7 +47,7 @@ export class Discover extends Component {
           </ul>
         </div>
         {listType}
-      </Aux>
+      </Fragment>
     );
   }
 }

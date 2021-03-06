@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import Input from '../../../../../../../UI/Input/Input';
-import Aux from "../../../../../../../../hoc/Aux/Aux";
 import Button from "../../../../../../../UI/Button/Button";
 import Spinner from '../../../../../../../UI/Spinner/Spinner';
 import * as actions from "../../../../../.././../../store/actions";
@@ -100,7 +99,7 @@ const ShareForm = (props) => {
   let shareButton = <Button btnType={"SendButton"}>Send</Button>;
 
   return (
-    <Aux>
+    <Fragment>
       <div className={classes.Container}>
         <h2 className={classes.Title}>Drop a hint to a friend</h2>
         {errorMessage}
@@ -109,7 +108,7 @@ const ShareForm = (props) => {
           {shareButton}
         </form>
       </div>
-    </Aux>
+    </Fragment>
   );
 };
 

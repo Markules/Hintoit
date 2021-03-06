@@ -1,6 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Modal from "../../components/UI/Modal/Modal";
-import Aux from "../Aux/Aux";
 import useHttpErrorHandler from '../../hooks/http-error-handler';
 
 const withErrorHandler = (WrappedComponent, axios) => {
@@ -8,12 +7,12 @@ const withErrorHandler = (WrappedComponent, axios) => {
     const [error, clearError] = useHttpErrorHandler(axios);
 
     return (
-      <Aux>
+      <Fragment>
         <Modal show={error} modalClosed={clearError}>
           {error ? error.message : null}
         </Modal>
         <WrappedComponent {...props} />
-      </Aux>
+      </Fragment>
     );
   };
 };
