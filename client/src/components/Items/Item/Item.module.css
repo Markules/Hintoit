@@ -1,6 +1,14 @@
 .CardContainer{
     margin: auto;
-    margin-left: 10%;
+    margin-left: 15%;
     margin-top: 7%;
     width: 50%;
+    position: relative;
+    padding: 0%;
+}
+
+.ItemCardContainer {
+    position: relative;
+    right: 25%;
+  
 }

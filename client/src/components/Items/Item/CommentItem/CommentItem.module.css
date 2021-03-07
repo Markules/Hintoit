@@ -1,0 +1,61 @@
+.CommentsContainer {
+    margin: auto;
+    width: 70%;
+    box-shadow: 2px 2px 2px 2px #999999;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    margin-bottom: 10px;
+    height: 150px;
+    position: relative;
+    padding: 0%;
+}
+
+.Date {
+    position: relative;
+    text-align: right;
+    padding-right: 25px;
+    color: #999999;
+    bottom: 60%;
+    margin-bottom: 15px;
+}
+
+.UserLink {
+    text-decoration: none;
+    color: black;
+}
+
+.Avatar {
+    width: 70px;
+    border-radius: 55px;
+    margin-left: 15px;
+    position: relative;
+    bottom: 55px;
+
+}
+
+.Text {
+   text-align: left;
+   text-align-last: justify;
+    position: relative;
+    bottom: 125px;
+    margin-left: 14%;
+    width: 80%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.UserName {
+    color:black;
+    margin-left: 17%;
+    position: relative;
+    bottom: 15px;
+
+}
+
+.delete{
+    padding-left: 5px;
+    font-size: 18px;
+}
