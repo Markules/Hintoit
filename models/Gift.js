@@ -13,7 +13,31 @@ const giftSchema = new Schema({
       },
     },
   ],
-  numberOfLikes: { type: Number, default: 0 },
+  comments: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "users",
+      },
+      text: {
+        type: String,
+        required: true,
+      },
+      firstName: {
+        type: String,
+      },
+      lastName: {
+        type: String,
+      },
+      avatar: {
+        type: String,
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   _user: { type: Schema.Types.ObjectId, ref: "users" },
   dateCreated: Date,
 });

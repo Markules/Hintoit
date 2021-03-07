@@ -28,6 +28,7 @@ const input = (props) => {
           className={inputClasses}
           {...props.elementConfig}
           value={props.value}
+          placeholder={props.placeholder}
        onChange={props.changed} />
       );
       break;

@@ -28,6 +28,10 @@ const CreateProfile = React.lazy(() => {
   return import("./containers/Profile/ProfileForms/CreateProfile");
 })
 
+const Item = React.lazy(() => {
+  return import("./components/Items/Item/Item");
+})
+
 
 export class App extends Component {
   componentDidMount() {
@@ -50,6 +54,7 @@ export class App extends Component {
           <Route path="/discover" render={props => <Discover {...props}/>} />
           <Route path="/profile/edit" render={props => <CreateProfile {...props}/>} />
           <Route path="/user/:id" render={props => <FriendProfile {...props}/>} />
+          <Route path="/item/:id" render={props => <Item {...props}/>} />
           <Route exact path="/" component={Profile} />
           <Redirect to="/" />
           <Route component={NotFound} />

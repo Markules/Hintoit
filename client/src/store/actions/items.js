@@ -20,12 +20,15 @@ export const addItem = (url, history) => async (dispatch) => {
 export const removeItem = (id, history) => async (dispatch) => {
   dispatch({ type: actionTypes.REMOVE_ITEM_START });
   try {
-    const res = axios.delete(`/api/gifts/${id}`);
-    dispatch({ type: actionTypes.REMOVE_ITEM_SUCCESS, payload: res.data });
-    dispatch(setAlert("Item Removed", "success"));
+ axios.delete(`/api/gifts/${id}`);
+    dispatch({ type: actionTypes.REMOVE_ITEM_SUCCESS, payload: id});
+    dispatch(fetchLoggedUserItems());
     history.push("/login");
+    dispatch(setAlert("Item Removed", "success"));
   } catch (err) {
-    dispatch({ type: actionTypes.REMOVE_ITEM_FAILED, payload: err });
+    dispatch({ type: actionTypes.REMOVE_ITEM_FAILED, payload: {
+      msg: err.statusText, status: err.status
+    } });
   }
 };
 
@@ -115,3 +118,65 @@ export const unlikeItem = (id) => async (dispatch) => {
     dispatch({ type: actionTypes.UNLIKE_ITEM_FAILED, msg: err });
   }
 };
+
+
+// Get Item
+export const getItem = (id) => async dispatch => {
+ dispatch({ type: actionTypes.FETCH_ITEM_START})
+  try {
+      const res = await axios.get(`/api/gift/${id}`);
+      dispatch({
+          type: actionTypes.FETCH_ITEM_SUCCESS,
+          payload: res.data
+      })
+  } catch (err) {
+      dispatch({
+          type: actionTypes.FETCH_ITEM_FAILED,
+          payload: { msg: err.statusText, status: err.status },
+        });
+  }
+}
+
+// Add comment
+export const addComment = ( itemId, formData ) => async dispatch => {
+  const config = {
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  }
+      try {
+          const res = await axios.post(`/api/gift/comment/${itemId}`, formData, config);
+          dispatch({
+              type: actionTypes.ADD_COMMENT,
+              payload: res.data
+          })
+  
+          dispatch(setAlert('Comment Added', 'success'))
+      } catch (err) {
+          dispatch({
+              type: actionTypes.ADD_COMMENT_FAILED,
+              payload: { msg: err.statusText, status: err.status },
+            });
+      }
+  }
+
+  // Delete comment
+export const deleteComment = ( itemId, commentId ) => async dispatch => {
+
+      try {
+          const res = await axios.delete(`/api/gift/comment/${itemId}/${commentId}`);
+          dispatch({
+              type: actionTypes.REMOVE_COMMENT,
+              payload: res.data,
+              
+          })
+         dispatch(getItem(itemId)) 
+  
+          dispatch(setAlert('Comment Removed', 'success'))
+      } catch (err) {
+          dispatch({
+              type: actionTypes.REMOVE_COMMENT_FAILED,
+              payload: { msg: err.statusText, status: err.status },
+            });
+      }
+  }

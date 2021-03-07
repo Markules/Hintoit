@@ -15,7 +15,7 @@ const ItemsList = ({ fetchAllItems, fetchLoggedUserItems, items, loading, cardTy
     if(cardType === 'discover')
     return fetchAllItems();
 
-  }, [ fetchLoggedUserItems, fetchAllItems, cardType ]);
+  }, [ fetchLoggedUserItems, fetchAllItems ]);
 
   let fetchedItems = (
     <div className={classes.Spinner}>
@@ -23,7 +23,8 @@ const ItemsList = ({ fetchAllItems, fetchLoggedUserItems, items, loading, cardTy
     </div>
   );
   if (!loading && items !== null) {
-    fetchedItems = items.map((item) => <ItemCard key={item.id} item={item} cardType={cardType}/>);
+    fetchedItems = items.map((item => (<ItemCard key={item.id} item={item} cardType={cardType}/>
+      )))
   } else if (!loading && items === null) {
     fetchedItems = (
       <div className={classes.NoItemsContainer}>

@@ -3,7 +3,6 @@ const requireLogin = require("../middlewares/requireLogin");
 const { ObjectID } = require("mongodb");
 const mailer = require("../services/mailer");
 const { check, validationResult } = require("express-validator");
-const { post } = require("request");
 const Gift = mongoose.model("gifts");
 const User = mongoose.model("users");
 
@@ -238,4 +237,82 @@ module.exports = (app) => {
       }
     }
   );
+
+  // @route POST api/gift/comment/:id
+  // @desc  Comment on a post
+  // @access Private
+  app.post(
+    "/api/gift/comment/:id",
+    [requireLogin, [check("text", "Text is required").not().isEmpty()]],
+    async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          errors: errors.array(),
+        });
+      }
+
+      try {
+        const user = await User.findById(req.user.id);
+
+        const gift = await Gift.findById(req.params.id);
+
+        const newComment = {
+          text: req.body.text,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          avatar: user.avatar,
+          user: req.user.id,
+        };
+
+        console.log(newComment);
+
+        gift.comments.unshift(newComment);
+
+        await gift.save();
+
+        res.json(gift.comments);
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+      }
+    }
+  );
+
+  // @route DELETE api/gift/comment/:id/:comment_id
+  // @desc  Delete comment
+  // @access Private
+  app.delete("/api/gift/comment/:id/:comment_id", requireLogin, async (req, res) => {
+    try {
+      const gift = await Gift.findById(req.params.id);
+
+      // Pull out comment
+      const comment = gift.comments.find(
+        (comment) => comment.id === req.params.comment_id
+      );
+      // Make sure comment exists
+      if (!comment) {
+        return res.status(404).json({ msg: "Comment does not exist" });
+      }
+
+      // Check user
+      if (comment.user.toString() !== req.user.id) {
+        return res.status(401).json({ msg: "User not authorized" });
+      }
+
+      // Get remove index
+      const removeIndex = gift.comments
+        .map((comment) => comment.user.toString())
+        .indexOf(req.user.id);
+
+      gift.comments.splice(removeIndex, 1);
+
+      await gift.save();
+
+      res.json(gift.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  });
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import Comment from "./BarItems/Comment/Comment";
 import Like from "./BarItems/Like/Like";
 import Save from "./BarItems/Save/Save";
 import Share from "./BarItems/Share/Share";
@@ -16,6 +17,9 @@ const BottomBar = (props) => {
         <li>
           <Share item={props.item} />
         </li>
+        <li>
+          <Comment cardType={props.cardType} item={props.item} />
+        </li>
       </ul>
     </div>
   );
@@ -31,6 +35,9 @@ const BottomBar = (props) => {
         </li>
         <li>
           <Share item={props.item} />
+        </li>
+        <li>
+          <Comment cardType={props.cardType} item={props.item} />
         </li>
       </ul>
     </div>
