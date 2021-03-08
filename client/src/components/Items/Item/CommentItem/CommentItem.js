@@ -43,7 +43,7 @@ const CommentItem = ({
 };
 
 CommentItem.propTypes = {
-  postId: PropTypes.number.isRequired,
+  itemId: PropTypes.number.isRequired,
   comment: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   deleteComment: PropTypes.func.isRequired,

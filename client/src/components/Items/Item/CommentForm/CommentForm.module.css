@@ -1,0 +1,45 @@
+.CommentFormContiner {
+  width: 70%;
+  margin: auto;
+}
+
+.Form {
+}
+
+.CommentSubmit {
+  position: relative;
+  left: 1%;
+  bottom: 23px;
+  height: 45px;
+  width: 75px;
+  border-radius: 25px;
+  background-color: black;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: bold;
+  box-shadow: 1px 1px 1px 1px #bbb;
+
+}
+
+.CommentSubmit:hover {
+ background-color: white;
+ color: black;
+}
+
+
+.TextArea {
+  width: 450px;
+  height: 35px;
+  border-radius: 15px;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  outline: none;
+    color: #333333;
+  margin-left: 15%;
+  box-shadow: 1px 1px 1px 1px #bbb;
+
+}
