@@ -21,6 +21,20 @@
     
 }
 
+.CreateProfileBox {
+    width: 30%;
+    height: 170px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-shadow: 1px 1px 1px 1px #ccc;
+    border: 1px solid black;
+    margin: auto;
+    margin-top: 25px;
+    font-size: 1rem;
+    text-align: left;
+}
+
 .ProfileEditLink:hover {
     text-decoration: none;
     color: black;
@@ -58,4 +72,25 @@
     position: relative;
     margin: auto;
     border-radius: 95px;
+}
+
+.CreateButton {
+    margin-top: 55px;
+    background-color: black;
+    width: 160px;
+    height: 40px;
+    border-radius: 30px;
+    position: relative;
+    left: 60%;
+   
+}
+
+
+.CreateLink {
+   text-decoration: none;
+   color: white; 
+   position: absolute;
+   margin: auto;
+   margin-top: 10px;
+   margin-left: 10px;
 }

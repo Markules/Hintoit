@@ -1,0 +1,86 @@
+.Container {
+  text-align: center;
+}
+
+.Form {
+  text-align: center;
+}
+
+.Title {
+  margin-left: 30%;
+}
+
+.Lead {
+  margin-left: 20%;
+}
+
+.Input {
+  height: 25px;
+  width: 50%;
+  margin-bottom: 5px;
+  padding-left: 7px;
+}
+
+.TextArea {
+  width: 30%;
+  height: 100px;
+}
+
+.FormContainer {
+  margin: auto;
+}
+
+.FormText {
+  color: #666666;
+}
+
+.TextContainer {
+  margin-bottom: 17px;
+}
+
+.AddSocialButton {
+  background-color: black;
+  color: white;
+  width: 270px;
+  height: 40px;
+  font-size: 14px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: auto;
+  margin-bottom: 7px;
+}
+
+.Header {
+  margin: auto;
+  margin-top: 7%;
+  width: 50%;
+}
+
+.Link {
+  color: #555555;
+  width: 270px;
+  font-size: 14px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  top: 40px;
+}
+
+.ButtonContainer {
+  margin: auto;
+}
+
+.LinkContainer {
+  margin: auto;
+}
+
+.Link:hover {
+  color: black;
+}
+
+.AddText {
+  padding-top: 10px;
+}

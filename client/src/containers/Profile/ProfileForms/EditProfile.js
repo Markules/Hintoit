@@ -1,13 +1,21 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import { createProfile } from "../../../store/actions/profile";
-import PropTypes from "prop-types";
+import { withRouter, Link } from "react-router-dom";
+import {
+  createProfile,
+  getCurrentProfile,
+} from "../../../store/actions/profile";
 import Button from '../../../components/UI/Button/Button';
+import PropTypes from "prop-types";
 
-import classes from './CreateProfile.module.css';
+import classes from "./EditProfile.module.css";
 
-const CreateProfile = ({ createProfile, history }) => {
+const EditProfile = ({
+  createProfile,
+  history,
+  getCurrentProfile,
+  profile: { profile, loading },
+}) => {
   const [formData, setFormData] = useState({
     website: "",
     location: "",
@@ -22,6 +30,23 @@ const CreateProfile = ({ createProfile, history }) => {
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  useEffect(() => {
+    getCurrentProfile();
+
+    setFormData({
+      website: loading || !profile.website ? "" : profile.website,
+      location: loading || !profile.location ? "" : profile.location,
+      bio: loading || !profile.bio ? "" : profile.bio,
+      twitter: loading || !profile.social ? "" : profile.social.twitter,
+      facebook: loading || !profile.social ? "" : profile.social.facebook,
+      linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+      youtube: loading || !profile.social ? "" : profile.social.youtube,
+      instagram: loading || !profile.social ? "" : profile.social.instagram,
+      tiktok: loading || !profile.social ? "" : profile.social.tiktok,
+      pinterest: loading || !profile.social ? "" : profile.social.pinterest,
+    });
+  }, [loading, getCurrentProfile]);
 
   const {
     website,
@@ -41,16 +66,17 @@ const CreateProfile = ({ createProfile, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, true);
   };
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Create Your Profile</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Let's get some information to make your
-        profile stand out
+      <div className={classes.Header}>
+      <h1 className={classes.Title}>Edit Profile</h1>
+      <p className={classes.Lead}>
+        Let's get some information to make your profile stand out
       </p>
+      </div>
       <form className={classes.Form} onSubmit={(e) => onSubmit(e)}>
         <div className={classes.FormContainer}>
           <input
@@ -61,11 +87,9 @@ const CreateProfile = ({ createProfile, history }) => {
             value={website}
             onChange={(e) => onChange(e)}
           />
-          <div className={classes.TextContainer}>
-            <small className={classes.FormText}>
-              Could be your own or a company website
-            </small>
-          </div>
+         <div className={classes.TextContainer}><small className={classes.FormText}>
+            Could be your own or a company website
+          </small></div>
         </div>
         <div className="form-group">
           <input
@@ -76,12 +100,9 @@ const CreateProfile = ({ createProfile, history }) => {
             value={location}
             onChange={(e) => onChange(e)}
           />
-          <div className={classes.TextContainer}>
-            {" "}
-            <small className={classes.FormText}>
-              City and state suggested (eg. Boston, MA)
-            </small>
-          </div>
+         <div className={classes.TextContainer}> <small className={classes.FormText}>
+            City and state suggested (eg. Boston, MA)
+          </small></div>
         </div>
         <div className="form-group">
           <textarea
@@ -91,13 +112,7 @@ const CreateProfile = ({ createProfile, history }) => {
             value={bio}
             onChange={(e) => onChange(e)}
           ></textarea>
-          <div className={classes.TextContainer}>
-            <div className={classes.TextContainer}>
-              <small className={classes.FormText}>
-                Tell us a little about yourself
-              </small>
-            </div>
-          </div>
+         <div className={classes.TextContainer}><div className={classes.TextContainer}><small className={classes.FormText}>Tell us a little about yourself</small></div></div> 
         </div>
 
         <div className="my-2">
@@ -107,9 +122,7 @@ const CreateProfile = ({ createProfile, history }) => {
           >
             <p className={classes.AddText}>Add Social Network Links</p>
           </div>
-          <div className={classes.TextContainer}>
-            <small className={classes.FormText}>Optional</small>
-          </div>
+          <div className={classes.TextContainer}><small className={classes.FormText}>Optional</small></div>
         </div>
 
         {displaySocialInputs && (
@@ -199,27 +212,27 @@ const CreateProfile = ({ createProfile, history }) => {
             </div>
           </Fragment>
         )}
-        <div className={classes.ButtonContainer}>
-          <Button
-            type="submit"
-            className={classes.Button}
-            btnType={"EditSubmit"}
-          >
-            SAVE
-          </Button>
-        </div>
-        <div className={classes.LinkContainer}>
-          <Link to={"/"} className={classes.Link}>
-            Go Back
-          </Link>
+
+       <div className={classes.ButtonContainer}><Button type="submit" className={classes.Button} btnType={"EditSubmit"}>SAVE</Button></div>
+        <div className={classes.LinkContainer}><Link to={"/"} className={classes.Link}>
+          Go Back
+        </Link>
         </div>
       </form>
     </Fragment>
   );
 };
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
+);

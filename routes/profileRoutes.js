@@ -9,18 +9,19 @@ module.exports = (app) => {
   // @route GET api/profile/me
   // @desc  Get Current users profiles
   // @access Private
-  app.get("/api/profile/me", requireLogin ,async (req, res) => {
+  app.get("/api/profile/me", requireLogin, async (req, res) => {
+    console.log(req.user.id);
     try {
       const profile = await Profile.findOne({
         user: req.user.id,
       }).populate("user", ["firstName", "lastName", "avatar"]);
-      console.log(profile);
+      console.log('profile',profile);
       if (!profile) {
         return res
           .status(400)
           .json({ msg: "There is no profile for this user " });
       }
-     return res.json(profile);
+      return res.json(profile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -65,7 +66,7 @@ module.exports = (app) => {
 
     try {
       let profile = Profile.findOne({ user: req.user.id });
-
+      console.log(profile);
       if (profile) {
         // Update
         profile = await Profile.findOneAndUpdate(
@@ -74,14 +75,14 @@ module.exports = (app) => {
           { new: true }
         );
 
-        res.json(profile);
+        return res.json(profile);
       }
 
       // Create
       profile = new Profile(profileFields);
 
       await profile.save();
-      res.json(profile);
+      return res.json(profile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

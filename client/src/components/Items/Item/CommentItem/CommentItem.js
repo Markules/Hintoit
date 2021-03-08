@@ -15,7 +15,7 @@ const CommentItem = ({
   deleteComment,
 }) => {
   return (
-    <div className={classes.CommentsContainer}>
+    <div key={_id} className={classes.CommentsContainer}>
      
       <div>
       {!auth.loading && user === auth.userId && (
