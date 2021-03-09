@@ -12,6 +12,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import AddItem from "../../components/Items/AddItem/AddItem";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { Link } from "react-router-dom";
+import UserSocialBar from "./UserSocialBar/UserSocialBar";
 
 export class Profile extends Component {
   componentDidMount() {
@@ -72,9 +73,19 @@ export class Profile extends Component {
               alt={"Hintoit || Avatar"}
             />
           </div>
+
+          {this.props.profile.profile && this.props.profile.profile.social && (
+            <UserSocialBar profile={this.props.profile.profile.social} website={this.props.profile.profile.website}/>
+          )}
+
           <h2 className={classes.UserName}>
             {user.firstName} {user.lastName}
           </h2>
+          {this.props.profile.profile && this.props.profile.profile.location && (
+            <div className={classes.Location}>
+              <p>From {this.props.profile.profile.location}</p>
+            </div>
+          )}
           {this.props.profile !== null ? (
             <div className={classes.EditProfileButton}>
               <Link to="profile/edit" className={classes.ProfileEditLink}>
@@ -82,8 +93,14 @@ export class Profile extends Component {
               </Link>
             </div>
           ) : (
-            <div className={classes.CreateProfileBox}>Add more information about yourself here so your profile can stand out!
-              <div className={classes.CreateButton}><Link to="profile/create" className={classes.CreateLink}>Create Profile</Link></div>
+            <div className={classes.CreateProfileBox}>
+              Add more information about yourself here so your profile can stand
+              out!
+              <div className={classes.CreateButton}>
+                <Link to="profile/create" className={classes.CreateLink}>
+                  Create Profile
+                </Link>
+              </div>
             </div>
           )}
 
@@ -112,7 +129,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.idToken !== null,
     user: state.profile.userData,
     loading: state.auth.loading,
-    profile: state.profile.profile,
+    profile: state.profile,
   };
 };
 

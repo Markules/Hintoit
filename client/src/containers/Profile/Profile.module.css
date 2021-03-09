@@ -74,6 +74,12 @@
     border-radius: 95px;
 }
 
+.Location {
+    color: black;
+    width: 300px;
+    margin: auto;   
+}
+
 .CreateButton {
     margin-top: 55px;
     background-color: black;

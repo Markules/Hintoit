@@ -1,0 +1,18 @@
+.SocialContainer {
+  width: 90%;
+  height: 30px;
+  position: relative;
+  margin-left: 5%;
+  padding-top: 10px;
+}
+
+.SocialImg {
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+}
+
+.SocialLink {
+  text-decoration: none;
+  margin-left: 12px;
+}
