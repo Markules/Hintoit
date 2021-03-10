@@ -1,0 +1,33 @@
+.CardContainer{
+    box-shadow: 1px 1px 1px 1px #ccc;
+    width: 300px;
+    padding: 14px;
+    text-align: left;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+}
+
+.UserLink{
+    text-decoration: none;
+    color: #999999;
+}
+
+.Avatar {
+    border-radius: 100px;
+    width: 45px;
+    position: relative;
+    top: 25px;
+    left: 25px;
+}
+
+.TotalFollowers{
+    margin-bottom: 2%;
+}
+
+.UserName {
+    text-align: right;
+    position: relative;
+    bottom: 20px;
+    right: 25px;
+}

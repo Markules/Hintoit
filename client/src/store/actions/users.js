@@ -1,5 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
+import {getFollowingUsers, getFollowersUsers} from './profile'
 
 import {
   FETCH_ALL_USERS_START,

@@ -88,4 +88,38 @@ export const createProfile = (formData) => async (
   }
 };
 
+// Get following users 
+export const getFollowingUsers = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/following/${id}`);
+
+    dispatch({
+      type: actionTypes.FETCH_FOLLOWING_USERS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.FETCH_FOLLOWING_USERS_FAILED,
+      payload: { msg: err.statusText, status: err.status },
+    });
+  }
+};
+
+// Get followers users 
+export const getFollowersUsers = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/followers/${id}`);
+
+    dispatch({
+      type: actionTypes.FETCH_FOLLOWERS_USERS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.FETCH_FOLLOWERS_USERS_FAILED,
+      payload: { msg: err.statusText, status: err.status },
+    });
+  }
+};
+
 

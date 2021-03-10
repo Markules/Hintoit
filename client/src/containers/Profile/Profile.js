@@ -86,7 +86,7 @@ export class Profile extends Component {
               <p>From {this.props.profile.profile.location}</p>
             </div>
           )}
-          {this.props.profile !== null ? (
+          {this.props.profile.profile !== null ? (
             <div className={classes.EditProfileButton}>
               <Link to="profile/edit" className={classes.ProfileEditLink}>
                 <p>Edit Profile</p>

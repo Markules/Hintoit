@@ -6,7 +6,9 @@ const initialState = {
   loading: false,
   error: null,
   profile: null,
-  profiles: []
+  profiles: [],
+  following: [],
+  followers: [],
 };
 
 const fetchLoggedUserFail = (state, action) => {
@@ -25,7 +27,6 @@ const fetchLoggedUserSuccess = (state, action) => {
 };
 
 const reducer = (state = initialState, action) => {
-
   const { payload, type } = action;
 
   switch (type) {
@@ -38,13 +39,15 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_LOGGED_USER_FAIL:
       return fetchLoggedUserFail(state, action);
 
-      case actionTypes.GET_PROFILE:
+    case actionTypes.GET_PROFILE:
       return {
         ...state,
         profile: payload,
         loading: false,
       };
     case actionTypes.PROFILE_ERROR:
+    case actionTypes.FETCH_FOLLOWERS_USERS_FAILED:
+    case actionTypes.FETCH_FOLLOWING_USERS_FAILED:  
       return {
         ...state,
         error: payload,
@@ -55,8 +58,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         profile: null,
         repos: [],
-        loading: false
-      }
+        loading: false,
+      };
+
+    case actionTypes.FETCH_FOLLOWING_USERS:
+      return {
+        ...state,
+        following: payload,
+        loading: false,
+      };
+
+    case actionTypes.FETCH_FOLLOWERS_USERS:
+      return {
+        ...state,
+        followers: payload,
+        loading: false,
+      };
     default:
       return state;
   }

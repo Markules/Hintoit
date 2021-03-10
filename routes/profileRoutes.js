@@ -14,8 +14,14 @@ module.exports = (app) => {
     try {
       const profile = await Profile.findOne({
         user: req.user.id,
-      }).populate("user", ["firstName", "lastName", "avatar"]);
-      console.log('profile',profile);
+      }).populate("user", [
+        "firstName",
+        "lastName",
+        "avatar",
+        "following",
+        "followers",
+      ]);
+
       if (!profile) {
         return res
           .status(400)
@@ -66,8 +72,9 @@ module.exports = (app) => {
 
     try {
       let profile = Profile.findOne({ user: req.user.id });
-      console.log(profile);
+
       if (profile) {
+        console.log("profile edit", profile);
         // Update
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
@@ -77,10 +84,9 @@ module.exports = (app) => {
 
         return res.json(profile);
       }
-
       // Create
       profile = new Profile(profileFields);
-
+      console.log("profile Create", profile);
       await profile.save();
       return res.json(profile);
     } catch (err) {

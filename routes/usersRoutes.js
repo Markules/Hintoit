@@ -63,13 +63,29 @@ module.exports = (app) => {
     }
   });
 
-  // Fetch Following users
-  app.get("/api/follow", requireLogin, async (req, res) => {
-    const loggedUserId = req.user.id;
-    console.log(loggedUserId);
+// @route GET api/following/:id
+// @desc  Get Following users 
+// @access Public
+  app.get("/api/following/:id", async (req, res) => {
+    const userId = req.params.id;
+    console.log(userId);
     try {
-      const users = await User.findById(loggedUserId).populate("following");
-      res.send(users.following);
+      const users = await User.findById(userId).populate("following");
+      return res.json(users.following);
+    } catch (err) {
+      res.status(404).send(err);
+      console.log(err);
+    }
+  });
+
+// @route GET api/profile
+// @desc  Get  Followers users
+// @access Public
+  app.get("/api/followers/:id", async (req, res) => {
+    const userId = req.params.id;
+    try {
+      const users = await User.findById(userId).populate("followers");
+      return res.json(users.followers);
     } catch (err) {
       res.status(404).send(err);
       console.log(err);
@@ -131,15 +147,5 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/api/followers", requireLogin, async (req, res) => {
-    const loggedUserId = req.user.id;
-    console.log(loggedUserId);
-    try {
-      const users = await User.findById(loggedUserId).populate("followers");
-      res.send(users.followers);
-    } catch (err) {
-      res.status(404).send(err);
-      console.log(err);
-    }
-  });
+
 };

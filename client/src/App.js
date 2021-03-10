@@ -24,6 +24,14 @@ const FriendProfile = React.lazy(() => {
   return import("./containers/Profile/FriendProfile/FriendProfile");
 });
 
+const FollowersList = React.lazy(() => {
+  return import("./containers/Profile/FollowLists/FollowersList/FollowersList");
+});
+
+const FollowingList = React.lazy(() => {
+  return import("./containers/Profile/FollowLists/FollowingList/FollowingList");
+});
+
 const EditProfile = React.lazy(() => {
   return import("./containers/Profile/ProfileForms/EditProfile");
 });
@@ -55,17 +63,15 @@ export class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/share" render={(props) => <ShareForm {...props} />} />
           <Route path="/discover" render={(props) => <Discover {...props} />} />
-          <Route
-            path="/profile/edit"
-            render={(props) => <EditProfile {...props} />}
-          />
+          <Route path="/profile/edit" render={(props) => <EditProfile {...props} />}/>
           <Route path="/profile/create" component={CreateProfile} />
-          <Route
-            path="/user/:id"
-            render={(props) => <FriendProfile {...props} />}
-          />
+          <Route path="/following" render={(props) => <FollowingList {...props} />} />
+          <Route path="/followers" render={(props) => <FollowersList {...props} />} />
+          <Route path="/user/:id" render={(props) => <FriendProfile {...props} />} />
+
           <Route path="/item/:id" render={(props) => <Item {...props} />} />
           <Route exact path="/" component={Profile} />
+          
           <Redirect to="/" />
           <Route component={NotFound} />
         </Switch>

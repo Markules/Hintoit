@@ -16,6 +16,8 @@ const EditProfile = ({
   getCurrentProfile,
   profile: { profile, loading },
 }) => {
+
+  console.log(profile)
   const [formData, setFormData] = useState({
     website: "",
     location: "",
@@ -48,6 +50,7 @@ const EditProfile = ({
     });
   }, [loading, getCurrentProfile]);
 
+  console.log(profile.website);
   const {
     website,
     location,
