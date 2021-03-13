@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchLoggedUserItems, fetchAllItems} from '../../../store/actions/items'
+import { fetchLoggedUserItems, fetchAllItems, fetchItemsByUserId} from '../../../store/actions/items'
 import axios from "axios";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import Spinner from "../../UI/Spinner/Spinner";
@@ -8,14 +8,17 @@ import ItemCard from "./ItemCard/ItemCard";
 
 import classes from "./ItemsList.module.css";
 
-const ItemsList = ({ fetchAllItems, fetchLoggedUserItems, items, loading, cardType}) => {
+const ItemsList = ({ fetchAllItems, fetchLoggedUserItems, fetchItemsByUserId , items, loading, cardType, userId}) => {
   useEffect(() => {
     if(cardType === 'profile')
   return fetchLoggedUserItems();
     if(cardType === 'discover')
     return fetchAllItems();
+    if(cardType ==='friend'){
+      return fetchItemsByUserId(userId)
+    }
 
-  }, [ fetchLoggedUserItems, fetchAllItems ]);
+  }, [ fetchLoggedUserItems, fetchAllItems, fetchItemsByUserId ]);
 
   let fetchedItems = (
     <div className={classes.Spinner}>
@@ -48,5 +51,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  { fetchAllItems, fetchLoggedUserItems }
+  { fetchAllItems, fetchLoggedUserItems, fetchItemsByUserId }
 )(withErrorHandler(ItemsList, axios));

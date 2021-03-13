@@ -75,6 +75,33 @@ export const fetchLoggedUserItems = () => async (dispatch) => {
   }
 };
 
+
+// Fetch items by user id
+export const fetchItemsByUserId = (id) => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_ITEMS_START });
+  try {
+    const res = await axios.get(`/api/user/gifts/${id}`);
+    const fetchedItems = [];
+    for (let key in res.data) {
+      fetchedItems.push({
+        ...res.data[key],
+        id: key,
+      });
+    }
+    dispatch({
+      type: actionTypes.FETCH_ITEMS_SUCCESS,
+      payload: fetchedItems,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.FETCH_ITEMS_FAILED,
+      payload: err,
+    });
+    dispatch(setAlert( err , "danger"));
+  }
+};
+
+
 // Fetch all items
 export const fetchAllItems = () => async (dispatch) => {
   dispatch({ type: actionTypes.FETCH_ITEMS_START });

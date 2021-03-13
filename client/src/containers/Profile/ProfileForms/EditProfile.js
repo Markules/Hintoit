@@ -50,7 +50,7 @@ const EditProfile = ({
     });
   }, [loading, getCurrentProfile]);
 
-  console.log(profile.website);
+
   const {
     website,
     location,

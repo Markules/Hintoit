@@ -7,6 +7,9 @@ import Button from "../../../UI/Button/Button";
 import classes from "./FollowButton.module.css";
 
 const FollowButton = ({ followUser, unFollowUser, user, loggedUser }) => {
+  
+  console.log("id", user)
+  
   const [isFollow, setFollowStatus] = useState(
     loggedUser.following.includes(user._id)
   );

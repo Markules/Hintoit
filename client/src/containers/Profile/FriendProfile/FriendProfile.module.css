@@ -1,0 +1,17 @@
+.ProfileContainer {
+    margin-top: 10%;
+    text-align: center;
+}
+
+.FollowButtonContainer {
+    width: 200px;
+    margin: auto;
+}
+
+.ItemsContainer {
+    width: 100%;
+}
+
+.ProfileNav {
+    margin: auto;
+}

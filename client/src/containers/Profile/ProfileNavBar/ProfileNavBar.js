@@ -2,15 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import classes from "./ProfileNavBar.module.css";
-import { fetchLoggedUserItems } from '../../../store/actions/items';
 
-const ProfileNavBar = ({ fetchLoggedUserItems, userData}) => {
-  
-
-  useEffect(() => {
-    fetchLoggedUserItems();
-  }, [fetchLoggedUserItems]);
-
+const ProfileNavBar = ({ userData}) => {
   const user = userData;
   return (
     <ul className={classes.navContainer}>
@@ -35,4 +28,4 @@ const ProfileNavBar = ({ fetchLoggedUserItems, userData}) => {
 };
 
 
-export default connect(null, { fetchLoggedUserItems })(ProfileNavBar);
+export default connect(null, { })(ProfileNavBar);

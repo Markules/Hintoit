@@ -11,7 +11,7 @@ import Youtube from "../../../../src/img/social/Youtube.png";
 
 import classes from "./UserSocialBar.module.css";
 
-const UserSocialBar = ({ profile, website }) => {
+const UserSocialBar = ({ social, website }) => {
   
   console.log(website);
     return (
@@ -23,43 +23,43 @@ const UserSocialBar = ({ profile, website }) => {
           <i className={[classes.SocialImg, "material-icons"].join(' ')}>link</i>        
         </a>
       )}
-      {profile.twitter && (
-        <a className={classes.SocialLink} href={profile.twitter} target="_blank" rel="noopener noreferrer">
+      {social.twitter && (
+        <a className={classes.SocialLink} href={social.twitter} target="_blank" rel="noopener noreferrer">
           <img className={classes.SocialImg} src={Twitter} alt="twitter" />
         </a>
       )}
 
-      {profile.facebook && (
-        <a className={classes.SocialLink} href={profile.facebook} target="_blank" rel="noopener noreferrer">
+      {social.facebook && (
+        <a className={classes.SocialLink} href={social.facebook} target="_blank" rel="noopener noreferrer">
           <img className={classes.SocialImg} src={Facebook} alt="facebook" />
         </a>
       )}
 
-      {profile.instagram && (
-        <a className={classes.SocialLink} href={profile.instagram} target="_blank" rel="noopener noreferrer">
+      {social.instagram && (
+        <a className={classes.SocialLink} href={social.instagram} target="_blank" rel="noopener noreferrer">
           <img className={classes.SocialImg} src={Instagram} alt="instagram" />
         </a>
       )}
 
-      {profile.linkedin && (
-        <a className={classes.SocialLink} href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+      {social.linkedin && (
+        <a className={classes.SocialLink} href={social.linkedin} target="_blank" rel="noopener noreferrer">
           <img className={classes.SocialImg} src={Linkedin} alt="linkedin" />
         </a>
       )}
 
-      {profile.pinterest && (
-        <a className={classes.SocialLink} href={profile.pinterest} target="_blank" rel="noopener noreferrer">
+      {social.pinterest && (
+        <a className={classes.SocialLink} href={social.pinterest} target="_blank" rel="noopener noreferrer">
           <img className={classes.SocialImg} src={Pinterest} alt="pinterest" />
         </a>
       )}
-      {profile.tiktok && (
-        <a className={classes.SocialLink} href={profile.tiktok} target="_blank" rel="noopener noreferrer">
+      {social.tiktok && (
+        <a className={classes.SocialLink} href={social.tiktok} target="_blank" rel="noopener noreferrer">
           <img className={classes.SocialImg} src={Tiktok} alt="tiktok" />
         </a>
       )}
 
-      {profile.youtube && (
-        <a className={classes.SocialLink} href={profile.youtube} target="_blank" rel="noopener noreferrer">
+      {social.youtube && (
+        <a className={classes.SocialLink} href={social.youtube} target="_blank" rel="noopener noreferrer">
           <img className={classes.SocialImg} src={Youtube} alt="youtube" />
         </a>
       )}
@@ -68,7 +68,7 @@ const UserSocialBar = ({ profile, website }) => {
 };
 
 UserSocialBar.propTypes = {
-  profile: PropTypes.object.isRequired,
+  social: PropTypes.object.isRequired,
   website: PropTypes.string.isRequired,
 };
 

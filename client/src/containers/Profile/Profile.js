@@ -75,7 +75,7 @@ export class Profile extends Component {
           </div>
 
           {this.props.profile.profile && this.props.profile.profile.social && (
-            <UserSocialBar profile={this.props.profile.profile.social} website={this.props.profile.profile.website}/>
+            <UserSocialBar social={this.props.profile.profile.social} website={this.props.profile.profile.website}/>
           )}
 
           <h2 className={classes.UserName}>

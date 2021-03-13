@@ -52,6 +52,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: payload,
         loading: false,
+        profile: null
       };
     case actionTypes.CLEAR_PROFILE:
       return {

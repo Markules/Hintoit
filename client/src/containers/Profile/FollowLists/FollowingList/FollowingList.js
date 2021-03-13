@@ -8,7 +8,9 @@ import FollowCard from "../FollowCard/FollowCard";
 import classes from "./FollowingList.module.css";
 
 const FollowingList = ({ getFollowingUsers, location, following, loading }) => {
-  useEffect(() => {
+  
+  console.log("following", location)
+    useEffect(() => {
     getFollowingUsers(location.state);
   }, [getFollowingUsers]);
 

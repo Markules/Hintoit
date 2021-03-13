@@ -54,18 +54,32 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 };
 
+// Get profile by ID
+export const getProfileById = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/profile/${userId}`);
+
+    dispatch({
+      type: actionTypes.GET_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+
 
 // Create or update profile
 export const createProfile = (formData) => async (
   dispatch
 ) => {
   try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const res = await axios.post("/api/profile/create", formData, config);
+
+    const res = await axios.post("/api/profile/create", formData);
 
     dispatch({
       type: actionTypes.GET_PROFILE,

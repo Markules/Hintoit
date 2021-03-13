@@ -5,16 +5,6 @@ const { ObjectID } = require("mongodb");
 const User = mongoose.model("users");
 
 module.exports = (app) => {
-  //Fetch User by id
-  app.get("/api/users/:id", async (req, res) => {
-    const id = req.params.id;
-    try {
-      const user = await User.findOne({ _id: id }).populate("profileImage");
-      res.send(user);
-    } catch (err) {
-      res.status(404).send(err);
-    }
-  });
 
 // @route GET api/profile
 // @desc  Get all profiles
@@ -28,6 +18,19 @@ module.exports = (app) => {
       res.status(500).send("Server Error");
     }
   });
+
+// @route GET api/user/:id
+// @desc  Get user by id
+// @access Public
+app.get("/api/users", async (req, res) => {
+  try {
+    const users = await User.find().select("-userToken -googleId -email");
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
   //Create new user
   app.post("/api/users", requireLogin, async (req, res) => {
@@ -62,6 +65,26 @@ module.exports = (app) => {
       console.log(err);
     }
   });
+
+
+
+// @route GET api/user/gifts/:id
+// @desc  Get gifts of user by id 
+// @access Public  
+    app.get("/api/user/gifts/:id", async (req, res) => {
+    const userId = req.params.id;
+      console.log('items', userId)
+    try {
+      const userGifts = await User.findOne({ _id: userId }).populate(
+        "_gifts"
+      );
+      res.send(userGifts._gifts);
+    } catch (err) {
+      res.status(404).send(err);
+      console.log(err);
+    }
+  });
+
 
 // @route GET api/following/:id
 // @desc  Get Following users 
