@@ -39,6 +39,14 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_LOGGED_USER_FAIL:
       return fetchLoggedUserFail(state, action);
 
+    case actionTypes.GET_PROFILE_START:
+      return {
+        ...state,
+        profile: null,
+        proifles: [],
+        loading: true,
+      };
+
     case actionTypes.GET_PROFILE:
       return {
         ...state,
@@ -47,12 +55,12 @@ const reducer = (state = initialState, action) => {
       };
     case actionTypes.PROFILE_ERROR:
     case actionTypes.FETCH_FOLLOWERS_USERS_FAILED:
-    case actionTypes.FETCH_FOLLOWING_USERS_FAILED:  
+    case actionTypes.FETCH_FOLLOWING_USERS_FAILED:
       return {
         ...state,
         error: payload,
         loading: false,
-        profile: null
+        profile: null,
       };
     case actionTypes.CLEAR_PROFILE:
       return {

@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-import { setAlert } from './alert';
+import { setAlert } from "./alert";
 
 export const fetchLoggedUserSuccess = (action) => {
   return {
@@ -29,7 +29,6 @@ export const fetchLoggedUser = () => {
       .get("/api/current_user")
       .then((response) => {
         dispatch(fetchLoggedUserSuccess(response.data));
-        
       })
       .catch((err) => {
         dispatch(fetchLoggedUserFail(err));
@@ -57,6 +56,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 // Get profile by ID
 export const getProfileById = (userId) => async (dispatch) => {
   try {
+    dispatch({ type: actionTypes.GET_PROFILE_START });
     const res = await axios.get(`/api/profile/${userId}`);
 
     dispatch({
@@ -71,14 +71,9 @@ export const getProfileById = (userId) => async (dispatch) => {
   }
 };
 
-
-
 // Create or update profile
-export const createProfile = (formData) => async (
-  dispatch
-) => {
+export const createProfile = (formData) => async (dispatch) => {
   try {
-
     const res = await axios.post("/api/profile/create", formData);
 
     dispatch({
@@ -87,7 +82,6 @@ export const createProfile = (formData) => async (
     });
 
     dispatch(setAlert("Profile Updated", "success"));
-
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -102,7 +96,7 @@ export const createProfile = (formData) => async (
   }
 };
 
-// Get following users 
+// Get following users
 export const getFollowingUsers = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/following/${id}`);
@@ -119,7 +113,7 @@ export const getFollowingUsers = (id) => async (dispatch) => {
   }
 };
 
-// Get followers users 
+// Get followers users
 export const getFollowersUsers = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/followers/${id}`);
@@ -135,5 +129,3 @@ export const getFollowersUsers = (id) => async (dispatch) => {
     });
   }
 };
-
-

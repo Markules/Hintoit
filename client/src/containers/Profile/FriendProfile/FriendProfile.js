@@ -19,15 +19,14 @@ useEffect(() => {
     getProfileById(match.params.id)
 }, [getProfileById])
 
-  console.log(profile && (profile.user._id));
+  console.log(profile && (profile));
     return <Fragment>
             { profile ? ( 
-                
                 <div className={classes.ProfileContainer}>
                     <img src={profile.user.avatar} className={classes.UserAvatar} />
                     <h2 className={classes.UserName}>{profile.user.firstName} {profile.user.lastName}</h2>
-                    <UserSocialBar social={profile.profile.social}/>
-                    {profile.profile.location && (<p className={classes.location}>From {profile.profile.location}</p>)}
+                    { profile.social && ( <UserSocialBar social={profile.social}/>)}
+                    {profile.location && (<p className={classes.location}>From {profile.location}</p>)}
                     <p>Joined in <Moment format="MMM YYYY">{profile.user.CreatedAt}</Moment></p>
                     <div className={classes.FollowButtonContainer}>
                     <FollowButton user={profile.user}/>
