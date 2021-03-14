@@ -1,0 +1,30 @@
+.Header {
+    text-align: center;
+    margin-top: 7%;
+}
+
+.Form {
+    text-align: center;
+}
+
+.Input {
+    margin-bottom: 5px;
+    width: 30%;
+    border-radius: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.TextContainer {
+    margin-bottom: 20px;
+}
+
+.Link {
+    text-decoration: none;
+    color: black;
+    
+}
+
+.LinkContainer {
+    margin-top: 15px;
+}

@@ -1,4 +1,4 @@
-import React, { Fragment ,useState, useEffect } from "react";
+import React, { Fragment ,useState } from "react";
 
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
@@ -10,7 +10,7 @@ import { withRouter } from "react-router-dom";
 
 import classes from "./AddItem.module.css";
 
-const AddItem = ({ resetItems ,resetItem, addItem, history, error, success, loading, closed }) => {
+const AddItem = ({  addItem, history, loading, closed }) => {
   const [addItemForm, setAddItemForm] = useState({
     url: {
       elementType: "input",

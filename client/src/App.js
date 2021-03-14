@@ -44,6 +44,10 @@ const Item = React.lazy(() => {
   return import("./components/Items/Item/Item");
 });
 
+const EditItem = React.lazy(() => {
+  return import("./components/Items/Item/EditItem/EditItem");
+});
+
 export class App extends Component {
   componentDidMount() {
     this.props.onTryAutoLogin();
@@ -68,8 +72,8 @@ export class App extends Component {
           <Route path="/following" render={(props) => <FollowingList {...props} />} />
           <Route path="/followers" render={(props) => <FollowersList {...props} />} />
           <Route path="/user/:id" render={(props) => <FriendProfile {...props} />} />
-
           <Route path="/item/:id" render={(props) => <Item {...props} />} />
+          <Route path="/items/edit/:id" render={(props) => <EditItem {...props} />} />
           <Route exact path="/" component={Profile} />
           
           <Redirect to="/" />

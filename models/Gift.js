@@ -38,6 +38,7 @@ const giftSchema = new Schema({
       },
     },
   ],
+  catagories: [{ type: String }],
   _user: { type: Schema.Types.ObjectId, ref: "users" },
   dateCreated: Date,
 });

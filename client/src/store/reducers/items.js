@@ -24,11 +24,13 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_ITEMS_START:
     case actionTypes.SHARE_ITEM_START:
     case actionTypes.FETCH_ITEM_START:
+    case actionTypes.EDIT_ITEM_START:
       return {
         ...state,
         loading: true,
       };
     case actionTypes.FETCH_ITEM_SUCCESS:
+    case actionTypes.EDIT_ITEM_SUCCESS:  
       return {
         ...state,
         item: payload,
@@ -64,6 +66,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_LOGGED_USER_ITEMS_FAILED:
     case actionTypes.REMOVE_COMMENT_FAILED:
     case actionTypes.ADD_COMMENT_FAILED:
+    case actionTypes.EDIT_ITEM_FAILED:
       return {
         ...state,
         loading: false,

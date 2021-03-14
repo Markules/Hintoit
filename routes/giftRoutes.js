@@ -102,7 +102,7 @@ module.exports = (app) => {
   // @route DELETE api/gifts/:id
   // @desc  Delete post by id
   // @access Private
-  app.delete(`/api/gifts/:id`, requireLogin, async (req, res) => {
+  app.delete(`/api/gifts/:id`,  async (req, res) => {
     const id = req.params.id;
 
     try {
@@ -137,22 +137,30 @@ module.exports = (app) => {
   // @route PATCH api/gifts/:id
   // @desc  Edit a gift
   // @access Private
-  app.patch("/api/gifts/:id", requireLogin, async (req, res) => {
+  app.patch("/api/gifts/:id", 
+  [requireLogin, [check("url", "URL is required").not().isEmpty()]],
+  async (req, res) => {
     const id = req.params.id;
-    const body = _.pick(req.body, ["title", "url"]);
+    const {
+      url,
+      catagories
+    } = req.body
 
-    try {
-      const data = await Gift.findOneAndUpdate({ _id: id }, body, {
-        new: true,
-      });
-      res.json(data);
-    } catch (err) {
-      console.log(err.message);
-      if (err.kind === "ObjectId") {
-        return res.status(404).json({ msg: "Post not found" });
-      }
-      res.status(500).send("Server Error");
+    const itemFields = {
+      url,
+      catagories
     }
+    try {
+        let gift = await Gift.findOneAndUpdate(
+          { _id: id },
+          { $set: itemFields },
+          { new: true }
+        );
+        return res.json(gift);
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+      }
   });
 
   // @route PUT api/gifts/like/:id

@@ -16,8 +16,6 @@ useEffect(() => {
   previewLink(item);
 }, [previewLink])
 
-
-console.log(item);
   const handleItemSettings = () => {
     if (!isSettingsOpen) {
       updateSettings(true);
