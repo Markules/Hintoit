@@ -16,7 +16,7 @@ const AddItem = ({  addItem, history, loading, closed }) => {
       elementType: "input",
       elementConfig: {
         type: "url",
-        placeholder: "Enter item url",
+        placeholder: "Enter URL (eg. https://www.website.com)",
       },
       value: "",
       validation: {
@@ -26,6 +26,17 @@ const AddItem = ({  addItem, history, loading, closed }) => {
       valid: false,
       touched: false,
     },
+
+    catagories: {
+      elementType: "input",
+      elementConfig: {
+        type: "text",
+        placeholder: "Enter Catagory (eg. Shirt, Birthday Gift, Amazon... )"
+      },
+      value: "",
+      valid: false,
+      touched: false,
+    }
   });
 
 
@@ -46,7 +57,7 @@ const AddItem = ({  addItem, history, loading, closed }) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    addItem(addItemForm.url.value, history);
+    addItem(addItemForm.url.value, addItemForm.catagories.value, history);
   };
 
   const formElementArray = [];
@@ -59,7 +70,7 @@ const AddItem = ({  addItem, history, loading, closed }) => {
 
   let form = formElementArray.map((formElement) => (
     <Input
-      placeholder={"e.g. https://www.website.com"}
+      placeholder={formElement.config.elementConfig.placeholder}
       key={formElement.id}
       elementType={formElement.config.elementType}
       elementConfig={formElement.config.elementConfig}

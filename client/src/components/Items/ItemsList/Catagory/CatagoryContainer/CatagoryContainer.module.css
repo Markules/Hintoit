@@ -1,0 +1,17 @@
+.Container {
+    width: 300px;
+    height: 200px;
+    border: 1px solid black;
+    left: 30%;
+}
+
+.Catagory {
+    background-color: aqua;
+    margin-left: 15px;
+    height: 70px;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    
+}

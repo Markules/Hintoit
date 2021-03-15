@@ -1,12 +1,13 @@
 .CardContainer {
+    flex: 20%;
+    max-width: 25%;
+    padding: 20px;
     box-shadow: 5px 10px 18px #888888;
-    width: 89%;
-    margin: auto;
-    padding: 0px;
     overflow: hidden;
-    margin-left: 30%;
     margin-bottom: 30px;
-    position: relative;
+    margin-left: 15px;
+    position: relative;  
+
 }
 
 .Date{
@@ -19,7 +20,17 @@
 
 .SettingsIcon {
     position: relative;
-    top: 15px;
+    left: 100%;
+    
+}
+
+.Catagory {
+    border: 1px solid gray;
+    border-radius: 25px;
+    padding: 5px;
+    color: black;
+    position: relative;
+    margin-left: 5px;
 }
 
 @media (max-width: 799px) {
@@ -54,6 +65,8 @@
     left: 20%;
     height: 500px;
 }
+
+
 
 @media (max-width: 499px) {
     .CardContainer {

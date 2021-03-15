@@ -3,6 +3,7 @@ const requireLogin = require("../middlewares/requireLogin");
 const { ObjectID } = require("mongodb");
 const mailer = require("../services/mailer");
 const { check, validationResult } = require("express-validator");
+const normalize = require("normalize-url");
 const Gift = mongoose.model("gifts");
 const User = mongoose.model("users");
 
@@ -69,18 +70,32 @@ module.exports = (app) => {
   // @access Private
   app.post(
     "/api/gift/add",
-    [requireLogin, [check("url", "URL is required").not().isEmpty()]],
+    [
+      requireLogin,
+      [check("url", "URL is required").not().isEmpty()]
+    ],
     async (req, res) => {
-      const { url } = req.body;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
         });
       }
+
+      const { url, catagories } = req.body;
+      console.log(url, catagories);
+      // Build Gift
+      const giftFields = {
+        url: url && url !== "" ? normalize(url, { forceHttps: true }) : "",
+        catagories: Array.isArray(catagories)
+          ? catagories
+          : catagories.split(",").map((catagory) => " " + catagory.trim()),
+      };
+
       try {
         const gift = new Gift({
-          url,
+          url: giftFields.url,
+          catagories: giftFields.catagories,
           _user: req.user.id,
           dateCreated: Date.now(),
         });
@@ -102,7 +117,7 @@ module.exports = (app) => {
   // @route DELETE api/gifts/:id
   // @desc  Delete post by id
   // @access Private
-  app.delete(`/api/gifts/:id`,  async (req, res) => {
+  app.delete(`/api/gifts/:id`, async (req, res) => {
     const id = req.params.id;
 
     try {
@@ -137,20 +152,18 @@ module.exports = (app) => {
   // @route PATCH api/gifts/:id
   // @desc  Edit a gift
   // @access Private
-  app.patch("/api/gifts/:id", 
-  [requireLogin, [check("url", "URL is required").not().isEmpty()]],
-  async (req, res) => {
-    const id = req.params.id;
-    const {
-      url,
-      catagories
-    } = req.body
+  app.patch(
+    "/api/gifts/:id",
+    [requireLogin, [check("url", "URL is required").not().isEmpty()]],
+    async (req, res) => {
+      const id = req.params.id;
+      const { url, catagories } = req.body;
 
-    const itemFields = {
-      url,
-      catagories
-    }
-    try {
+      const itemFields = {
+        url,
+        catagories,
+      };
+      try {
         let gift = await Gift.findOneAndUpdate(
           { _id: id },
           { $set: itemFields },
@@ -161,7 +174,8 @@ module.exports = (app) => {
         console.error(err.message);
         res.status(500).send("Server Error");
       }
-  });
+    }
+  );
 
   // @route PUT api/gifts/like/:id
   // @desc  Like a gift
@@ -290,37 +304,41 @@ module.exports = (app) => {
   // @route DELETE api/gift/comment/:id/:comment_id
   // @desc  Delete comment
   // @access Private
-  app.delete("/api/gift/comment/:id/:comment_id", requireLogin, async (req, res) => {
-    try {
-      const gift = await Gift.findById(req.params.id);
+  app.delete(
+    "/api/gift/comment/:id/:comment_id",
+    requireLogin,
+    async (req, res) => {
+      try {
+        const gift = await Gift.findById(req.params.id);
 
-      // Pull out comment
-      const comment = gift.comments.find(
-        (comment) => comment.id === req.params.comment_id
-      );
-      // Make sure comment exists
-      if (!comment) {
-        return res.status(404).json({ msg: "Comment does not exist" });
+        // Pull out comment
+        const comment = gift.comments.find(
+          (comment) => comment.id === req.params.comment_id
+        );
+        // Make sure comment exists
+        if (!comment) {
+          return res.status(404).json({ msg: "Comment does not exist" });
+        }
+
+        // Check user
+        if (comment.user.toString() !== req.user.id) {
+          return res.status(401).json({ msg: "User not authorized" });
+        }
+
+        // Get remove index
+        const removeIndex = gift.comments
+          .map((comment) => comment.user.toString())
+          .indexOf(req.user.id);
+
+        gift.comments.splice(removeIndex, 1);
+
+        await gift.save();
+
+        res.json(gift.comments);
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
       }
-
-      // Check user
-      if (comment.user.toString() !== req.user.id) {
-        return res.status(401).json({ msg: "User not authorized" });
-      }
-
-      // Get remove index
-      const removeIndex = gift.comments
-        .map((comment) => comment.user.toString())
-        .indexOf(req.user.id);
-
-      gift.comments.splice(removeIndex, 1);
-
-      await gift.save();
-
-      res.json(gift.comments);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error");
     }
-  });
+  );
 };

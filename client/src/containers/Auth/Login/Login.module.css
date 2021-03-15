@@ -46,6 +46,10 @@
   border: none;
   background-color: black;
   text-align: center;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
 }
 
 .googleLoginButton:hover {
@@ -53,8 +57,7 @@
 }
 
 .buttonContent {
-  color: white;
-  font-size: 18px;
+
   font-family: monospace;
   text-decoration: none;
 }

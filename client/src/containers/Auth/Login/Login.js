@@ -13,11 +13,12 @@ export class Login extends Component {
 
         <div className={classes.loginContainer}>
           <div className={classes.loginContent}>
-            <button className={classes.googleLoginButton}>
               <a className={classes.buttonContent} href="/auth/google">
+              <button className={classes.googleLoginButton}>
                 Sign In with Google
+                </button>
               </a>
-            </button>
+            
           </div>
         </div>
         <span className={classes.upperWrap}></span>

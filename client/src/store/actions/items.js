@@ -3,10 +3,10 @@ import * as actionTypes from "./actionTypes";
 import { setAlert } from "./alert";
 
 // Add Item
-export const addItem = (url, history) => async (dispatch) => {
+export const addItem = (url, catagories , history) => async (dispatch) => {
   dispatch({ type: actionTypes.ADD_ITEM_START });
   try {
-    const res = axios.post("/api/gift/add", { url });
+    const res = axios.post("/api/gift/add", { url, catagories });
     dispatch({ type: actionTypes.ADD_ITEM_SUCCESS, payload: res.data });
     dispatch(setAlert("Item Added", "success"));
     history.push("/login");
@@ -17,8 +17,9 @@ export const addItem = (url, history) => async (dispatch) => {
 
 // Edit Item
 export const editItem = (id, formData) => async (dispatch) => {
-  dispatch({ type: actionTypes.EDIT_ITEM_START });
   try {
+    dispatch({ type: actionTypes.EDIT_ITEM_START });
+
     const res = axios.patch(`/api/gifts/${id}`, formData);
     dispatch({ type: actionTypes.EDIT_ITEM_SUCCESS, payload: res.data });
     dispatch(setAlert("Item Updated", "success"));

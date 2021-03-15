@@ -12,7 +12,8 @@ module.exports = (app) => {
   // @access Private
   app.post(
     "/",
-    [requireLogin, [check("text", "Text is required").not().isEmpty()]],
+    [requireLogin, 
+      [check("text", "Text is required").not().isEmpty()]],
     async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
