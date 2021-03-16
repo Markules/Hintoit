@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, Fragment } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchLoggedUser,
@@ -6,64 +8,54 @@ import {
 } from "../../store/actions/profile";
 import ItemsList from "../../components/Items/ItemsList/ItemsList";
 import Button from "../../components/UI/Button/Button";
-import classes from "./Profile.module.css";
 import ProfileNavBar from "./ProfileNavBar/ProfileNavBar";
 import Modal from "../../components/UI/Modal/Modal";
 import AddItem from "../../components/Items/AddItem/AddItem";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import { Link } from "react-router-dom";
 import UserSocialBar from "./UserSocialBar/UserSocialBar";
 
-export class Profile extends Component {
-  componentDidMount() {
-    this.props.fetchLoggedUser();
-    this.props.getCurrentProfile();
-  }
+import classes from "./Profile.module.css";
 
-  state = {
-    openAddItem: false,
-    closeAddItem: false,
-    openShareItem: false,
-    closeShareItem: false,
-    resetAddItem: false,
+const Profile = ({
+  fetchLoggedUser,
+  getCurrentProfile,
+  user,
+  loading,
+  profile: { profile },
+}) => {
+  useEffect(() => {
+    fetchLoggedUser();
+    getCurrentProfile();
+  }, [fetchLoggedUser, getCurrentProfile]);
+
+  const [openAddItem, updateOpenAddItem] = useState(false);
+  const [closeAddItem, updateCloseAddItem] = useState(false);
+  const [resetAddItem, updateResetAddItem] = useState(false);
+
+  const openAddItemHandler = () => {
+    updateResetAddItem(false);
+    updateOpenAddItem(true);
+    updateCloseAddItem(false);
   };
 
-  openAddItemHandler = () => {
-    this.setState({ resetAddItem: false });
-    this.setState({ openAddItem: true });
-    this.setState({ closeAddItem: false });
+  const closeAddItemHandler = () => {
+    updateResetAddItem(true);
+    updateOpenAddItem(false);
+    updateCloseAddItem(true);
   };
 
-  closeAddItemHandler = () => {
-    this.setState({ resetAddItem: true });
-    this.setState({ closeAddItem: true });
-    this.setState({ openAddItem: false });
-  };
+  const cardType = "profile";
 
-  render() {
-    let user = this.props.user;
-    let items = null;
-    const cardType = "profile";
-    items = (
-      <ItemsList cardType={cardType} resetItems={this.state.resetAddItem} />
-    );
-    if (!this.props.user) {
-      return (
+  return (
+    <Fragment>
+      {!user || loading ? (
         <div style={{ margin: "auto" }}>
           <Spinner />
         </div>
-      );
-    } else {
-      return (
+      ) : (
         <div className={classes.ProfileContainer}>
-          <Modal
-            show={this.state.openAddItem}
-            modalClosed={this.state.closeAddItem}
-          >
-            <AddItem
-              closed={this.closeAddItemHandler}
-              resetItems={this.state.resetAddItem}
-            />
+          <Modal show={openAddItem} modalClosed={closeAddItem}>
+            <AddItem closed={closeAddItemHandler} resetItems={resetAddItem} />
           </Modal>
 
           <div className={classes.AvatarContainer}>
@@ -74,19 +66,22 @@ export class Profile extends Component {
             />
           </div>
 
-          {this.props.profile.profile && this.props.profile.profile.social && (
-            <UserSocialBar social={this.props.profile.profile.social} website={this.props.profile.profile.website}/>
+          {profile && profile.social && (
+            <UserSocialBar
+              social={profile.social}
+              website={profile.website}
+            />
           )}
 
           <h2 className={classes.UserName}>
             {user.firstName} {user.lastName}
           </h2>
-          {this.props.profile.profile && this.props.profile.profile.location && (
+          {profile && profile.location && (
             <div className={classes.Location}>
-              <p>From {this.props.profile.profile.location}</p>
+              <p>From {profile.location}</p>
             </div>
           )}
-          {this.props.profile.profile !== null ? (
+          {profile !== null ? (
             <div className={classes.EditProfileButton}>
               <Link to="profile/edit" className={classes.ProfileEditLink}>
                 <p>Edit Profile</p>
@@ -108,7 +103,7 @@ export class Profile extends Component {
           <div className={classes.Seperator}></div>
 
           <Button
-            clicked={() => this.openAddItemHandler()}
+            clicked={() => openAddItemHandler()}
             btnType="ProfileAddItem"
             ButtonContent="AddItemContent"
           >
@@ -117,21 +112,26 @@ export class Profile extends Component {
             </i>
             ADD ITEM
           </Button>
-          {items}
+          <ItemsList cardType={cardType} resetItems={resetAddItem} />
           <div className={classes.Break}></div>
         </div>
-      );
-    }
-  }
-}
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.idToken !== null,
-    user: state.profile.userData,
-    loading: state.auth.loading,
-    profile: state.profile,
-  };
+      )}
+    </Fragment>
+  );
 };
+
+Profile.propTypes = {
+  fetchLoggedUser: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  user: state.profile.userData,
+  loading: state.auth.loading,
+  profile: state.profile,
+});
 
 export default connect(mapStateToProps, { fetchLoggedUser, getCurrentProfile })(
   Profile
