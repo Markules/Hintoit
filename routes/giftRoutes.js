@@ -20,8 +20,8 @@ module.exports = (app) => {
 
   // @route GET api/gifts
   // @desc  Get all gifts
-  // @access Public
-  app.get("/api/gifts", async (req, res) => {
+  // @access Private
+  app.get("/api/gifts", requireLogin, async (req, res) => {
     try {
       const gifts = await Gift.find()
         .populate("_user", [
@@ -36,7 +36,14 @@ module.exports = (app) => {
           "_id",
         ])
         .sort({ dateCreated: -1 });
-      res.json(gifts);
+
+      // filter items of logged user
+      const filteredGifts = gifts.filter(
+        (filtered) => filtered._user._id != req.user.id
+      );
+      console.log('filtered', filteredGifts);
+
+      res.json(filteredGifts);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -70,10 +77,7 @@ module.exports = (app) => {
   // @access Private
   app.post(
     "/api/gift/add",
-    [
-      requireLogin,
-      [check("url", "URL is required").not().isEmpty()]
-    ],
+    [requireLogin, [check("url", "URL is required").not().isEmpty()]],
     async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
