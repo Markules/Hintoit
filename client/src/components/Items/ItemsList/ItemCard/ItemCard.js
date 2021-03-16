@@ -12,7 +12,7 @@ const ItemCard = ({ item, cardType }) => {
 
   useEffect(() => {
     previewLink(item);
-  }, [previewLink]);
+  }, [previewLink, item]);
 
   const handleItemSettings = () => {
     if (!isSettingsOpen) {
@@ -72,7 +72,7 @@ const ItemCard = ({ item, cardType }) => {
       {item.catagories &&
         item.catagories.map((catagory) =>
           catagory === " " ? null : (
-            <span style={{backgroundColor: setColor()}} className={classes.Catagory}>{catagory}</span>
+            <span style={{backgroundColor: setColor()}} key={catagory} className={classes.Catagory}>{catagory}</span>
           )
         )}
       <BottomBar item={item} cardType={cardType} />

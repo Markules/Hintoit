@@ -15,7 +15,7 @@ const Item = ({ getItem, location, match, item, loading}) => {
 
   useEffect(() => {
     getItem(match.params.id);
-  }, [getItem]);
+  }, [getItem, match.params.id]);
 
 
   return loading === true || item === null ? (

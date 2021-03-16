@@ -29,19 +29,16 @@ const Profile = ({
   }, [fetchLoggedUser, getCurrentProfile]);
 
   const [openAddItem, updateOpenAddItem] = useState(false);
-  const [closeAddItem, updateCloseAddItem] = useState(false);
   const [resetAddItem, updateResetAddItem] = useState(false);
 
   const openAddItemHandler = () => {
     updateResetAddItem(false);
     updateOpenAddItem(true);
-    updateCloseAddItem(false);
   };
 
   const closeAddItemHandler = () => {
     updateResetAddItem(true);
     updateOpenAddItem(false);
-    updateCloseAddItem(true);
   };
 
   const cardType = "profile";
@@ -54,7 +51,7 @@ const Profile = ({
         </div>
       ) : (
         <div className={classes.ProfileContainer}>
-          <Modal show={openAddItem} modalClosed={closeAddItem}>
+          <Modal show={openAddItem} modalClosed={closeAddItemHandler}>
             <AddItem closed={closeAddItemHandler} resetItems={resetAddItem} />
           </Modal>
 
@@ -123,7 +120,6 @@ const Profile = ({
 Profile.propTypes = {
   fetchLoggedUser: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
 

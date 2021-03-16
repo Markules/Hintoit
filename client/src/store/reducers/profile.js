@@ -1,5 +1,4 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../../shared/utility";
 
 const initialState = {
   userData: null,
@@ -11,39 +10,30 @@ const initialState = {
   followers: [],
 };
 
-const fetchLoggedUserFail = (state, action) => {
-  return updateObject(state, { loading: false, error: action.error });
-};
-
-const fetchLoggedUserStart = (state, action) => {
-  return updateObject(state, { loading: true });
-};
-
-const fetchLoggedUserSuccess = (state, action) => {
-  return updateObject(state, {
-    userData: action.userData,
-    loading: false,
-  });
-};
 
 const reducer = (state = initialState, action) => {
   const { payload, type } = action;
 
   switch (type) {
+
     case actionTypes.FETCH_LOGGED_USER_START:
-      return fetchLoggedUserStart(state, action);
+      return {
+        ...state,
+        loading: true
+      }
 
     case actionTypes.FETCH_LOGGED_USER_SUCCESS:
-      return fetchLoggedUserSuccess(state, action);
-
-    case actionTypes.FETCH_LOGGED_USER_FAIL:
-      return fetchLoggedUserFail(state, action);
+      return {
+        ...state,
+        userData: payload,
+        loading: false,
+      };
 
     case actionTypes.GET_PROFILE_START:
       return {
         ...state,
         profile: null,
-        proifles: [],
+        profiles: [],
         loading: true,
       };
 
@@ -54,6 +44,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
       };
     case actionTypes.PROFILE_ERROR:
+    case actionTypes.FETCH_LOGGED_USER_FAIL:
     case actionTypes.FETCH_FOLLOWERS_USERS_FAILED:
     case actionTypes.FETCH_FOLLOWING_USERS_FAILED:
       return {

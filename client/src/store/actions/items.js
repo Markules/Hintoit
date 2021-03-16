@@ -3,7 +3,7 @@ import * as actionTypes from "./actionTypes";
 import { setAlert } from "./alert";
 
 // Add Item
-export const addItem = (url, catagories , history) => async (dispatch) => {
+export const addItem = (url, catagories, history) => async (dispatch) => {
   dispatch({ type: actionTypes.ADD_ITEM_START });
   try {
     const res = axios.post("/api/gift/add", { url, catagories });
@@ -11,7 +11,11 @@ export const addItem = (url, catagories , history) => async (dispatch) => {
     dispatch(setAlert("Item Added", "success"));
     history.push("/login");
   } catch (err) {
-    dispatch({ type: actionTypes.ADD_ITEM_FAILED, payload: err });
+    dispatch({
+      type: actionTypes.ADD_ITEM_FAILED,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+    dispatch(setAlert("Failed to Add Item", "danger"));
   }
 };
 
@@ -24,8 +28,11 @@ export const editItem = (id, formData) => async (dispatch) => {
     dispatch({ type: actionTypes.EDIT_ITEM_SUCCESS, payload: res.data });
     dispatch(setAlert("Item Updated", "success"));
   } catch (err) {
-    dispatch({ type: actionTypes.EDIT_ITEM_FAILED, payload: err });
-    dispatch(setAlert("Something went wrong", "danger"));
+    dispatch({
+      type: actionTypes.EDIT_ITEM_FAILED,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+    dispatch(setAlert("Failed to edit item", "danger"));
   }
 };
 
@@ -41,13 +48,9 @@ export const removeItem = (id, history) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.REMOVE_ITEM_FAILED,
-      payload: {
-        msg: err.statusText,
-        status: err.status,
-      },
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
-
-    dispatch(setAlert("Something went wrong", "danger"));
+    dispatch(setAlert("Failed to remove item", "danger"));
   }
 };
 
@@ -60,7 +63,11 @@ export const shareItem = (email, name, item, history) => async (dispatch) => {
     dispatch(setAlert("Item Sent", "success"));
     history.push("/");
   } catch (err) {
-    dispatch({ type: actionTypes.SHARE_ITEM_FAILED, payload: err });
+    dispatch({
+      type: actionTypes.SHARE_ITEM_FAILED,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+    dispatch(setAlert("Failed to share item", "danger"));
   }
 };
 
@@ -88,9 +95,8 @@ export const fetchLoggedUserItems = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_LOGGED_USER_ITEMS_FAILED,
-      payload: err,
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
-    dispatch(setAlert(err, "danger"));
   }
 };
 
@@ -113,9 +119,9 @@ export const fetchItemsByUserId = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_ITEMS_FAILED,
-      payload: err,
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
-    dispatch(setAlert(err, "danger"));
+    dispatch(setAlert("Failed to find items", "danger"));
   }
 };
 
@@ -138,7 +144,10 @@ export const fetchAllItems = () => async (dispatch) => {
       payload: fetchedItems,
     });
   } catch (err) {
-    dispatch({ type: actionTypes.FETCH_ITEMS_FAILED, payload: err });
+    dispatch({
+      type: actionTypes.FETCH_ITEMS_FAILED,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
     dispatch(setAlert(err, "danger"));
   }
 };
@@ -159,7 +168,10 @@ export const unlikeItem = (id) => async (dispatch) => {
     const res = axios.put(`/api/gifts/unlike/${id}`);
     dispatch({ type: actionTypes.UNLIKE_ITEM_SUCCESS, payload: res.data });
   } catch (err) {
-    dispatch({ type: actionTypes.UNLIKE_ITEM_FAILED, msg: err });
+    dispatch({
+      type: actionTypes.UNLIKE_ITEM_FAILED,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
   }
 };
 
@@ -175,7 +187,7 @@ export const getItem = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_ITEM_FAILED,
-      payload: { msg: err.statusText, status: err.status },
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
@@ -202,8 +214,10 @@ export const addComment = (itemId, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.ADD_COMMENT_FAILED,
-      payload: { msg: err.statusText, status: err.status },
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
+    dispatch(setAlert("Failed to add comment", "danger"));
+
   }
 };
 
@@ -221,7 +235,8 @@ export const deleteComment = (itemId, commentId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.REMOVE_COMMENT_FAILED,
-      payload: { msg: err.statusText, status: err.status },
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
+    dispatch(setAlert("Failed to remove comment", "danger"));
   }
 };

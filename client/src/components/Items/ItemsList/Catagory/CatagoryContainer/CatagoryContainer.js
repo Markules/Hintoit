@@ -21,6 +21,7 @@ const CatagoryContainer = ({ catagories, setQuery }) => {
       {catagories.map((catagory) =>
         catagory === " " || catagory === null ? null : (
             <span
+            key={catagory}
             style={{ backgroundColor: setColor() }}
             className={classes.Catagory}
             onClick={() => setQuery(catagory)}

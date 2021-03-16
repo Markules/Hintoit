@@ -27,7 +27,7 @@ const EditItem = ({ item: { item }, loading, getItem, editItem, match }) => {
       url: loading || !item.url ? "" : item.url,
       catagories: loading || !item.catagories ? "" : item.catagories,
     });
-  }, [ loading ,getItem, item ]);
+  }, [ loading ,getItem, item, match.params.id ]);
 
   const { url, catagories } = formData;
 

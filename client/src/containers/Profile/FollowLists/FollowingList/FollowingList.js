@@ -12,7 +12,7 @@ const FollowingList = ({ getFollowingUsers, location, following, loading }) => {
   console.log("following", location)
     useEffect(() => {
     getFollowingUsers(location.state);
-  }, [getFollowingUsers]);
+  }, [getFollowingUsers, location.state]);
 
   return (
     <Fragment>

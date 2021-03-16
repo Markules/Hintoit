@@ -14,7 +14,8 @@ module.exports = (app) => {
       const gifts = await Gift.find({ _user: req.user.id });
       res.send(gifts);
     } catch (err) {
-      res.status(404).send(err);
+      console.error(err.message);
+      res.status(500).send("Server Error");
     }
   });
 
@@ -41,7 +42,7 @@ module.exports = (app) => {
       const filteredGifts = gifts.filter(
         (filtered) => filtered._user._id != req.user.id
       );
-      console.log('filtered', filteredGifts);
+      console.log("filtered", filteredGifts);
 
       res.json(filteredGifts);
     } catch (err) {
@@ -160,6 +161,13 @@ module.exports = (app) => {
     "/api/gifts/:id",
     [requireLogin, [check("url", "URL is required").not().isEmpty()]],
     async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          errors: errors.array(),
+        });
+      }
+
       const id = req.params.id;
       const { url, catagories } = req.body;
 

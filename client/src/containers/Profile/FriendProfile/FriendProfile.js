@@ -12,17 +12,16 @@ import ItemsList from "../../../components/Items/ItemsList/ItemsList";
 
 const FriendProfile = ({ match, profile: { profile}, getProfileById } ) => {
   
-    console.log(match.params.id)
 
 useEffect(() => {
     getProfileById(match.params.id)
-}, [getProfileById])
+}, [getProfileById, match.params.id])
 
   console.log(profile && (profile));
     return <Fragment>
             { profile ? ( 
                 <div className={classes.ProfileContainer}>
-                    <img src={profile.user.avatar} className={classes.UserAvatar} />
+                    <img src={profile.user.avatar} className={classes.UserAvatar} alt=""/>
                     <h2 className={classes.UserName}>{profile.user.firstName} {profile.user.lastName}</h2>
                     { profile.social && ( <UserSocialBar social={profile.social}/>)}
                     {profile.location && (<p className={classes.location}>From {profile.location}</p>)}

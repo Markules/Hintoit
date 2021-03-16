@@ -16,6 +16,25 @@ const FollowButton = ({ followUser, unFollowUser, user, loggedUser }) => {
 
   const [button, setButton ] = useState(null)    
 
+  const onFollow = (id) => {
+    followUser(id);
+    setFollowStatus(true);
+    setButton(<Button
+        className={classes.ButtonContainer}
+        clicked={() => onUnFollow(user._id)}
+        btnType={"Follow"}>Unfollow</Button>)
+  }
+
+  const onUnFollow = (id) => {
+    unFollowUser(id);
+    setFollowStatus(false);
+    setButton(  <Button
+        className={classes.ButtonContainer}
+        clicked={() => onFollow(user._id)}
+        btnType={"Follow"}
+      >Follow</Button>)
+  }
+
   useEffect(() => {
     isFollow
       ? (setButton(
@@ -36,26 +55,9 @@ const FollowButton = ({ followUser, unFollowUser, user, loggedUser }) => {
             Follow
           </Button>
         ));
-  }, []);
+  }, [isFollow ,user._id]);
 
-  const onFollow = (id) => {
-    followUser(id);
-    setFollowStatus(true);
-    setButton(<Button
-        className={classes.ButtonContainer}
-        clicked={() => onUnFollow(user._id)}
-        btnType={"Follow"}>Unfollow</Button>)
-  }
 
-  const onUnFollow = (id) => {
-    unFollowUser(id);
-    setFollowStatus(false);
-    setButton(  <Button
-        className={classes.ButtonContainer}
-        clicked={() => onFollow(user._id)}
-        btnType={"Follow"}
-      >Follow</Button>)
-  }
 
   return <Fragment>{button}</Fragment>;
 };

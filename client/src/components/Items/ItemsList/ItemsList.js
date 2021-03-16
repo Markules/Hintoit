@@ -28,7 +28,7 @@ const ItemsList = ({
     if (cardType === "friend") {
       return fetchItemsByUserId(userId);
     }
-  }, [fetchLoggedUserItems, fetchAllItems, fetchItemsByUserId]);
+  }, [fetchLoggedUserItems, fetchAllItems, fetchItemsByUserId, cardType, userId]);
 
   const [query, setQuery] = useState(null);
 
@@ -72,6 +72,7 @@ const ItemsList = ({
         {items &&
           items.map((item) => (
             <CatagoryContainer
+              key={item._id}
               catagories={item.catagories}
               setQuery={setQuery}
             />

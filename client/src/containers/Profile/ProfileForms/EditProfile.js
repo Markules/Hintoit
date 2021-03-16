@@ -48,7 +48,7 @@ const EditProfile = ({
       tiktok: loading || !profile.social ? "" : profile.social.tiktok,
       pinterest: loading || !profile.social ? "" : profile.social.pinterest,
     });
-  }, [loading, getCurrentProfile]);
+  }, [getCurrentProfile, loading]);
 
 
   const {

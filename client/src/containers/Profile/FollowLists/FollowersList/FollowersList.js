@@ -10,7 +10,7 @@ import classes from "./FollowersList.module.css";
 const FollowersList = ({ getFollowersUsers, location, followers, loading }) => {
   useEffect(() => {
     getFollowersUsers(location.state);
-  }, [getFollowersUsers]);
+  }, [getFollowersUsers, location.state]);
 
   return (
     <Fragment>
