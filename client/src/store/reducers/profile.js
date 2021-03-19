@@ -57,7 +57,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         profile: null,
-        repos: [],
         loading: false,
       };
 

@@ -13,21 +13,18 @@ const initalState = {
   catagories: "",
 }
 
-const EditItem = ({ item: { item }, loading, getItem, editItem, match }) => {
+const EditItem = ({ items: { loading }, getItem, editItem, match, location: { state } }) => {
     
   const [formData, setFormData] = useState(initalState);
 
-  console.log("loading?", loading);
   useEffect(() => {
+   getItem(match.params.id);
    
-    getItem(match.params.id);
-   
-  
     setFormData({
-      url: loading || !item.url ? "" : item.url,
-      catagories: loading || !item.catagories ? "" : item.catagories,
-    });
-  }, [ loading ,getItem, item, match.params.id ]);
+      url: loading || !state.url ? "" : state.url,
+      catagories: loading || !state.catagories ? "" : state.catagories,
+  }) 
+  }, [ getItem]);
 
   const { url, catagories } = formData;
 
@@ -36,11 +33,11 @@ const EditItem = ({ item: { item }, loading, getItem, editItem, match }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    editItem(item._id, formData);
+    editItem(match.params.id, formData);
   };
   return (
     <Fragment>
-      {loading || !item ? (
+      {loading ? (
         <Spinner />
       ) : (
         <div>
@@ -107,8 +104,7 @@ EditItem.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  item: state.items,
-  loading: state.items.loading,
+  items: state.items,
 });
 
 export default connect(mapStateToProps, { getItem, editItem })(EditItem);

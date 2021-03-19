@@ -8,10 +8,13 @@ const Gift = mongoose.model("gifts");
 const User = mongoose.model("users");
 
 module.exports = (app) => {
-  // Fetch gifts by current user id
+  // Fetch gifts by logged user 
   app.get("/api/loggeduser/gifts", requireLogin, async (req, res) => {
     try {
       const gifts = await Gift.find({ _user: req.user.id });
+      if(!gifts) {
+        return res.status(404).json({ msg: "Items not found" });
+      }
       res.send(gifts);
     } catch (err) {
       console.error(err.message);

@@ -7,6 +7,7 @@ import classes from "./Layout.module.css";
 import Alert from "../../components/Alert/Alert";
 
 const Layout = (props) => {
+
   return (
     <Fragment>
       <ToolBar isAuth={props.isAuthenticated} />
@@ -19,10 +20,8 @@ const Layout = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.idToken !== null,
-  };
-};
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.idToken !== null,
+});
 
 export default connect(mapStateToProps)(Layout);

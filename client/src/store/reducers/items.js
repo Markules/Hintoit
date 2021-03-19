@@ -23,7 +23,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_LOGGED_USER_ITEMS_START:
     case actionTypes.FETCH_ITEMS_START:
     case actionTypes.SHARE_ITEM_START:
-    case actionTypes.FETCH_ITEM_START:
     case actionTypes.EDIT_ITEM_START:
       return {
         ...state,
@@ -98,7 +97,12 @@ const reducer = (state = initialState, action) => {
         },
         loading: false
       }
-
+      case actionTypes.FETCH_ITEM_START:
+        return {
+          ...state,
+          loading: true,
+          item: null
+        }
     case actionTypes.RESET_ITEMS:
       return resetItem(state, action);
 

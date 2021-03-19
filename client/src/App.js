@@ -1,9 +1,8 @@
-import React, { Component, Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Layout from "./hoc/Layout/Layout";
-import * as actions from "./store/actions/auth";
-
+import { authCheckState } from './store/actions/auth';
 import Login from "./containers/Auth/Login/Login";
 import Profile from "./containers/Profile/Profile";
 import Logout from "./containers/Auth/Logout/Logout";
@@ -48,12 +47,11 @@ const EditItem = React.lazy(() => {
   return import("./components/Items/Item/EditItem/EditItem");
 });
 
-export class App extends Component {
-  componentDidMount() {
-    this.props.onTryAutoLogin();
-  }
+const App = ({ isAuthenticated, authCheckState}) => {
+  useEffect(() => {
+    authCheckState();
+  }, [authCheckState]);
 
-  render() {
     let routes = (
       <Switch>
         <Route path="/login" component={Login} />
@@ -61,7 +59,7 @@ export class App extends Component {
       </Switch>
     );
 
-    if (this.props.isAuthenticated) {
+    if (isAuthenticated) {
       routes = (
         <Switch>
           <Route path="/logout" component={Logout} />
@@ -75,7 +73,6 @@ export class App extends Component {
           <Route path="/item/:id" render={(props) => <Item {...props} />} />
           <Route path="/items/edit/:id" render={(props) => <EditItem {...props} />} />
           <Route exact path="/" component={Profile} />
-          
           <Redirect to="/" />
           <Route component={NotFound} />
         </Switch>
@@ -89,17 +86,10 @@ export class App extends Component {
         </Layout>
       </div>
     );
-  }
 }
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.idToken !== null,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onTryAutoLogin: () => dispatch(actions.authCheckState()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, {authCheckState})(App);

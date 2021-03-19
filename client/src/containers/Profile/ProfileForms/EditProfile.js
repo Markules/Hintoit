@@ -4,16 +4,19 @@ import { withRouter, Link } from "react-router-dom";
 import {
   createProfile,
   getCurrentProfile,
+  deleteAccount
 } from "../../../store/actions/profile";
 import Button from '../../../components/UI/Button/Button';
 import PropTypes from "prop-types";
 
 import classes from "./EditProfile.module.css";
+import Modal from "../../../components/UI/Modal/Modal";
 
 const EditProfile = ({
   createProfile,
   history,
   getCurrentProfile,
+  deleteAccount,
   profile: { profile, loading },
 }) => {
 
@@ -32,6 +35,8 @@ const EditProfile = ({
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+  const [openVerifyDelete, UpdateOpenVerifyDelete] = useState(false);
+  const [closeVerifyDelete, UpdateCloseVerifyDelete] = useState(true);
 
   useEffect(() => {
     getCurrentProfile();
@@ -64,6 +69,16 @@ const EditProfile = ({
     pinterest,
   } = formData;
 
+  const openDeleteAccountVerify = () => {
+    UpdateOpenVerifyDelete(true);
+    UpdateCloseVerifyDelete(false);
+  }
+
+  const closeDeleteAccountVerify = () => {
+    UpdateOpenVerifyDelete(false);
+    UpdateCloseVerifyDelete(true);
+  }
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -75,6 +90,13 @@ const EditProfile = ({
   return (
     <Fragment>
       <div className={classes.Header}>
+      <Modal style={{ textAlign: "center" }} show={openVerifyDelete} modalClosed={closeDeleteAccountVerify}>
+        <h2>Are You Sure You Want To Delete Account?</h2>
+        <p>Please Note that this action can't be undone and all of your info and activity will be deleted permenatly!</p>
+        <br></br>
+        <Button btnType={"DeleteAccount"} clicked={() => deleteAccount()}>DELETE</Button>
+        <Button btnType={"Success"} clicked={() => closeDeleteAccountVerify()}>Go Back</Button>
+        </Modal>
       <h1 className={classes.Title}>Edit Profile</h1>
       <p className={classes.Lead}>
         Let's get some information to make your profile stand out
@@ -215,6 +237,7 @@ const EditProfile = ({
             </div>
           </Fragment>
         )}
+        
 
        <div className={classes.ButtonContainer}><Button type="submit" className={classes.Button} btnType={"EditSubmit"}>SAVE</Button></div>
         <div className={classes.LinkContainer}><Link to={"/"} className={classes.Link}>
@@ -222,6 +245,8 @@ const EditProfile = ({
         </Link>
         </div>
       </form>
+      <div className={classes.BtnDeleteAccount}><Button clicked={() => openDeleteAccountVerify()} btnType={"DeleteAccount"}>DELETE ACCOUNT</Button></div>
+      
     </Fragment>
   );
 };
@@ -236,6 +261,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+export default connect(mapStateToProps, { createProfile, getCurrentProfile, deleteAccount })(
   withRouter(EditProfile)
 );

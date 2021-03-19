@@ -10,7 +10,10 @@ const ItemSettings = (props) => {
 
     let settingBox = props.isSettingsOpen ?  (
       <ul key={props.item.id} className={classes.SettingsList}>
-          <li className={classes.SettingsListItem}><Link to={`/items/edit/${props.item._id}`}><Button btnType={"SettingsButton"}>EDIT</Button></Link></li>
+          <li className={classes.SettingsListItem}><Link to={
+            { pathname: `/items/edit/${props.item._id}`,
+            state: {url: props.item.url, catagories: props.item.catagories}
+            }}><Button btnType={"SettingsButton"}>EDIT</Button></Link></li>
           <li className={classes.SettingsListItem}><Button clicked={() => props.removeItem(props.item._id, props.history)} btnType={"SettingsButton"}>DELETE</Button></li>
       </ul>
     ) : null;

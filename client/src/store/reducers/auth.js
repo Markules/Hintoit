@@ -1,10 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initalState = {
+  isAuthenticated: false,
   idToken: null,
   userId: null,
   error: null,
-  loading: null,
+  loading: false,
 };
 
 const reducer = (state = initalState, actions) => {
@@ -17,34 +18,32 @@ const reducer = (state = initalState, actions) => {
         ...state,
         error: null,
         loading: true,
+        isAuthenticated: null
       };
     case actionTypes.AUTH_SUCCESS:
-     
       return {
         ...state,
         idToken: payload.idToken,
         userId: payload.id,
         error: null,
         loading: false,
+        isAuthenticated: true
       };
     case actionTypes.AUTH_FAIL:
       return {
         ...state,
         error: payload,
         loading: false,
+        isAuthenticated: false
       };
+      
     case actionTypes.AUTH_LOGOUT:
+      case actionTypes.ACCOUNT_DELETED:
       return {
         ...state,
         idToken: null,
         userId: null,
-      };
-
-    case actionTypes.SET_AUTH_REDIRECT_PATH:
-      return {
-        ...state,
-        error: payload,
-        loading: false,
+        isAuthenticated: false
       };
 
     default:

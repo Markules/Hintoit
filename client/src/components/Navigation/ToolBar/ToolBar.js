@@ -4,8 +4,11 @@ import NavigationItems from "../NavigationItems/NavigationItems";
 
 import classes from "./ToolBar.module.css";
 
-const toolBar = (props) =>
-  props.isAuth ? (
+const toolBar = (props) => {
+
+  console.log(props.isAuth)
+ return props.isAuth ? (
+    
     <header className={classes.Toolbar}>
       <div className={classes.Logo}>
         <Logo />
@@ -15,5 +18,5 @@ const toolBar = (props) =>
       </nav>
     </header>
   ) : null;
-
+  }
 export default toolBar;

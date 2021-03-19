@@ -74,7 +74,8 @@
 }
 
 .LinkContainer {
-  margin: auto;
+  position: relative;
+  right: 25%;
 }
 
 .Link:hover {
@@ -83,4 +84,11 @@
 
 .AddText {
   padding-top: 10px;
+}
+
+.BtnDeleteAccount {
+  position: relative;
+  left: 25%;
+  width: 100%;
+  text-align: center;
 }

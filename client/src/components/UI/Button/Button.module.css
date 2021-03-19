@@ -25,6 +25,23 @@
     
 }
 
+.DeleteAccount {
+    background-color: red;
+    padding: 12px;
+    position: relative;
+    border-radius: 5px;
+    width: 160px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.Success {
+    background-color: green;
+    padding: 12px;
+    width: 160px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
 
 .ProfileAddItem i {
     position: relative;

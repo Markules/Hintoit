@@ -14,7 +14,7 @@ export const fetchLoggedUser = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_LOGGED_USER_FAIL,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
   }
 };
@@ -31,7 +31,7 @@ export const getCurrentProfile = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
   }
 };
@@ -49,7 +49,7 @@ export const getProfileById = (userId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
   }
 };
@@ -74,7 +74,7 @@ export const createProfile = (formData) => async (dispatch) => {
 
     dispatch({
       type: actionTypes.PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
   }
 };
@@ -91,7 +91,7 @@ export const getFollowingUsers = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_FOLLOWING_USERS_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
   }
 };
@@ -108,7 +108,26 @@ export const getFollowersUsers = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_FOLLOWERS_USERS_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
+    });
+  }
+};
+
+//Delete account and profile
+export const deleteAccount = (history) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/profile`);
+
+    dispatch({
+      type: [actionTypes.ACCOUNT_DELETED, actionTypes.CLEAR_PROFILE]
+    });
+    localStorage.removeItem("token");
+    dispatch(setAlert("Your account has been permanantly deleted"));
+    history.push('/')
+  } catch (err) {
+    dispatch({
+      type: actionTypes.PROFILE_ERROR,
+      payload: { msg: err.response, status: err.status },
     });
   }
 };

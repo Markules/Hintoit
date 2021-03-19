@@ -13,7 +13,7 @@ export const addItem = (url, catagories, history) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.ADD_ITEM_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.response.status },
     });
     dispatch(setAlert("Failed to Add Item", "danger"));
   }
@@ -30,7 +30,7 @@ export const editItem = (id, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.EDIT_ITEM_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.response.status },
     });
     dispatch(setAlert("Failed to edit item", "danger"));
   }
@@ -48,7 +48,7 @@ export const removeItem = (id, history) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.REMOVE_ITEM_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.response.status },
     });
     dispatch(setAlert("Failed to remove item", "danger"));
   }
@@ -65,7 +65,7 @@ export const shareItem = (email, name, item, history) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.SHARE_ITEM_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.response.status },
     });
     dispatch(setAlert("Failed to share item", "danger"));
   }
@@ -95,7 +95,7 @@ export const fetchLoggedUserItems = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_LOGGED_USER_ITEMS_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
   }
 };
@@ -119,7 +119,7 @@ export const fetchItemsByUserId = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_ITEMS_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
     dispatch(setAlert("Failed to find items", "danger"));
   }
@@ -146,7 +146,7 @@ export const fetchAllItems = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_ITEMS_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
     dispatch(setAlert(err, "danger"));
   }
@@ -170,7 +170,7 @@ export const unlikeItem = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.UNLIKE_ITEM_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
   }
 };
@@ -187,7 +187,7 @@ export const getItem = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.FETCH_ITEM_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
   }
 };
@@ -214,7 +214,7 @@ export const addComment = (itemId, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.ADD_COMMENT_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
     dispatch(setAlert("Failed to add comment", "danger"));
 
@@ -235,7 +235,7 @@ export const deleteComment = (itemId, commentId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.REMOVE_COMMENT_FAILED,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.status },
     });
     dispatch(setAlert("Failed to remove comment", "danger"));
   }

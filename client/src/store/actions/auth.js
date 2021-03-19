@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-import { setAlert } from './alert'; 
+import { setAlert } from "./alert";
 
 // Logout user
 export const logout = () => {
@@ -29,9 +29,9 @@ export const auth = () => async (dispatch) => {
 
 // Check if user is logged in with google auth
 export const authCheckState = () => async (dispatch) => {
-  const res = await axios.get("/api/current_user");
-
   try {
+    const res = await axios.get("/api/current_user");
+    console.log("loggedUser", res.data);
     const token = res.data.userToken;
     if (!token) {
       dispatch(logout());
@@ -43,6 +43,9 @@ export const authCheckState = () => async (dispatch) => {
       });
     }
   } catch (err) {
-    dispatch({ type: actionTypes.AUTH_FAIL });
+    dispatch({
+      type: actionTypes.AUTH_FAIL,
+      payload: { msg: err.response, status: err.status },
+    });
   }
 };
