@@ -63,11 +63,11 @@ const ItemsList = ({
     <div className={classes.ItemsContainer}>
       <div className={classes.CatagoryBox}>
         <span
-          style={{ backgroundColor: "black", color: "white" }}
+          style={{ backgroundColor: "black", color: "white", fontWeight: 'bold', flex: "none" }}
           className={classes.DefualtCatagory}
           onClick={() => setQuery(null)}
         >
-          All
+          ALL
         </span>
         {items &&
           items.map((item) => (

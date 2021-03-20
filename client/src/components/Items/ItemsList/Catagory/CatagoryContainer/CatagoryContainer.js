@@ -7,11 +7,11 @@ const CatagoryContainer = ({ catagories, setQuery }) => {
   const setColor = () => {
     let color =
       "rgb(" +
-      Math.floor(Math.random() * 256) +
+      Math.floor(Math.random() * 200) +
       "," +
-      Math.floor(Math.random() * 256) +
+      Math.floor(Math.random() * 200) +
       "," +
-      Math.floor(Math.random() * 256) +
+      Math.floor(Math.random() * 200) +
       ")";
     return color;
   };

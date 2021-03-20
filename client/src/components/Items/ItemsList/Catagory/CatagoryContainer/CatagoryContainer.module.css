@@ -3,15 +3,22 @@
     height: 200px;
     border: 1px solid black;
     left: 30%;
+
 }
 
 .Catagory {
     background-color: aqua;
     margin-left: 15px;
-    height: 70px;
-    padding: 15px;
+    height: 30px;
+    padding: 10px;
+    padding-bottom: 3px;
+    padding-right: 15px;
+    padding-left: 15px;
     border-radius: 15px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     cursor: pointer;
+    color: white;
+    flex: none;
+    font-weight: bold;
     
 }

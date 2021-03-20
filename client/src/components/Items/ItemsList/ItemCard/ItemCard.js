@@ -25,11 +25,11 @@ const ItemCard = ({ item, cardType }) => {
   const setColor = () => {
     let color =
       "rgb(" +
-      Math.floor(Math.random() * 256) +
+      Math.floor(Math.random() * 200) +
       "," +
-      Math.floor(Math.random() * 256) +
+      Math.floor(Math.random() * 200) +
       "," +
-      Math.floor(Math.random() * 256) +
+      Math.floor(Math.random() * 200) +
       ")";
     return color;
   };
@@ -57,7 +57,7 @@ const ItemCard = ({ item, cardType }) => {
           ago
         </span>
 
-        {cardType === "discover" ? null : (
+        {cardType === "discover" || cardType === "friend" ? null : (
           <Button clicked={() => handleItemSettings()} btnType="ItemSettings">
             <i className={[classes.SettingsIcon, "material-icons"].join(" ")}>
               more_horiz
@@ -69,12 +69,20 @@ const ItemCard = ({ item, cardType }) => {
       <ItemSettings item={item} isSettingsOpen={isSettingsOpen} />
 
       <div className={classes.Preview}>{previewLink(item)}</div>
-      {item.catagories &&
-        item.catagories.map((catagory) =>
-          catagory === " " ? null : (
-            <span style={{backgroundColor: setColor()}} key={catagory} className={classes.Catagory}>{catagory}</span>
-          )
-        )}
+      <div className={classes.CatagoryContainer}>
+        {item.catagories &&
+          item.catagories.map((catagory) =>
+            catagory === " " ? null : (
+              <span
+                className={classes.Catagory}
+                style={{ backgroundColor: setColor() }}
+                key={catagory}
+              >
+                {catagory}
+              </span>
+            )
+          )}
+      </div>
       <BottomBar item={item} cardType={cardType} />
     </div>
   ) : null;
