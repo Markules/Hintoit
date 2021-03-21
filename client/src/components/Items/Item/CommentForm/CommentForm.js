@@ -9,7 +9,7 @@ const CommentForm = ({ itemId, addComment}) => {
   
   const [ text, setText ] = useState('')
     return (
-    <div className={classes.CommentFormContiner}>
+    <div className={classes.CommentFormContainer}>
       <form
         className={classes.Form}
         onSubmit={(e) => {

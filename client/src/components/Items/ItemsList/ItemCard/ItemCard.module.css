@@ -1,12 +1,28 @@
 .CardContainer {
-    flex: 25%;
+    flex: 15%;
     padding: 20px;
     box-shadow: 5px 10px 18px #888888;
     overflow: hidden;
     margin-bottom: 30px;
     margin-left: 15px;
     position: relative;  
-    flex-grow: 50%;
+    flex-grow: 30%;
+
+}
+
+.ProfileCardContainer {
+   
+
+}
+
+.discoverCardContainer {
+    flex: 10%;
+    flex-shrink: 10%;
+
+}
+
+.FriendCardContainer {
+   
 
 }
 
@@ -21,6 +37,7 @@
 .SettingsIcon {
     position: relative;
     left: 100%;
+    bottom: 50px;
     
 }
 
@@ -33,6 +50,34 @@
     margin-left: 5px;
 }
 
+.UserNameContainer {
+    width: 350px;
+    height: 50px;
+    margin-left: 80%;
+    display: flex;
+    text-align: center;
+   
+
+}
+
+.userAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    margin: 0;
+
+}
+
+.UserLink {
+    text-decoration: none;
+    color: gray;
+}
+
+.userName {
+   
+    
+}
+
 @media (max-width: 799px) {
     .CardContainer {
         height: 150px;
@@ -42,22 +87,9 @@
     }
 }
 
-.userAvatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
-    position: absolute;
-    right: 120px;
-    top: 12px;
-}
 
-.userName {
-    position: absolute;
-    top: 7px;
-    right: 7%;
-    text-decoration: none;
-    color: gray;
-}
+
+
 
 .Preview{
     width: 100%;

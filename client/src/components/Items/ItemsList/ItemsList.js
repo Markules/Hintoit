@@ -60,7 +60,7 @@ const ItemsList = ({
     );
   }
   return (
-    <div className={classes.ItemsContainer}>
+    <div className={[classes.ItemsContainer, `${cardType}`].join(' ')}>
       <div className={classes.CatagoryBox}>
         <span
           style={{ backgroundColor: "black", color: "white", fontWeight: 'bold', flex: "none" }}

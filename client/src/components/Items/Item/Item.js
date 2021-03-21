@@ -25,8 +25,9 @@ const Item = ({ getItem, location, match, item, loading}) => {
         <div className={classes.ItemCardContainer}>
       <ItemCard item={item} cardType={location.state.cardType} />
       </div>
+  
       <CommentForm itemId={item._id}/>
-     
+      
       <div>{item.comments.map(comment => (
         <CommentItem key={comment._id} comment={comment} itemId={item._id} />
       ))}

@@ -35,10 +35,11 @@ const ItemCard = ({ item, cardType }) => {
   };
 
   return item ? (
-    <div key={item.id} className={classes.CardContainer}>
+    <div key={item.id} className={[classes.CardContainer, `${cardType}CardContainer`].join(' ')}>
       <div>
+        <div className={classes.UserNameContainer}>
         {cardType === "discover" ? (
-          <Link to={`/user/${item._user._id}`}>
+          <Link className={classes.UserLink} to={`/user/${item._user._id}`}>
             <img
               src={item._user.avatar}
               alt=""
@@ -49,6 +50,7 @@ const ItemCard = ({ item, cardType }) => {
             </p>
           </Link>
         ) : null}
+        </div>
         <span className={classes.Date}>
           Added{" "}
           <Moment ago={item.dateCreated} fromNow>

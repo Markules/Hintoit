@@ -5,10 +5,22 @@
     width: 50%;
     position: relative;
     padding: 0%;
+    text-align: center;
 }
 
 .ItemCardContainer {
-    position: relative;
-    right: 25%;
+    
+    
   
+}
+
+@media (max-width: 599px) {
+.CardContainer {
+    width: 90%;
+    margin: 0;
+    margin-bottom: 15px;
+    position: relative;
+    margin-left: 30px;
+
+}
 }

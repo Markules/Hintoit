@@ -1,12 +1,14 @@
-.CommentFormContiner {
-  width: 70%;
-  margin: auto;
+.CommentFormContainer {
+  width: 100%;
+  position: relative;
+  right: 10%;
+  text-align: right;
 }
 
 .CommentSubmit {
   position: relative;
-  left: 1%;
-  bottom: 23px;
+  bottom: 20px;
+  margin-left: 5px;
   height: 45px;
   width: 75px;
   border-radius: 25px;
@@ -28,7 +30,7 @@
 
 
 .TextArea {
-  width: 450px;
+  width: 70%;
   height: 35px;
   border-radius: 15px;
   padding-top: 15px;
@@ -36,7 +38,23 @@
   padding-right: 10px;
   outline: none;
     color: #333333;
-  margin-left: 15%;
+  margin-left: 5%;
   box-shadow: 1px 1px 1px 1px #bbb;
 
+}
+
+
+
+@media (max-width: 810px) {
+  .CommentFormContainer {
+    width: 90%;
+    position: relative;
+    right: 15%;
+    text-align: right;
+  }
+
+  .CommentSubmit {
+    bottom: 50px;
+    left: 25%;
+  }
 }
