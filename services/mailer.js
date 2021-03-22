@@ -1,13 +1,14 @@
 const nodemailer = require("nodemailer");
+const keys = require("../config/keys");
 
 exports.sendEmail = (email, name, item, userName) => {
 
   let transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
+    host: keys.smtp,
     port: 2525,
     auth: {
-      user: "9319d459af6b9d",
-      pass: "7bbc36cafc8e85",
+      user: keys.mailerUser,
+      pass: keys.mailerPassword,
     },
   });
 

@@ -5,5 +5,8 @@ module.exports = {
     cookieKey: process.env.COOKIE_KEY,
     redirectDomain: process.env.REDIRECT_DOMAIN,
     rootURL: process.env.ROOT_URL,
+    smtp: process.env.SMTP,
+    mailerUser: process.env.MAILER_USER,
+    mailerPassword: process.env.MAILER_PASSWORD
 
 };
