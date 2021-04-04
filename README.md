@@ -5,13 +5,22 @@ Social network for online shoppers - where users can add thier favourite items t
 To avoid run locally on machine, follow this link - https://hintoit.herokuapp.com/
 
 # Technologies
-React - A JavaScript library for building user interfaces
-Redux-thunk - 
-Redux - State managment
-Semantic UI React - UI
-Node - Used for backend
-Mongodb - Database 
 
+React - A JavaScript library for building user interfaces.
+
+Redux-thunk - Middleware which lets you write async logic that interacts with redux store.
+
+Redux - State managment.
+
+Semantic UI React - UI.
+
+Node - Used for backend.
+
+Express - a back end web application framework for Node.js.
+
+Mongodb - Database.
+
+Mongoose - an Object Data Modeling (ODM) library for MongoDB and Node.
 
 # Screenshots
 ![hintoit1](https://user-images.githubusercontent.com/21314291/113501291-97094980-952c-11eb-946c-a88028e5a242.png)
